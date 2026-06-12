@@ -40,7 +40,11 @@ export function DeleteModal({
 
   async function handleDeleteAll() {
     setLoading(true);
-    await fetch(`/api/products/${encodeURIComponent(productId)}`, { method: "DELETE" });
+    await fetch(`/api/products/${encodeURIComponent(productId)}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ productName: productTitle }),
+    });
     setLoading(false);
     setOpen(false);
     router.refresh();
