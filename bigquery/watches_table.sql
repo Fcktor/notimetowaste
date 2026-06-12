@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `PROJECT_ID.DATASET_ID.TABLE_ID` (
   case_material    STRING,
   strap_material   STRING,
   dial_color       STRING,
-  water_resistance_m INT64,
+  water_resistance_m FLOAT64,
   gender           STRING,              -- Hombre | Mujer | Unisex
   description      STRING,
   image_url        STRING,

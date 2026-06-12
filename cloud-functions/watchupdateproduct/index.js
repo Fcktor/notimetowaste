@@ -27,8 +27,10 @@ export async function watchupdateproduct(req, res) {
       setClauses.push(`${key} = ?`);
       if (key === "price" || key === "compare_at_price") {
         params.push(fields[key] != null ? parseFloat(fields[key]) : null);
-      } else if (key === "stock" || key === "water_resistance_m") {
+      } else if (key === "stock") {
         params.push(fields[key] != null ? parseInt(fields[key]) : null);
+      } else if (key === "water_resistance_m") {
+        params.push(fields[key] != null ? parseFloat(fields[key]) : null);
       } else if (key === "case_diameter_mm") {
         params.push(fields[key] != null ? parseFloat(fields[key]) : null);
       } else if (key === "available") {

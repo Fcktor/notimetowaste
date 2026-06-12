@@ -107,7 +107,7 @@ export function ProductTable({ products }: { products: Watch[] }) {
 
               {/* Precio */}
               <td className="px-4 py-3.5">
-                <span className="font-mono text-sm font-semibold" style={{ color: "#22d3ee" }}>${p.price}</span>
+                <span className="font-mono text-sm font-semibold" style={{ color: "#22d3ee" }}>S/ {p.price}</span>
               </td>
 
               {/* Stock */}

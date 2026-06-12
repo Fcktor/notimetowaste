@@ -65,7 +65,7 @@ export async function watchcreateproduct(req, res) {
         case_material ?? null,
         strap_material ?? null,
         dial_color ?? null,
-        water_resistance_m != null ? parseInt(water_resistance_m) : null,
+        water_resistance_m != null ? parseFloat(water_resistance_m) : null,
         gender ?? null,
         description ?? null,
         image_url ?? null,

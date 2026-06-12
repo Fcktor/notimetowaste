@@ -157,7 +157,7 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
     if (form.case_material) payload.case_material = form.case_material;
     if (form.strap_material) payload.strap_material = form.strap_material;
     if (form.dial_color) payload.dial_color = form.dial_color;
-    if (form.water_resistance_m !== "") payload.water_resistance_m = parseInt(form.water_resistance_m);
+    if (form.water_resistance_m !== "") payload.water_resistance_m = parseFloat(form.water_resistance_m);
     if (form.gender) payload.gender = form.gender;
     if (form.description) payload.description = form.description;
     if (form.image_url) payload.image_url = form.image_url;
@@ -204,11 +204,11 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
 
       <div className="grid grid-cols-3 gap-4">
         <div>
-          <FieldLabel required>Precio (USD)</FieldLabel>
+          <FieldLabel required>Precio (S/)</FieldLabel>
           <input name="price" value={form.price} onChange={handleChange} type="number" step="0.01" min="0" required placeholder="0.00" style={inputStyle} {...focusHandlers} />
         </div>
         <div>
-          <FieldLabel>Precio original</FieldLabel>
+          <FieldLabel>Precio original (S/)</FieldLabel>
           <input name="compare_at_price" value={form.compare_at_price} onChange={handleChange} type="number" step="0.01" min="0" placeholder="0.00" style={inputStyle} {...focusHandlers} />
         </div>
         <div>
@@ -259,7 +259,7 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
         </div>
         <div>
           <FieldLabel>Resistencia al agua (m)</FieldLabel>
-          <input name="water_resistance_m" value={form.water_resistance_m} onChange={handleChange} type="number" min="0" placeholder="100" style={inputStyle} {...focusHandlers} />
+          <input name="water_resistance_m" value={form.water_resistance_m} onChange={handleChange} type="number" step="0.1" min="0" placeholder="100" style={inputStyle} {...focusHandlers} />
         </div>
       </div>
 

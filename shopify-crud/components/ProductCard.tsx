@@ -140,11 +140,11 @@ export function ProductCard({ product }: { product: Watch }) {
         <div className="mt-auto flex items-center justify-between gap-2 pt-1">
           <div>
             <span className="text-xl font-bold" style={{ color: "#1d4ed8" }}>
-              ${product.price}
+              S/ {product.price}
             </span>
             {product.compare_at_price && product.compare_at_price > product.price && (
               <span className="text-xs line-through ml-1.5" style={{ color: "#94a3b8" }}>
-                ${product.compare_at_price}
+                S/ {product.compare_at_price}
               </span>
             )}
           </div>
