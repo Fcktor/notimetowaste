@@ -3,7 +3,7 @@ import { BigQuery } from "@google-cloud/bigquery";
 const bigquery = new BigQuery();
 
 const UPDATABLE = [
-  "brand", "model", "price", "compare_at_price", "stock",
+  "brand", "model", "price", "compare_at_price", "stock", "stock_min_threshold",
   "condition", "style", "movement", "case_diameter_mm", "case_material",
   "strap_material", "dial_color", "water_resistance_m", "gender",
   "description", "image_url", "available",
@@ -27,7 +27,7 @@ export async function watchupdateproduct(req, res) {
       setClauses.push(`${key} = ?`);
       if (key === "price" || key === "compare_at_price") {
         params.push(fields[key] != null ? parseFloat(fields[key]) : null);
-      } else if (key === "stock") {
+      } else if (key === "stock" || key === "stock_min_threshold") {
         params.push(fields[key] != null ? parseInt(fields[key]) : null);
       } else if (key === "water_resistance_m") {
         params.push(fields[key] != null ? parseFloat(fields[key]) : null);

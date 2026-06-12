@@ -9,6 +9,7 @@ interface Watch {
   model: string;
   price: number;
   stock: number;
+  stock_min_threshold: number;
   condition: string;
   style: string;
   image_url: string | null;
@@ -117,7 +118,7 @@ export function ProductTable({ products }: { products: Watch[] }) {
                   style={
                     p.stock === 0
                       ? { background: "rgba(239,68,68,0.08)", color: "#f87171", border: "1px solid rgba(239,68,68,0.2)" }
-                      : p.stock <= 3
+                      : p.stock <= (p.stock_min_threshold ?? 5)
                       ? { background: "rgba(245,158,11,0.08)", color: "#fbbf24", border: "1px solid rgba(245,158,11,0.2)" }
                       : { background: "rgba(59,130,246,0.08)", color: "#60a5fa", border: "1px solid rgba(59,130,246,0.2)" }
                   }

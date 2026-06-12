@@ -26,7 +26,7 @@ export async function watchcreateproduct(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
 
   const {
-    brand, model, price, compare_at_price, stock,
+    brand, model, price, compare_at_price, stock, stock_min_threshold,
     condition, style, movement, case_diameter_mm,
     case_material, strap_material, dial_color,
     water_resistance_m, gender, description, image_url, available,
@@ -45,11 +45,11 @@ export async function watchcreateproduct(req, res) {
 
     await bigquery.query({
       query: `INSERT INTO \`${process.env.PROJECT_ID}.${process.env.DATASET_ID}.${process.env.TABLE_ID}\`
-        (id, sku, brand, model, price, compare_at_price, stock,
+        (id, sku, brand, model, price, compare_at_price, stock, stock_min_threshold,
          condition, style, movement, case_diameter_mm, case_material,
          strap_material, dial_color, water_resistance_m, gender,
          description, image_url, available, created_at, updated_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       params: [
         id,
         sku,
@@ -58,6 +58,7 @@ export async function watchcreateproduct(req, res) {
         parseFloat(price),
         compare_at_price != null ? parseFloat(compare_at_price) : null,
         parseInt(stock ?? 0),
+        parseInt(stock_min_threshold ?? 5),
         condition,
         style,
         movement ?? null,

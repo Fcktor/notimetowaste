@@ -8,6 +8,7 @@ interface WatchFormValues {
   price: string;
   compare_at_price: string;
   stock: string;
+  stock_min_threshold: string;
   condition: string;
   style: string;
   movement: string;
@@ -96,6 +97,7 @@ function SelectField({
 
 const EMPTY: WatchFormValues = {
   brand: "", model: "", price: "", compare_at_price: "", stock: "",
+  stock_min_threshold: "5",
   condition: "", style: "", movement: "", case_diameter_mm: "",
   case_material: "", strap_material: "", dial_color: "",
   water_resistance_m: "", gender: "", description: "", image_url: "",
@@ -147,6 +149,7 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
       model: form.model,
       price: parseFloat(form.price),
       stock: form.stock !== "" ? parseInt(form.stock) : 0,
+      stock_min_threshold: form.stock_min_threshold !== "" ? parseInt(form.stock_min_threshold) : 5,
       condition: form.condition,
       style: form.style,
       available: form.available,
@@ -202,7 +205,7 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
 
       <SectionTitle>Precio y Stock</SectionTitle>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-4 gap-4">
         <div>
           <FieldLabel required>Precio (S/)</FieldLabel>
           <input name="price" value={form.price} onChange={handleChange} type="number" step="0.01" min="0" required placeholder="0.00" style={inputStyle} {...focusHandlers} />
@@ -212,8 +215,12 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
           <input name="compare_at_price" value={form.compare_at_price} onChange={handleChange} type="number" step="0.01" min="0" placeholder="0.00" style={inputStyle} {...focusHandlers} />
         </div>
         <div>
-          <FieldLabel>Stock</FieldLabel>
+          <FieldLabel>Stock actual</FieldLabel>
           <input name="stock" value={form.stock} onChange={handleChange} type="number" step="1" min="0" placeholder="0" style={inputStyle} {...focusHandlers} />
+        </div>
+        <div>
+          <FieldLabel>Alerta de stock mínimo</FieldLabel>
+          <input name="stock_min_threshold" value={form.stock_min_threshold} onChange={handleChange} type="number" step="1" min="0" placeholder="5" style={inputStyle} {...focusHandlers} />
         </div>
       </div>
 

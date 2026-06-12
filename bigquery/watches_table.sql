@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS `PROJECT_ID.DATASET_ID.TABLE_ID` (
   price            FLOAT64   NOT NULL,
   compare_at_price FLOAT64,
   stock            INT64     NOT NULL DEFAULT 0,
+  stock_min_threshold INT64  NOT NULL DEFAULT 5,
   condition        STRING    NOT NULL,  -- Nuevo | Vintage
   style            STRING    NOT NULL,  -- Sport | Dress | Casual
   movement         STRING,              -- Cuarzo | Automático | Solar
