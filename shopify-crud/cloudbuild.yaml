@@ -1,12 +1,11 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
+    dir: 'shopify-crud'
     args:
       - 'build'
       - '-t'
       - 'southamerica-east1-docker.pkg.dev/$PROJECT_ID/shopify-crud/shopify-crud:latest'
-      - '-f'
-      - 'shopify-crud/Dockerfile'
-      - 'shopify-crud'
+      - '.'
 
   - name: 'gcr.io/cloud-builders/docker'
     args:
