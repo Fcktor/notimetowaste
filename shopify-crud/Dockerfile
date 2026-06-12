@@ -1,8 +1,8 @@
 # Etapa 1: instalar dependencias
 FROM node:22-alpine AS deps
 WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm ci
+COPY package.json ./
+RUN npm install
 
 # Etapa 2: build de la app
 FROM node:22-alpine AS builder
