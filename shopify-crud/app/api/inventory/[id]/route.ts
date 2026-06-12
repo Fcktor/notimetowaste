@@ -44,9 +44,9 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
 
   if (res.ok) {
     if (newStock <= threshold) {
-      sendChatMessage(lowStockMessage(productName, newStock))
+      await sendChatMessage(lowStockMessage(productName, newStock))
     } else if (oldStock !== newStock) {
-      sendChatMessage(inventoryUpdatedMessage(productName, oldStock, newStock))
+      await sendChatMessage(inventoryUpdatedMessage(productName, oldStock, newStock))
     }
   }
 

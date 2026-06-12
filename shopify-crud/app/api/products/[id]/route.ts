@@ -35,7 +35,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
   const data = await res.json()
 
   if (res.ok && productName) {
-    sendChatMessage(productDeletedMessage(productName))
+    await sendChatMessage(productDeletedMessage(productName))
   }
 
   return NextResponse.json(data, { status: res.status })

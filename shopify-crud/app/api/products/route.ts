@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
   const data = await res.json()
 
   if (res.ok && body.brand && body.model) {
-    sendChatMessage(productCreatedMessage(body.brand, body.model, data.sku ?? ""))
+    await sendChatMessage(productCreatedMessage(body.brand, body.model, data.sku ?? ""))
   }
 
   return NextResponse.json(data, { status: res.status })
