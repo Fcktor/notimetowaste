@@ -1,0 +1,7 @@
+node_modules/
+.env
+.env.local
+.env*.local
+reference/retool/
+shopify-crud/.next/
+shopify-crud/node_modules/

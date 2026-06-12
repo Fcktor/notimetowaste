@@ -1,0 +1,34 @@
+import { NextRequest, NextResponse } from "next/server"
+import { auth } from "@/auth"
+import { CF_UPDATE, CF_DELETE } from "@/lib/config"
+
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const session = await auth()
+  if (!session || session.user?.role !== "admin")
+    return NextResponse.json({ error: "No autorizado." }, { status: 401 })
+
+  const { id } = await params
+  const body = await req.json()
+  const res = await fetch(CF_UPDATE, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id: decodeURIComponent(id), ...body }),
+  })
+  const data = await res.json()
+  return NextResponse.json(data, { status: res.status })
+}
+
+export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const session = await auth()
+  if (!session || session.user?.role !== "admin")
+    return NextResponse.json({ error: "No autorizado." }, { status: 401 })
+
+  const { id } = await params
+  const res = await fetch(CF_DELETE, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id: decodeURIComponent(id) }),
+  })
+  const data = await res.json()
+  return NextResponse.json(data, { status: res.status })
+}
