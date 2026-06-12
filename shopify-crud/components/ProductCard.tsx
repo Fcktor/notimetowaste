@@ -1,4 +1,5 @@
 "use client"
+import Link from "next/link"
 import { useCart } from "./CartProvider"
 
 interface Watch {
@@ -46,11 +47,10 @@ export function ProductCard({ product }: { product: Watch }) {
   return (
     <div className="store-card flex flex-col overflow-hidden">
       {/* Image */}
+      <Link href={`/products/${encodeURIComponent(product.id)}`}>
       <div
         className="relative overflow-hidden bg-gray-50 group/img"
-        style={{ aspectRatio: "1/1", cursor: inStock ? "pointer" : "default" }}
-        onClick={handleAddToCart}
-        title={inStock ? "Agregar al carrito" : undefined}
+        style={{ aspectRatio: "1/1", cursor: "pointer" }}
       >
         {product.image_url ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -67,16 +67,15 @@ export function ProductCard({ product }: { product: Watch }) {
           </div>
         )}
 
-        {inStock && (
-          <div className="absolute inset-0 flex items-end justify-center pb-4 opacity-0 group-hover/img:opacity-100 transition-opacity duration-200 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(7,16,48,0.45) 0%, transparent 60%)" }}>
-            <span className="text-xs font-semibold text-white flex items-center gap-1.5">
-              <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-              </svg>
-              Agregar al carrito
-            </span>
-          </div>
-        )}
+        <div className="absolute inset-0 flex items-end justify-center pb-4 opacity-0 group-hover/img:opacity-100 transition-opacity duration-200 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(7,16,48,0.45) 0%, transparent 60%)" }}>
+          <span className="text-xs font-semibold text-white flex items-center gap-1.5">
+            <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+            Ver detalles
+          </span>
+        </div>
 
         {!inStock && (
           <div className="absolute inset-0 flex items-center justify-center" style={{ background: "rgba(255,255,255,0.8)", backdropFilter: "blur(4px)" }}>
@@ -114,6 +113,7 @@ export function ProductCard({ product }: { product: Watch }) {
           </span>
         </div>
       </div>
+      </Link>
 
       {/* Content */}
       <div className="flex flex-col flex-1 p-4 gap-2">

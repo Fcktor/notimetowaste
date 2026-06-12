@@ -1,0 +1,22 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Iniciar página",
+      "type": "shell",
+      "command": "/home/fucktor/.local/share/fnm/node-versions/v22.21.0/installation/bin/node node_modules/.bin/next dev",
+      "options": {
+        "cwd": "${workspaceFolder}/shopify-crud"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    }
+  ]
+}
