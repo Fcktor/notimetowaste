@@ -28,3 +28,6 @@ steps:
 
 images:
   - 'southamerica-east1-docker.pkg.dev/$PROJECT_ID/shopify-crud/shopify-crud:latest'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
