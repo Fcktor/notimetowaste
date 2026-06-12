@@ -63,11 +63,7 @@ export function StorefrontHeader() {
               <button
                 onClick={() => signOut({ callbackUrl: "/" })}
                 className="text-xs px-3 py-1.5 rounded-lg transition-all"
-                style={{
-                  color: "#64748b",
-                  background: "#f1f5f9",
-                  border: "1px solid #e2e8f0",
-                }}
+                style={{ color: "#64748b", background: "#f1f5f9", border: "1px solid #e2e8f0" }}
               >
                 Salir
               </button>

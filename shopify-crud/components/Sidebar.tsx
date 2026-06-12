@@ -143,6 +143,28 @@ export function Sidebar() {
         })}
       </nav>
 
+      {/* Ver tienda */}
+      <div className="px-3 mb-2 relative">
+        <Link
+          href="/"
+          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 group w-full"
+          style={{ color: "#334155", border: "1px solid rgba(59,130,246,0.1)", background: "rgba(59,130,246,0.04)" }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLAnchorElement).style.color = "#93c5fd";
+            (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(59,130,246,0.25)";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLAnchorElement).style.color = "#334155";
+            (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(59,130,246,0.1)";
+          }}
+        >
+          <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
+          Ver tienda
+        </Link>
+      </div>
+
       <div className="flex-1" />
 
       {/* Status indicator */}
