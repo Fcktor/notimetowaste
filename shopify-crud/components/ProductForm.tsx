@@ -108,6 +108,7 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [identifying, setIdentifying] = useState(false);
   const [error, setError] = useState("");
   const [form, setForm] = useState<WatchFormValues>({ ...EMPTY, ...defaultValues });
   const [preview, setPreview] = useState<string>(defaultValues?.image_url ?? "");
@@ -136,6 +137,41 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
     setUploading(false);
     if (!res.ok) { setError(data.error ?? "Error al subir la imagen."); return; }
     setForm((prev) => ({ ...prev, image_url: data.url }));
+  }
+
+  async function handleIdentify() {
+    if (!form.image_url) return;
+    setIdentifying(true);
+    setError("");
+    try {
+      const res = await fetch("/api/ai/identify-watch", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ imageUrl: form.image_url }),
+      });
+      const data = await res.json();
+      if (!res.ok) { setError(data.error ?? "No se pudo identificar el reloj."); return; }
+      const w = data.data;
+      setForm((prev) => ({
+        ...prev,
+        brand:              w.brand              ?? prev.brand,
+        model:              w.model              ?? prev.model,
+        movement:           w.movement           ?? prev.movement,
+        case_diameter_mm:   w.case_diameter_mm   != null ? String(w.case_diameter_mm)   : prev.case_diameter_mm,
+        case_material:      w.case_material      ?? prev.case_material,
+        strap_material:     w.strap_material     ?? prev.strap_material,
+        dial_color:         w.dial_color         ?? prev.dial_color,
+        water_resistance_m: w.water_resistance_m != null ? String(w.water_resistance_m) : prev.water_resistance_m,
+        gender:             w.gender             ?? prev.gender,
+        condition:          w.condition          ?? prev.condition,
+        style:              w.style              ?? prev.style,
+        description:        w.description        ?? prev.description,
+      }));
+    } catch {
+      setError("Error al identificar el reloj.");
+    } finally {
+      setIdentifying(false);
+    }
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -311,6 +347,33 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
           <input type="file" accept="image/jpeg,image/png,image/webp,image/gif" className="hidden" onChange={handleFileChange} />
         </label>
       </div>
+
+      {/* Botón identificar con IA */}
+      {form.image_url && (
+        <button
+          type="button"
+          onClick={handleIdentify}
+          disabled={identifying || uploading}
+          className="w-full py-2.5 px-5 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50"
+          style={{
+            background: identifying ? "rgba(139,92,246,0.15)" : "linear-gradient(135deg, rgba(139,92,246,0.2), rgba(59,130,246,0.2))",
+            border: "1px solid rgba(139,92,246,0.35)",
+            color: "#c084fc",
+            boxShadow: identifying ? "none" : "0 0 20px rgba(139,92,246,0.15)",
+          }}
+        >
+          {identifying ? (
+            <>
+              <span className="w-3.5 h-3.5 rounded-full border-2 border-purple-400 border-t-transparent animate-spin" />
+              Identificando reloj...
+            </>
+          ) : (
+            <>
+              ✨ Identificar reloj con IA
+            </>
+          )}
+        </button>
+      )}
 
       {/* Disponible toggle */}
       <div className="flex items-center justify-between py-2 px-3 rounded-lg" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
