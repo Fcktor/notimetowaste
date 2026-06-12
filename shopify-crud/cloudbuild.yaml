@@ -3,13 +3,13 @@ steps:
     args:
       - 'build'
       - '-t'
-      - 'gcr.io/$PROJECT_ID/shopify-crud:$COMMIT_SHA'
+      - 'gcr.io/$PROJECT_ID/shopify-crud:latest'
       - '.'
 
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'push'
-      - 'gcr.io/$PROJECT_ID/shopify-crud:$COMMIT_SHA'
+      - 'gcr.io/$PROJECT_ID/shopify-crud:latest'
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
@@ -18,7 +18,7 @@ steps:
       - 'deploy'
       - 'shopify-crud'
       - '--image'
-      - 'gcr.io/$PROJECT_ID/shopify-crud:$COMMIT_SHA'
+      - 'gcr.io/$PROJECT_ID/shopify-crud:latest'
       - '--region'
       - 'southamerica-east1'
       - '--platform'
@@ -26,4 +26,4 @@ steps:
       - '--allow-unauthenticated'
 
 images:
-  - 'gcr.io/$PROJECT_ID/shopify-crud:$COMMIT_SHA'
+  - 'gcr.io/$PROJECT_ID/shopify-crud:latest'
