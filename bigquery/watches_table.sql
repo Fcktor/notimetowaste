@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `PROJECT_ID.DATASET_ID.TABLE_ID` (
   condition        STRING    NOT NULL,  -- Nuevo | Vintage
   style            STRING    NOT NULL,  -- Sport | Dress | Casual
   movement         STRING,              -- Cuarzo | Automático | Solar
-  case_diameter_mm INT64,
+  case_diameter_mm FLOAT64,
   case_material    STRING,
   strap_material   STRING,
   dial_color       STRING,

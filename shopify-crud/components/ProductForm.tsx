@@ -243,7 +243,7 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
         </div>
         <div>
           <FieldLabel>Diámetro caja (mm)</FieldLabel>
-          <input name="case_diameter_mm" value={form.case_diameter_mm} onChange={handleChange} type="number" min="0" placeholder="44" style={inputStyle} {...focusHandlers} />
+          <input name="case_diameter_mm" value={form.case_diameter_mm} onChange={handleChange} type="number" step="0.1" min="0" placeholder="44.5" style={inputStyle} {...focusHandlers} />
         </div>
         <div>
           <FieldLabel>Material caja</FieldLabel>

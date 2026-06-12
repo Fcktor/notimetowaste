@@ -61,7 +61,7 @@ export async function watchcreateproduct(req, res) {
         condition,
         style,
         movement ?? null,
-        case_diameter_mm != null ? parseInt(case_diameter_mm) : null,
+        case_diameter_mm != null ? parseFloat(case_diameter_mm) : null,
         case_material ?? null,
         strap_material ?? null,
         dial_color ?? null,
