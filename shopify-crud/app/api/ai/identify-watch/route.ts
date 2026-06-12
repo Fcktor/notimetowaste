@@ -53,7 +53,8 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true, data: watchData })
   } catch (err) {
-    console.error("Gemini error:", err)
-    return NextResponse.json({ error: "No se pudo identificar el reloj" }, { status: 500 })
+    const msg = err instanceof Error ? err.message : String(err)
+    console.error("Gemini error:", msg)
+    return NextResponse.json({ error: msg }, { status: 500 })
   }
 }
