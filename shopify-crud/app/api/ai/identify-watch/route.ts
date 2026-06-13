@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
 import { auth } from "@/auth"
-import { GoogleGenerativeAI } from "@google/generative-ai"
+import Anthropic from "@anthropic-ai/sdk"
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY ?? "")
+const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
 const PROMPT = `Analiza esta imagen de reloj e identifica el modelo exacto.
 Responde ÚNICAMENTE con un objeto JSON válido (sin markdown, sin bloques de código, sin explicaciones) con estos campos para el mercado latinoamericano:
@@ -33,28 +33,34 @@ export async function POST(req: NextRequest) {
   if (!imageUrl) return NextResponse.json({ error: "imageUrl requerida" }, { status: 400 })
 
   try {
-    // Descargar la imagen y convertir a base64
     const imgRes = await fetch(imageUrl)
     if (!imgRes.ok) return NextResponse.json({ error: "No se pudo obtener la imagen" }, { status: 400 })
     const imgBuffer = await imgRes.arrayBuffer()
     const base64 = Buffer.from(imgBuffer).toString("base64")
-    const mimeType = imgRes.headers.get("content-type") ?? "image/jpeg"
+    const mimeType = (imgRes.headers.get("content-type") ?? "image/jpeg") as "image/jpeg" | "image/png" | "image/gif" | "image/webp"
 
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" })
-    const result = await model.generateContent([
-      PROMPT,
-      { inlineData: { data: base64, mimeType } },
-    ])
+    const message = await client.messages.create({
+      model: "claude-haiku-4-5-20251001",
+      max_tokens: 1024,
+      messages: [
+        {
+          role: "user",
+          content: [
+            { type: "image", source: { type: "base64", media_type: mimeType, data: base64 } },
+            { type: "text", text: PROMPT },
+          ],
+        },
+      ],
+    })
 
-    const text = result.response.text().trim()
-    // Limpiar posible markdown que Gemini a veces agrega
+    const text = (message.content[0] as { type: string; text: string }).text.trim()
     const clean = text.replace(/^```json\s*/i, "").replace(/^```\s*/i, "").replace(/\s*```$/i, "").trim()
     const watchData = JSON.parse(clean)
 
     return NextResponse.json({ success: true, data: watchData })
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err)
-    console.error("Gemini error:", msg)
+    console.error("Anthropic error:", msg)
     return NextResponse.json({ error: msg }, { status: 500 })
   }
 }
