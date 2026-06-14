@@ -12,7 +12,7 @@ async function getEnrichedCollections() {
     const products: Array<Record<string, unknown>> = data.products ?? data ?? []
     return collections.map(col => {
       const matches = products.filter(
-        p => String(p[col.rule_field] ?? "").toLowerCase() === col.rule_value.toLowerCase()
+        p => String(p[col.rule_field] ?? "").trim().toLowerCase() === col.rule_value.toLowerCase()
       )
       return {
         ...col,
