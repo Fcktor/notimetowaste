@@ -1,6 +1,6 @@
 import { auth } from "@/auth"
 import { redirect } from "next/navigation"
-import { getCollections } from "@/lib/collectionsStore"
+import { getCollections, matchesRule } from "@/lib/collectionsStore"
 import { CollectionsPanel } from "@/components/CollectionsPanel"
 import { CF_GET } from "@/lib/config"
 
@@ -11,9 +11,7 @@ async function getEnrichedCollections() {
     const data = await res.json()
     const products: Array<Record<string, unknown>> = data.products ?? data ?? []
     return collections.map(col => {
-      const matches = products.filter(
-        p => String(p[col.rule_field] ?? "").trim().toLowerCase() === col.rule_value.toLowerCase()
-      )
+      const matches = products.filter(p => matchesRule(p, col.rule_field, col.rule_value))
       return {
         ...col,
         product_count: matches.length,

@@ -1,7 +1,7 @@
 import { auth } from "@/auth"
 import { redirect } from "next/navigation"
 import Link from "next/link"
-import { getCollections, FIELD_LABELS } from "@/lib/collectionsStore"
+import { getCollections, FIELD_LABELS, matchesRule } from "@/lib/collectionsStore"
 import { CF_GET } from "@/lib/config"
 
 export default async function CollectionDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -16,9 +16,7 @@ export default async function CollectionDetailPage({ params }: { params: Promise
   const res = await fetch(CF_GET, { cache: "no-store" })
   const data = await res.json()
   const products: Array<Record<string, unknown>> = data.products ?? data ?? []
-  const matches = products.filter(
-    p => String(p[col.rule_field] ?? "").trim().toLowerCase() === col.rule_value.toLowerCase()
-  )
+  const matches = products.filter(p => matchesRule(p, col.rule_field, col.rule_value))
   const totalStock = matches.reduce((s, p) => s + (Number(p.stock) || 0), 0)
 
   return (

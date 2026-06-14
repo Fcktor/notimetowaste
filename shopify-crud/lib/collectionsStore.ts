@@ -35,6 +35,10 @@ function atomicWrite(data: string) {
   renameSync(tmp, FILE)
 }
 
+export function matchesRule(product: Record<string, unknown>, rule_field: string, rule_value: string): boolean {
+  return String(product[rule_field] ?? "").trim().toLowerCase() === rule_value.trim().toLowerCase()
+}
+
 export function getCollections(): WatchCollection[] {
   ensureDir()
   if (!existsSync(FILE)) return []

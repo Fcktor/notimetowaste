@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { auth } from "@/auth"
-import { getCollections, createCollection } from "@/lib/collectionsStore"
+import { getCollections, createCollection, matchesRule } from "@/lib/collectionsStore"
 import { CF_GET } from "@/lib/config"
 import { sendChatMessage, collectionCreatedMessage } from "@/lib/googleChat"
 
@@ -18,9 +18,7 @@ export async function GET() {
     const products: Array<Record<string, unknown>> = data.products ?? data ?? []
 
     const enriched = collections.map((col) => {
-      const matches = products.filter(
-        (p) => String(p[col.rule_field] ?? "").trim().toLowerCase() === col.rule_value.toLowerCase()
-      )
+      const matches = products.filter(p => matchesRule(p, col.rule_field, col.rule_value))
       const totalStock = matches.reduce((sum, p) => sum + (Number(p.stock) || 0), 0)
       const lowStock = matches.filter(
         (p) => Number(p.stock) <= (Number(p.stock_min_threshold) || 5)
