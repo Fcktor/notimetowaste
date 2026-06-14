@@ -1,15 +1,19 @@
-const WEBHOOK_URL = process.env.GOOGLE_CHAT_WEBHOOK
-
 export async function sendChatMessage(text: string): Promise<void> {
-  if (!WEBHOOK_URL) return
+  const WEBHOOK_URL = process.env.GOOGLE_CHAT_WEBHOOK
+  console.log("[googleChat] sendChatMessage called. WEBHOOK_URL set:", !!WEBHOOK_URL)
+  if (!WEBHOOK_URL) {
+    console.warn("[googleChat] GOOGLE_CHAT_WEBHOOK no está definida — alerta no enviada")
+    return
+  }
   try {
-    await fetch(WEBHOOK_URL, {
+    const res = await fetch(WEBHOOK_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text }),
     })
+    console.log("[googleChat] Webhook enviado. Status:", res.status)
   } catch (err) {
-    console.error("Google Chat webhook error:", err)
+    console.error("[googleChat] Error enviando webhook:", err)
   }
 }
 
