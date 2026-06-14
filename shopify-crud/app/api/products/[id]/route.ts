@@ -18,12 +18,11 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   const data = await res.json()
 
   if (res.ok && body.brand && body.model) {
-    const stock = body.stock != null ? Number(body.stock) : null
-    const threshold = body.stock_min_threshold != null ? Number(body.stock_min_threshold) : 5
-    if (stock != null && stock <= threshold) {
+    await sendChatMessage(productUpdatedMessage(body.brand, body.model))
+    const stock = Number(body.stock)
+    const threshold = Number(body.stock_min_threshold ?? 5)
+    if (!isNaN(stock) && !isNaN(threshold) && stock <= threshold) {
       await sendChatMessage(lowStockMessage(`${body.brand} ${body.model}`, stock))
-    } else {
-      await sendChatMessage(productUpdatedMessage(body.brand, body.model))
     }
   }
 
