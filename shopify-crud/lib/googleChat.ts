@@ -1,19 +1,14 @@
 export async function sendChatMessage(text: string): Promise<void> {
   const WEBHOOK_URL = process.env.GOOGLE_CHAT_WEBHOOK
-  console.log("[googleChat] sendChatMessage called. WEBHOOK_URL set:", !!WEBHOOK_URL)
-  if (!WEBHOOK_URL) {
-    console.warn("[googleChat] GOOGLE_CHAT_WEBHOOK no está definida — alerta no enviada")
-    return
-  }
+  if (!WEBHOOK_URL) return
   try {
-    const res = await fetch(WEBHOOK_URL, {
+    await fetch(WEBHOOK_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text }),
     })
-    console.log("[googleChat] Webhook enviado. Status:", res.status)
   } catch (err) {
-    console.error("[googleChat] Error enviando webhook:", err)
+    console.error("Google Chat webhook error:", err)
   }
 }
 
@@ -25,8 +20,16 @@ export function productCreatedMessage(brand: string, model: string, sku: string)
   return `✅ *ARIA comunica:* Nuevo producto registrado — *${brand} ${model}* (SKU: ${sku})`
 }
 
+export function productUpdatedMessage(brand: string, model: string): string {
+  return `✏️ *ARIA comunica:* Producto actualizado — *${brand} ${model}*`
+}
+
 export function productDeletedMessage(product: string): string {
   return `🗑️ *ARIA comunica:* El producto "${product}" fue eliminado del catálogo.`
+}
+
+export function collectionCreatedMessage(name: string, field: string, value: string): string {
+  return `📂 *ARIA comunica:* Nueva colección creada — *${name}* (regla: ${field} = ${value})`
 }
 
 export function inventoryUpdatedMessage(product: string, oldStock: number, newStock: number): string {

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { auth } from "@/auth"
 import { getCollections, createCollection } from "@/lib/collectionsStore"
 import { CF_GET } from "@/lib/config"
+import { sendChatMessage, collectionCreatedMessage } from "@/lib/googleChat"
 
 export async function GET() {
   const session = await auth()
@@ -43,5 +44,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "name, rule_field y rule_value son requeridos" }, { status: 400 })
 
   const collection = createCollection(name.trim(), rule_field, rule_value.trim())
+  await sendChatMessage(collectionCreatedMessage(name.trim(), rule_field, rule_value.trim()))
   return NextResponse.json({ success: true, collection }, { status: 201 })
 }

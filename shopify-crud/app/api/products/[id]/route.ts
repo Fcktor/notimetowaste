@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { auth } from "@/auth"
 import { CF_UPDATE, CF_DELETE } from "@/lib/config"
-import { sendChatMessage, productDeletedMessage } from "@/lib/googleChat"
+import { sendChatMessage, productUpdatedMessage, productDeletedMessage } from "@/lib/googleChat"
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const session = await auth()
@@ -16,6 +16,11 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     body: JSON.stringify({ id: decodeURIComponent(id), ...body }),
   })
   const data = await res.json()
+
+  if (res.ok && body.brand && body.model) {
+    await sendChatMessage(productUpdatedMessage(body.brand, body.model))
+  }
+
   return NextResponse.json(data, { status: res.status })
 }
 
