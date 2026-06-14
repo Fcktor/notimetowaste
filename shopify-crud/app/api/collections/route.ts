@@ -19,7 +19,7 @@ export async function GET() {
 
     const enriched = collections.map((col) => {
       const matches = products.filter(
-        (p) => String(p[col.rule_field] ?? "").toLowerCase() === col.rule_value.toLowerCase()
+        (p) => String(p[col.rule_field] ?? "").trim().toLowerCase() === col.rule_value.toLowerCase()
       )
       const totalStock = matches.reduce((sum, p) => sum + (Number(p.stock) || 0), 0)
       const lowStock = matches.filter(

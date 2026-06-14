@@ -17,7 +17,7 @@ export default async function CollectionDetailPage({ params }: { params: Promise
   const data = await res.json()
   const products: Array<Record<string, unknown>> = data.products ?? data ?? []
   const matches = products.filter(
-    p => String(p[col.rule_field] ?? "").toLowerCase() === col.rule_value.toLowerCase()
+    p => String(p[col.rule_field] ?? "").trim().toLowerCase() === col.rule_value.toLowerCase()
   )
   const totalStock = matches.reduce((s, p) => s + (Number(p.stock) || 0), 0)
 
