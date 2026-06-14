@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { auth } from "@/auth"
 import { CF_UPDATE, CF_DELETE } from "@/lib/config"
-import { sendChatMessage, productUpdatedMessage, productDeletedMessage } from "@/lib/googleChat"
+import { sendChatMessage, productUpdatedMessage, productDeletedMessage, lowStockMessage } from "@/lib/googleChat"
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const session = await auth()
@@ -18,7 +18,13 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   const data = await res.json()
 
   if (res.ok && body.brand && body.model) {
-    await sendChatMessage(productUpdatedMessage(body.brand, body.model))
+    const stock = body.stock != null ? Number(body.stock) : null
+    const threshold = body.stock_min_threshold != null ? Number(body.stock_min_threshold) : 5
+    if (stock != null && stock <= threshold) {
+      await sendChatMessage(lowStockMessage(`${body.brand} ${body.model}`, stock))
+    } else {
+      await sendChatMessage(productUpdatedMessage(body.brand, body.model))
+    }
   }
 
   return NextResponse.json(data, { status: res.status })
