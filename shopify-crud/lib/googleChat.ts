@@ -1,14 +1,23 @@
 export async function sendChatMessage(text: string): Promise<void> {
   const WEBHOOK_URL = process.env.GOOGLE_CHAT_WEBHOOK
-  if (!WEBHOOK_URL) return
+  if (!WEBHOOK_URL) {
+    console.warn("[googleChat] GOOGLE_CHAT_WEBHOOK no está definida en .env.local")
+    return
+  }
+  console.log("[googleChat] Enviando mensaje a:", WEBHOOK_URL)
   try {
-    await fetch(WEBHOOK_URL, {
+    const res = await fetch(WEBHOOK_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text }),
     })
+    console.log("[googleChat] Respuesta HTTP:", res.status, res.statusText)
+    if (!res.ok) {
+      const body = await res.text().catch(() => "")
+      console.error("[googleChat] Error body:", body)
+    }
   } catch (err) {
-    console.error("Google Chat webhook error:", err)
+    console.error("[googleChat] Error de red:", err)
   }
 }
 
