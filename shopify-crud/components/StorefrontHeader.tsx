@@ -39,6 +39,16 @@ export function StorefrontHeader() {
           </span>
         </Link>
 
+        {/* Nav */}
+        <nav className="hidden sm:flex items-center gap-6">
+          <Link href="/" className="text-sm font-medium transition-colors hover:text-blue-600" style={{ color: "#334155" }}>
+            Productos
+          </Link>
+          <Link href="/collections" className="text-sm font-medium transition-colors hover:text-blue-600" style={{ color: "#334155" }}>
+            Colecciones
+          </Link>
+        </nav>
+
         {/* Right */}
         <div className="flex items-center gap-3">
           {session?.user?.role === "admin" && (

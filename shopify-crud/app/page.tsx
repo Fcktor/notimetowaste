@@ -1,6 +1,6 @@
 import { StorefrontHeader } from "@/components/StorefrontHeader";
 import { CartDrawer } from "@/components/CartDrawer";
-import { ProductCard } from "@/components/ProductCard";
+import { StorefrontFilters } from "@/components/StorefrontFilters";
 
 import { CF_GET } from "@/lib/config";
 
@@ -101,30 +101,15 @@ export default async function StorefrontPage() {
               Relojes
             </h1>
           </div>
-          <span
-            className="text-xs font-mono px-3 py-1.5 rounded-lg self-end"
-            style={{
-              background: "rgba(255,255,255,0.07)",
-              color: "rgba(191,219,254,0.8)",
-              border: "1px solid rgba(255,255,255,0.1)",
-              backdropFilter: "blur(8px)",
-            }}
-          >
-            {products.length} items
-          </span>
         </div>
 
-        {/* ── Product Grid ── */}
+        {/* ── Products with filters ── */}
         {products.length === 0 ? (
           <div className="text-center py-24">
             <p className="text-slate-400 text-sm">No hay productos disponibles en este momento.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {products.map((p) => (
-              <ProductCard key={p.id} product={p} />
-            ))}
-          </div>
+          <StorefrontFilters products={products} />
         )}
       </div>
     </div>

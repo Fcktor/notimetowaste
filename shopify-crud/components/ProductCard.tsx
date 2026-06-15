@@ -78,8 +78,8 @@ export function ProductCard({ product }: { product: Watch }) {
         </div>
 
         {!inStock && (
-          <div className="absolute inset-0 flex items-center justify-center" style={{ background: "rgba(255,255,255,0.8)", backdropFilter: "blur(4px)" }}>
-            <span className="text-xs font-semibold px-3 py-1 rounded-full" style={{ background: "#fee2e2", color: "#ef4444", border: "1px solid #fecaca" }}>
+          <div className="absolute inset-0 flex items-center justify-center" style={{ background: "rgba(0,0,0,0.35)" }}>
+            <span className="text-xs font-semibold px-3 py-1 rounded-full" style={{ background: "rgba(239,68,68,0.9)", color: "white", border: "1px solid rgba(239,68,68,0.4)" }}>
               Agotado
             </span>
           </div>
