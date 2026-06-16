@@ -141,6 +141,7 @@ export function StorefrontFilters({ products }: { products: Product[] }) {
     else if (sort === "price-desc") list = [...list].sort((a, b) => b.price - a.price)
     else if (sort === "name-asc") list = [...list].sort((a, b) => `${a.brand} ${a.model}`.localeCompare(`${b.brand} ${b.model}`))
     else if (sort === "name-desc") list = [...list].sort((a, b) => `${b.brand} ${b.model}`.localeCompare(`${a.brand} ${a.model}`))
+    list = [...list].sort((a, b) => Number(b.available) - Number(a.available))
     return list
   }, [products, filters, sort])
 
