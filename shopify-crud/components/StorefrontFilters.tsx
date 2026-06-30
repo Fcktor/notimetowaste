@@ -40,10 +40,7 @@ function unique(arr: (string | null | undefined)[]): string[] {
     if (!v) continue
     const trimmed = v.trim()
     const key = trimmed.toLowerCase()
-    if (!seen.has(key)) {
-      seen.add(key)
-      result.push(trimmed)
-    }
+    if (!seen.has(key)) { seen.add(key); result.push(trimmed) }
   }
   return result.sort()
 }
@@ -57,9 +54,17 @@ const SORT_OPTIONS = [
   { label: "Predeterminado", value: "default" },
   { label: "Precio: menor a mayor", value: "price-asc" },
   { label: "Precio: mayor a menor", value: "price-desc" },
-  { label: "Nombre: A-Z", value: "name-asc" },
-  { label: "Nombre: Z-A", value: "name-desc" },
+  { label: "Nombre A–Z", value: "name-asc" },
+  { label: "Nombre Z–A", value: "name-desc" },
 ]
+
+const LABEL_STYLE = {
+  color: "rgba(237,232,223,0.45)",
+  fontFamily: "var(--font-dm-sans)",
+  fontSize: "9px",
+  letterSpacing: "0.18em",
+  textTransform: "uppercase" as const,
+}
 
 function FilterGroup({ label, options, selected, onToggle }: {
   label: string
@@ -70,30 +75,42 @@ function FilterGroup({ label, options, selected, onToggle }: {
   const [open, setOpen] = useState(true)
   if (options.length === 0) return null
   return (
-    <div style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+    <div style={{ borderBottom: "1px solid rgba(196,163,90,0.08)", paddingBottom: open ? "0.75rem" : 0 }}>
       <button
         onClick={() => setOpen(o => !o)}
-        className="w-full flex items-center justify-between py-3 text-sm font-semibold text-left"
-        style={{ color: "rgba(226,232,240,0.9)" }}
+        className="w-full flex items-center justify-between py-3 text-left"
+        style={LABEL_STYLE}
       >
         {label}
-        <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}
-          style={{ transform: open ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.2s", opacity: 0.5 }}>
+        <svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
+          style={{ transform: open ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.2s", opacity: 0.4, flexShrink: 0 }}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
         </svg>
       </button>
       {open && (
-        <div className="pb-3 space-y-2">
+        <div className="space-y-2.5">
           {options.map(opt => (
             <label key={opt} className="flex items-center gap-2.5 cursor-pointer group">
-              <input
-                type="checkbox"
-                checked={selected.includes(opt)}
-                onChange={() => onToggle(opt)}
-                className="w-4 h-4 rounded cursor-pointer accent-blue-400"
-              />
-              <span className="text-sm transition-colors group-hover:text-blue-300"
-                style={{ color: "rgba(148,163,184,0.85)" }}>
+              <div
+                className="w-3.5 h-3.5 flex items-center justify-center flex-shrink-0 transition-all duration-150"
+                style={{
+                  border: `1px solid ${selected.includes(opt) ? "rgba(196,163,90,0.8)" : "rgba(196,163,90,0.2)"}`,
+                  background: selected.includes(opt) ? "rgba(196,163,90,0.15)" : "transparent",
+                  borderRadius: "2px",
+                }}
+                onClick={() => onToggle(opt)}
+              >
+                {selected.includes(opt) && (
+                  <svg width="7" height="7" viewBox="0 0 10 10" fill="none">
+                    <path d="M1.5 5L4 7.5L8.5 2.5" stroke="#C4A35A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                )}
+              </div>
+              <span
+                className="text-xs transition-colors duration-150"
+                style={{ color: selected.includes(opt) ? "#EDE8DF" : "rgba(122,110,100,0.8)" }}
+                onClick={() => onToggle(opt)}
+              >
                 {opt}
               </span>
             </label>
@@ -107,7 +124,7 @@ function FilterGroup({ label, options, selected, onToggle }: {
 export function StorefrontFilters({ products }: { products: Product[] }) {
   const [filters, setFilters] = useState<ActiveFilters>(EMPTY)
   const [sort, setSort] = useState("default")
-  const [cols, setCols] = useState<4 | 2>(4)
+  const [cols, setCols] = useState<3 | 2>(3)
   const [drawerOpen, setDrawerOpen] = useState(false)
 
   const opts = useMemo(() => ({
@@ -158,44 +175,40 @@ export function StorefrontFilters({ products }: { products: Product[] }) {
   }, [filters])
 
   const sidebar = (
-    <div>
+    <div className="space-y-0">
       <FilterGroup label="Marca" options={opts.brands} selected={filters.brands} onToggle={v => toggle("brands", v)} />
       <FilterGroup label="Estilo" options={opts.styles} selected={filters.styles} onToggle={v => toggle("styles", v)} />
       <FilterGroup label="Movimiento" options={opts.movements} selected={filters.movements} onToggle={v => toggle("movements", v)} />
       <FilterGroup label="Género" options={opts.genders} selected={filters.genders} onToggle={v => toggle("genders", v)} />
       <FilterGroup label="Condición" options={opts.conditions} selected={filters.conditions} onToggle={v => toggle("conditions", v)} />
 
-      {/* Precio */}
-      <div style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-        <p className="py-3 text-sm font-semibold" style={{ color: "rgba(226,232,240,0.9)" }}>Precio</p>
+      <div style={{ borderBottom: "1px solid rgba(196,163,90,0.08)" }}>
+        <p className="py-3" style={LABEL_STYLE}>Precio</p>
         <div className="flex items-center gap-2 pb-3">
-          <div className="flex items-center gap-1 flex-1 rounded-lg px-2 py-1.5"
-            style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
-            <span className="text-xs" style={{ color: "rgba(148,163,184,0.5)" }}>S/</span>
-            <input type="text" inputMode="decimal" placeholder="0"
-              value={filters.priceMin}
-              onChange={e => setFilters(f => ({ ...f, priceMin: e.target.value }))}
-              className="w-full text-sm outline-none bg-transparent"
-              style={{ color: "#e2e8f0" }} />
-          </div>
-          <span className="text-xs" style={{ color: "rgba(148,163,184,0.5)" }}>a</span>
-          <div className="flex items-center gap-1 flex-1 rounded-lg px-2 py-1.5"
-            style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
-            <span className="text-xs" style={{ color: "rgba(148,163,184,0.5)" }}>S/</span>
-            <input type="text" inputMode="decimal" placeholder={String(opts.maxPrice)}
-              value={filters.priceMax}
-              onChange={e => setFilters(f => ({ ...f, priceMax: e.target.value }))}
-              className="w-full text-sm outline-none bg-transparent"
-              style={{ color: "#e2e8f0" }} />
-          </div>
+          {(["priceMin", "priceMax"] as const).map((field, i) => (
+            <div key={field} className="flex items-center gap-1 flex-1 px-2 py-1.5"
+              style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(196,163,90,0.14)", borderRadius: "0.25rem" }}>
+              <span className="text-[10px]" style={{ color: "rgba(196,163,90,0.35)" }}>S/</span>
+              <input
+                type="text" inputMode="decimal"
+                placeholder={i === 0 ? "0" : String(opts.maxPrice)}
+                value={filters[field]}
+                onChange={e => setFilters(f => ({ ...f, [field]: e.target.value }))}
+                className="w-full text-xs outline-none bg-transparent"
+                style={{ color: "#EDE8DF" }}
+              />
+            </div>
+          ))}
         </div>
       </div>
 
       {chips.length > 0 && (
-        <button onClick={() => setFilters(EMPTY)}
-          className="w-full text-xs py-3 text-center transition-colors hover:text-red-400"
-          style={{ color: "rgba(148,163,184,0.5)" }}>
-          Borrar todos los filtros
+        <button
+          onClick={() => setFilters(EMPTY)}
+          className="w-full text-center pt-4 pb-1 transition-colors duration-150"
+          style={{ ...LABEL_STYLE, color: "rgba(196,163,90,0.4)" }}
+        >
+          Limpiar filtros
         </button>
       )}
     </div>
@@ -203,55 +216,64 @@ export function StorefrontFilters({ products }: { products: Product[] }) {
 
   return (
     <>
-      {/* Toolbar */}
-      <div className="flex items-center justify-between gap-4 mb-5 flex-wrap">
+      {/* ── Toolbar ── */}
+      <div className="flex items-center justify-between gap-4 mb-8 pb-4 flex-wrap"
+        style={{ borderBottom: "1px solid rgba(196,163,90,0.08)" }}>
+
         {/* Mobile filter button */}
         <button
           onClick={() => setDrawerOpen(true)}
-          className="flex lg:hidden items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold relative"
-          style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.12)", color: "#e2e8f0" }}
+          className="flex lg:hidden items-center gap-2 px-4 py-2 text-xs uppercase tracking-[0.14em] relative"
+          style={{ color: "rgba(237,232,223,0.55)", border: "1px solid rgba(196,163,90,0.2)", borderRadius: "0.25rem" }}
         >
-          <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M3 4h18M7 12h10M11 20h2" />
           </svg>
           Filtros
           {chips.length > 0 && (
-            <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full text-[10px] font-bold flex items-center justify-center"
-              style={{ background: "#3b82f6", color: "white" }}>
+            <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full text-[9px] font-semibold flex items-center justify-center"
+              style={{ background: "#C4A35A", color: "#0C0B09" }}>
               {chips.length}
             </span>
           )}
         </button>
 
-        <span className="text-xs font-mono hidden lg:block"
-          style={{ color: "rgba(191,219,254,0.7)", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", padding: "4px 12px", borderRadius: 8 }}>
-          {filtered.length} items
+        <span className="hidden lg:block text-xs" style={{ color: "rgba(122,110,100,0.55)", letterSpacing: "0.1em" }}>
+          {filtered.length} {filtered.length === 1 ? "pieza" : "piezas"}
         </span>
 
         <div className="flex items-center gap-3 ml-auto">
-          {/* Sort */}
-          <select value={sort} onChange={e => setSort(e.target.value)}
-            className="text-sm rounded-xl px-3 py-2 outline-none cursor-pointer"
-            style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.12)", color: "#e2e8f0" }}>
+          <select
+            value={sort}
+            onChange={e => setSort(e.target.value)}
+            className="text-xs outline-none cursor-pointer px-3 py-2"
+            style={{
+              background: "rgba(255,255,255,0.03)",
+              border: "1px solid rgba(196,163,90,0.18)",
+              color: "rgba(237,232,223,0.6)",
+              borderRadius: "0.25rem",
+              fontFamily: "var(--font-dm-sans)",
+              letterSpacing: "0.05em",
+            }}
+          >
             {SORT_OPTIONS.map(o => (
-              <option key={o.value} value={o.value} style={{ background: "#0f172a" }}>{o.label}</option>
+              <option key={o.value} value={o.value} style={{ background: "#1C1916" }}>{o.label}</option>
             ))}
           </select>
 
-          {/* Grid switcher */}
-          <div className="hidden sm:flex items-center rounded-xl overflow-hidden"
-            style={{ border: "1px solid rgba(255,255,255,0.12)" }}>
-            {([4, 2] as const).map(n => (
+          {/* Grid toggle */}
+          <div className="hidden sm:flex items-center" style={{ border: "1px solid rgba(196,163,90,0.18)", borderRadius: "0.25rem", overflow: "hidden" }}>
+            {([3, 2] as const).map(n => (
               <button key={n} onClick={() => setCols(n)}
-                className="flex items-center justify-center w-9 h-9 transition-colors"
+                className="flex items-center justify-center w-8 h-8 transition-colors duration-150"
                 style={{
-                  background: cols === n ? "rgba(59,130,246,0.2)" : "rgba(255,255,255,0.04)",
-                  color: cols === n ? "#60a5fa" : "rgba(148,163,184,0.5)",
+                  background: cols === n ? "rgba(196,163,90,0.12)" : "transparent",
+                  color: cols === n ? "#C4A35A" : "rgba(122,110,100,0.5)",
                 }}>
-                <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor">
-                  {n === 4
-                    ? <><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></>
-                    : <><rect x="1" y="1" width="6" height="14" rx="1"/><rect x="9" y="1" width="6" height="14" rx="1"/></>
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                  {n === 3
+                    ? <><rect x="1" y="1" width="3.5" height="6" rx="0.5"/><rect x="6.25" y="1" width="3.5" height="6" rx="0.5"/><rect x="11.5" y="1" width="3.5" height="6" rx="0.5"/><rect x="1" y="9" width="3.5" height="6" rx="0.5"/><rect x="6.25" y="9" width="3.5" height="6" rx="0.5"/><rect x="11.5" y="9" width="3.5" height="6" rx="0.5"/></>
+                    : <><rect x="1" y="1" width="6" height="14" rx="0.5"/><rect x="9" y="1" width="6" height="14" rx="0.5"/></>
                   }
                 </svg>
               </button>
@@ -260,81 +282,91 @@ export function StorefrontFilters({ products }: { products: Product[] }) {
         </div>
       </div>
 
-      {/* Active chips */}
+      {/* ── Active filter chips ── */}
       {chips.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-6">
           {chips.map((chip, i) => (
             <button key={i} onClick={chip.remove}
-              className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all"
-              style={{ background: "rgba(59,130,246,0.15)", color: "#93c5fd", border: "1px solid rgba(59,130,246,0.3)" }}>
+              className="flex items-center gap-1.5 px-3 py-1 text-xs transition-all duration-150"
+              style={{
+                color: "#C4A35A",
+                background: "rgba(196,163,90,0.08)",
+                border: "1px solid rgba(196,163,90,0.25)",
+                borderRadius: "2px",
+                letterSpacing: "0.05em",
+              }}
+            >
               {chip.label}
-              <svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+              <svg width="8" height="8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           ))}
-          <button onClick={() => setFilters(EMPTY)}
-            className="px-3 py-1 rounded-full text-xs font-medium transition-colors hover:text-red-400"
-            style={{ color: "rgba(148,163,184,0.5)" }}>
-            Borrar todo
-          </button>
         </div>
       )}
 
-      {/* Layout */}
-      <div className="flex gap-8">
+      {/* ── Layout: sidebar + grid ── */}
+      <div className="flex gap-10">
         {/* Desktop sidebar */}
-        <aside className="hidden lg:block w-52 flex-shrink-0">
-          <div className="rounded-2xl p-4 sticky top-20"
-            style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
+        <aside className="hidden lg:block w-44 flex-shrink-0">
+          <div className="sticky top-24">
+            <p className="mb-5" style={LABEL_STYLE}>Filtrar</p>
             {sidebar}
           </div>
         </aside>
 
         {/* Grid */}
         <div className="flex-1 min-w-0">
-          <p className="text-xs font-mono mb-4 lg:hidden"
-            style={{ color: "rgba(191,219,254,0.7)" }}>
-            {filtered.length} items
+          <p className="text-xs mb-5 lg:hidden" style={{ color: "rgba(122,110,100,0.55)", letterSpacing: "0.1em" }}>
+            {filtered.length} {filtered.length === 1 ? "pieza" : "piezas"}
           </p>
+
           {filtered.length === 0 ? (
             <div className="text-center py-24">
-              <p className="text-sm mb-3" style={{ color: "rgba(148,163,184,0.6)" }}>
+              <p className="text-sm mb-4" style={{ color: "#7A6E64" }}>
                 Ningún reloj coincide con los filtros seleccionados.
               </p>
-              <button onClick={() => setFilters(EMPTY)} className="text-sm font-semibold" style={{ color: "#60a5fa" }}>
-                Borrar filtros
+              <button
+                onClick={() => setFilters(EMPTY)}
+                className="text-xs uppercase tracking-[0.14em] transition-colors duration-150"
+                style={{ color: "rgba(196,163,90,0.6)" }}
+              >
+                Limpiar filtros
               </button>
             </div>
           ) : (
-            <div className="grid gap-5"
-              style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>
+            <div
+              className="grid gap-5"
+              style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
+            >
               {filtered.map(p => <ProductCard key={p.id} product={p} />)}
             </div>
           )}
         </div>
       </div>
 
-      {/* Mobile drawer */}
+      {/* ── Mobile drawer ── */}
       {drawerOpen && (
         <div className="fixed inset-0 z-50 flex lg:hidden">
-          <div className="absolute inset-0 bg-black/60" onClick={() => setDrawerOpen(false)} />
-          <div className="relative ml-auto w-80 h-full flex flex-col shadow-2xl"
-            style={{ background: "#0a1628" }}>
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => setDrawerOpen(false)} />
+          <div className="relative ml-auto w-72 h-full flex flex-col"
+            style={{ background: "#0F0E0C", borderLeft: "1px solid rgba(196,163,90,0.12)" }}>
             <div className="flex items-center justify-between px-5 py-4"
-              style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
-              <span className="font-semibold text-sm text-white">Filtros</span>
-              <button onClick={() => setDrawerOpen(false)}>
-                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="rgba(148,163,184,0.7)" strokeWidth={2}>
+              style={{ borderBottom: "1px solid rgba(196,163,90,0.1)" }}>
+              <span style={{ ...LABEL_STYLE, color: "rgba(196,163,90,0.7)" }}>Filtrar colección</span>
+              <button onClick={() => setDrawerOpen(false)} style={{ color: "rgba(122,110,100,0.6)" }}>
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             </div>
-            <div className="flex-1 overflow-y-auto px-5 py-4">{sidebar}</div>
-            <div className="px-5 py-4" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
-              <button onClick={() => setDrawerOpen(false)}
-                className="w-full py-3 rounded-xl text-sm font-semibold text-white"
-                style={{ background: "linear-gradient(135deg, #1d4ed8, #3b82f6)" }}>
+            <div className="flex-1 overflow-y-auto px-5 py-5">{sidebar}</div>
+            <div className="px-5 py-4" style={{ borderTop: "1px solid rgba(196,163,90,0.1)" }}>
+              <button
+                onClick={() => setDrawerOpen(false)}
+                className="w-full py-3 text-xs uppercase tracking-[0.14em] transition-all duration-150"
+                style={{ background: "#C4A35A", color: "#0C0B09", borderRadius: "0.25rem" }}
+              >
                 Ver {filtered.length} {filtered.length === 1 ? "reloj" : "relojes"}
               </button>
             </div>

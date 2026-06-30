@@ -1,4 +1,5 @@
 "use client"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { useSession, signOut } from "next-auth/react"
 import { useCart } from "./CartProvider"
@@ -6,47 +7,64 @@ import { useCart } from "./CartProvider"
 export function StorefrontHeader() {
   const { data: session } = useSession()
   const { count, setIsOpen } = useCart()
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 48)
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
+  }, [])
 
   return (
     <header
       className="sticky top-0 z-40"
       style={{
-        background: "#ffffff",
-        backdropFilter: "blur(16px)",
-        borderBottom: "1px solid #e8edf2",
-        boxShadow: "0 1px 12px rgba(7,16,48,0.08)",
+        background: scrolled ? "rgba(12,11,9,0.93)" : "transparent",
+        backdropFilter: scrolled ? "blur(20px)" : "none",
+        borderBottom: `1px solid ${scrolled ? "rgba(196,163,90,0.14)" : "transparent"}`,
+        transition: "background 0.35s ease, border-color 0.35s ease, backdrop-filter 0.35s ease",
       }}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
+
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5">
-          <div
-            className="w-8 h-8 rounded-xl flex items-center justify-center"
-            style={{
-              background: "linear-gradient(135deg, #1d4ed8, #3b82f6)",
-              boxShadow: "0 0 16px rgba(59,130,246,0.45)",
-            }}
-          >
-            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-          </div>
+        <Link href="/" className="flex items-center gap-3 group">
+          <svg width="22" height="22" viewBox="0 0 32 32" fill="none" aria-hidden>
+            <circle cx="16" cy="16" r="14" stroke="#C4A35A" strokeWidth="1.2" />
+            <circle cx="16" cy="16" r="10" stroke="#C4A35A" strokeWidth="0.6" />
+            <line x1="16" y1="4" x2="16" y2="7.5" stroke="#C4A35A" strokeWidth="1.6" strokeLinecap="round" />
+            <line x1="28" y1="16" x2="24.5" y2="16" stroke="#C4A35A" strokeWidth="1.6" strokeLinecap="round" />
+            <line x1="16" y1="28" x2="16" y2="24.5" stroke="#C4A35A" strokeWidth="1.6" strokeLinecap="round" />
+            <line x1="4" y1="16" x2="7.5" y2="16" stroke="#C4A35A" strokeWidth="1.6" strokeLinecap="round" />
+            <line x1="16" y1="16" x2="16" y2="9" stroke="#C4A35A" strokeWidth="1" strokeLinecap="round" />
+            <line x1="16" y1="16" x2="21" y2="16" stroke="#C4A35A" strokeWidth="1" strokeLinecap="round" />
+            <circle cx="16" cy="16" r="1.4" fill="#C4A35A" />
+          </svg>
           <span
-            className="text-sm font-bold tracking-wide"
-            style={{ letterSpacing: "0.08em", color: "#0f172a" }}
+            className="font-display text-xl tracking-[0.18em] uppercase"
+            style={{ color: "#EDE8DF", fontStyle: "italic", letterSpacing: "0.2em" }}
           >
-            REECH STORE
+            Reech
           </span>
         </Link>
 
         {/* Nav */}
-        <nav className="hidden sm:flex items-center gap-6">
-          <Link href="/" className="text-sm font-medium transition-colors hover:text-blue-600" style={{ color: "#334155" }}>
-            Productos
-          </Link>
-          <Link href="/collections" className="text-sm font-medium transition-colors hover:text-blue-600" style={{ color: "#334155" }}>
-            Colecciones
-          </Link>
+        <nav className="hidden sm:flex items-center gap-8">
+          {[
+            { href: "/", label: "Colección" },
+            { href: "/collections", label: "Categorías" },
+          ].map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              className="text-xs uppercase tracking-[0.14em] transition-colors duration-200"
+              style={{ color: "rgba(237,232,223,0.55)", fontFamily: "var(--font-dm-sans)" }}
+              onMouseEnter={e => (e.currentTarget.style.color = "#C4A35A")}
+              onMouseLeave={e => (e.currentTarget.style.color = "rgba(237,232,223,0.55)")}
+            >
+              {label}
+            </Link>
+          ))}
         </nav>
 
         {/* Right */}
@@ -54,60 +72,60 @@ export function StorefrontHeader() {
           {session?.user?.role === "admin" && (
             <Link
               href="/admin"
-              className="text-xs font-semibold px-3 py-1.5 rounded-lg transition-all"
+              className="text-xs uppercase tracking-widest px-3 py-1.5 transition-all duration-200"
               style={{
-                color: "#1d4ed8",
-                background: "#eff6ff",
-                border: "1px solid #bfdbfe",
+                color: "#C4A35A",
+                border: "1px solid rgba(196,163,90,0.3)",
+                borderRadius: "0.25rem",
+                letterSpacing: "0.1em",
               }}
             >
-              Panel Admin
+              Admin
             </Link>
           )}
 
           {session ? (
-            <div className="flex items-center gap-3">
-              <span className="text-xs hidden sm:block" style={{ color: "#64748b" }}>
-                {session.user?.name}
-              </span>
-              <button
-                onClick={() => signOut({ callbackUrl: "/" })}
-                className="text-xs px-3 py-1.5 rounded-lg transition-all"
-                style={{ color: "#64748b", background: "#f1f5f9", border: "1px solid #e2e8f0" }}
-              >
-                Salir
-              </button>
-            </div>
+            <button
+              onClick={() => signOut({ callbackUrl: "/" })}
+              className="text-xs uppercase tracking-widest px-3 py-1.5 transition-all duration-200"
+              style={{
+                color: "rgba(237,232,223,0.45)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                borderRadius: "0.25rem",
+              }}
+            >
+              Salir
+            </button>
           ) : (
             <Link
               href="/login"
-              className="text-xs font-semibold px-4 py-1.5 rounded-lg transition-all text-white"
+              className="text-xs uppercase tracking-widest px-3 py-1.5 transition-all duration-200"
               style={{
-                background: "linear-gradient(135deg, #1d4ed8, #3b82f6)",
-                boxShadow: "0 2px 12px rgba(59,130,246,0.3)",
+                color: "rgba(237,232,223,0.45)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                borderRadius: "0.25rem",
               }}
             >
-              Iniciar sesión
+              Ingresar
             </Link>
           )}
 
           {/* Cart */}
           <button
             onClick={() => setIsOpen(true)}
-            className="relative flex items-center justify-center w-9 h-9 rounded-xl transition-all"
-            style={{
-              background: "#f1f5f9",
-              border: "1px solid #e2e8f0",
-              color: "#334155",
-            }}
+            className="relative flex items-center justify-center w-9 h-9 transition-all duration-200"
+            style={{ color: "rgba(237,232,223,0.6)" }}
+            onMouseEnter={e => (e.currentTarget.style.color = "#C4A35A")}
+            onMouseLeave={e => (e.currentTarget.style.color = "rgba(237,232,223,0.6)")}
+            aria-label="Ver carrito"
           >
-            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
             </svg>
             {count > 0 && (
               <span
-                className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full text-[10px] font-bold flex items-center justify-center"
-                style={{ background: "#3b82f6", color: "white", boxShadow: "0 2px 8px rgba(59,130,246,0.5)" }}
+                className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full text-[9px] font-semibold flex items-center justify-center"
+                style={{ background: "#C4A35A", color: "#0C0B09" }}
               >
                 {count > 9 ? "9+" : count}
               </span>

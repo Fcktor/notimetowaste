@@ -1,20 +1,31 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
 import { DaniWidget } from "@/components/DaniWidget";
 
-const inter = Inter({ subsets: ["latin"] });
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-cormorant",
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-dm-sans",
+});
 
 export const metadata: Metadata = {
-  title: "Reech Store",
-  description: "Tienda de productos Reech",
+  title: "Reech Store — Relojes",
+  description: "Relojes premium a pedido. Encuentra el reloj que define tu estilo.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es">
-      <body className={inter.className}>
+    <html lang="es" className={`${cormorant.variable} ${dmSans.variable}`}>
+      <body style={{ fontFamily: "var(--font-dm-sans, sans-serif)" }}>
         <Providers>{children}</Providers>
         <DaniWidget />
       </body>
