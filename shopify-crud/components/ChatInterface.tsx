@@ -20,7 +20,7 @@ function AssistantText({ text }: { text: string }) {
         if (line.startsWith("- ")) {
           return (
             <div key={i} className="flex gap-2">
-              <span style={{ color: "#3b82f6" }}>•</span>
+              <span style={{ color: "#C4A35A" }}>•</span>
               <span>{renderInline(line.slice(2))}</span>
             </div>
           )
@@ -36,7 +36,7 @@ function renderInline(text: string) {
   const parts = text.split(/(\*\*[^*]+\*\*)/)
   return parts.map((part, i) =>
     part.startsWith("**") && part.endsWith("**") ? (
-      <strong key={i} style={{ color: "#93c5fd" }}>
+      <strong key={i} style={{ color: "#C4A35A" }}>
         {part.slice(2, -2)}
       </strong>
     ) : (
@@ -98,28 +98,27 @@ export function ChatInterface() {
     <div
       className="flex flex-col h-full rounded-xl overflow-hidden relative"
       style={{
-        background: "rgba(7,11,19,0.95)",
-        border: "1px solid rgba(59,130,246,0.15)",
-        boxShadow: "0 0 40px rgba(0,0,0,0.6), inset 0 0 40px rgba(59,130,246,0.02)",
+        background: "rgba(15,14,12,0.95)",
+        border: "1px solid rgba(196,163,90,0.15)",
+        boxShadow: "0 0 40px rgba(0,0,0,0.6), inset 0 0 40px rgba(196,163,90,0.02)",
       }}
     >
       {/* Header */}
       <div
         className="flex items-center gap-3 px-5 py-4 flex-shrink-0"
         style={{
-          background: "rgba(6,11,21,0.9)",
-          borderBottom: "1px solid rgba(59,130,246,0.12)",
+          background: "rgba(12,11,9,0.9)",
+          borderBottom: "1px solid rgba(196,163,90,0.12)",
         }}
       >
         <div
           className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
           style={{
-            background: "linear-gradient(135deg, #1d4ed8, #7c3aed)",
-            boxShadow: "0 0 20px rgba(59,130,246,0.4)",
-            border: "1px solid rgba(59,130,246,0.4)",
+            background: "rgba(196,163,90,0.1)",
+            border: "1px solid rgba(196,163,90,0.3)",
           }}
         >
-          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={2}>
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#C4A35A" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
           </svg>
         </div>
@@ -127,22 +126,18 @@ export function ChatInterface() {
           <div className="flex items-center gap-2">
             <span
               className="text-sm font-bold"
-              style={{
-                background: "linear-gradient(90deg, #93c5fd, #c4b5fd)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
+              style={{ color: "#C4A35A" }}
             >
               ARIA
             </span>
             <span
               className="text-[9px] font-mono px-1.5 py-0.5 rounded"
-              style={{ background: "rgba(59,130,246,0.1)", color: "#3b82f6", border: "1px solid rgba(59,130,246,0.2)" }}
+              style={{ background: "rgba(196,163,90,0.1)", color: "#C4A35A", border: "1px solid rgba(196,163,90,0.2)" }}
             >
               ONLINE
             </span>
           </div>
-          <p className="text-[10px] font-mono" style={{ color: "#1e3a5f" }}>
+          <p className="text-[10px] font-mono" style={{ color: "rgba(196,163,90,0.5)" }}>
             Asistente de Administración · NTTW
           </p>
         </div>
@@ -156,21 +151,20 @@ export function ChatInterface() {
               <div
                 className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"
                 style={{
-                  background: "linear-gradient(135deg, #1d4ed8, #7c3aed)",
-                  boxShadow: "0 0 12px rgba(59,130,246,0.3)",
-                  border: "1px solid rgba(59,130,246,0.3)",
+                  background: "rgba(196,163,90,0.1)",
+                  border: "1px solid rgba(196,163,90,0.25)",
                 }}
               >
-                <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={2.5}>
+                <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="#C4A35A" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
               <div
                 className="rounded-xl px-4 py-3 text-sm leading-relaxed"
                 style={{
-                  background: "rgba(59,130,246,0.06)",
-                  border: "1px solid rgba(59,130,246,0.12)",
-                  color: "#cbd5e1",
+                  background: "rgba(196,163,90,0.06)",
+                  border: "1px solid rgba(196,163,90,0.12)",
+                  color: "#EDE8DF",
                 }}
               >
                 <AssistantText text={msg.content} />
@@ -181,9 +175,9 @@ export function ChatInterface() {
               <div
                 className="rounded-xl px-4 py-3 text-sm leading-relaxed max-w-[75%]"
                 style={{
-                  background: "linear-gradient(135deg, rgba(29,78,216,0.3), rgba(59,130,246,0.2))",
-                  border: "1px solid rgba(59,130,246,0.25)",
-                  color: "#e2e8f0",
+                  background: "rgba(196,163,90,0.3)",
+                  border: "1px solid rgba(196,163,90,0.25)",
+                  color: "#EDE8DF",
                 }}
               >
                 {msg.content}
@@ -197,19 +191,19 @@ export function ChatInterface() {
             <div
               className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
               style={{
-                background: "linear-gradient(135deg, #1d4ed8, #7c3aed)",
-                border: "1px solid rgba(59,130,246,0.3)",
+                background: "rgba(196,163,90,0.1)",
+                border: "1px solid rgba(196,163,90,0.25)",
               }}
             >
-              <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={2.5}>
+              <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="#C4A35A" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             </div>
             <div
               className="rounded-xl px-4 py-3"
               style={{
-                background: "rgba(59,130,246,0.06)",
-                border: "1px solid rgba(59,130,246,0.12)",
+                background: "rgba(196,163,90,0.06)",
+                border: "1px solid rgba(196,163,90,0.12)",
               }}
             >
               <div className="flex gap-1.5 items-center h-5">
@@ -218,7 +212,7 @@ export function ChatInterface() {
                     key={j}
                     className="w-1.5 h-1.5 rounded-full inline-block"
                     style={{
-                      background: "#3b82f6",
+                      background: "#C4A35A",
                       animation: `bounce 1.2s ease-in-out ${j * 0.2}s infinite`,
                     }}
                   />
@@ -234,14 +228,14 @@ export function ChatInterface() {
       {/* Input */}
       <div
         className="flex-shrink-0 px-4 py-4"
-        style={{ borderTop: "1px solid rgba(59,130,246,0.1)", background: "rgba(6,11,21,0.9)" }}
+        style={{ borderTop: "1px solid rgba(196,163,90,0.1)", background: "rgba(12,11,9,0.9)" }}
       >
         <div
           className="flex gap-3 items-end rounded-xl p-2"
           style={{
-            background: "rgba(15,23,42,0.8)",
-            border: "1px solid rgba(59,130,246,0.15)",
-            boxShadow: "0 0 20px rgba(59,130,246,0.05)",
+            background: "rgba(28,25,22,0.8)",
+            border: "1px solid rgba(196,163,90,0.15)",
+            boxShadow: "0 0 20px rgba(196,163,90,0.05)",
           }}
         >
           <textarea
@@ -254,8 +248,8 @@ export function ChatInterface() {
             disabled={loading}
             className="flex-1 resize-none bg-transparent text-sm outline-none py-2 px-2"
             style={{
-              color: "#e2e8f0",
-              caretColor: "#3b82f6",
+              color: "#EDE8DF",
+              caretColor: "#C4A35A",
               maxHeight: "120px",
               lineHeight: "1.5",
             }}
@@ -267,20 +261,20 @@ export function ChatInterface() {
             style={{
               background:
                 loading || !input.trim()
-                  ? "rgba(30,58,95,0.4)"
-                  : "linear-gradient(135deg, #1d4ed8, #3b82f6)",
+                  ? "rgba(196,163,90,0.1)"
+                  : "#C4A35A",
               boxShadow:
-                loading || !input.trim() ? "none" : "0 0 16px rgba(59,130,246,0.4)",
-              border: "1px solid rgba(59,130,246,0.2)",
+                loading || !input.trim() ? "none" : "0 0 16px rgba(196,163,90,0.4)",
+              border: "1px solid rgba(196,163,90,0.2)",
               cursor: loading || !input.trim() ? "not-allowed" : "pointer",
             }}
           >
-            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={2.5}>
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke={loading || !input.trim() ? "#C4A35A" : "#0C0B09"} strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
             </svg>
           </button>
         </div>
-        <p className="text-[10px] font-mono mt-2 text-center" style={{ color: "#1e3a5f" }}>
+        <p className="text-[10px] font-mono mt-2 text-center" style={{ color: "rgba(196,163,90,0.5)" }}>
           Enter para enviar · Shift+Enter para nueva línea
         </p>
       </div>

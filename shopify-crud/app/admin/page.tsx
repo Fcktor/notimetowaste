@@ -22,19 +22,19 @@ export default async function AdminPage() {
       <div className="flex items-center justify-between mb-8">
         <div className="relative">
           <div className="flex items-center gap-3 mb-1">
-            <div className="w-1 h-6 rounded-full" style={{ background: "linear-gradient(180deg, #3b82f6, #06b6d4)" }} />
+            <div className="w-1 h-6 rounded-full" style={{ background: "#C4A35A" }} />
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-mono font-semibold tracking-[0.2em] uppercase" style={{ color: "#1e40af" }}>
+              <span className="text-[10px] font-mono font-semibold tracking-[0.2em] uppercase" style={{ color: "rgba(196,163,90,0.6)" }}>
                 SYS://CATALOG
               </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 pulse-neon inline-block" />
+              <span className="w-1.5 h-1.5 rounded-full pulse-neon inline-block" style={{ background: "#C4A35A" }} />
             </div>
           </div>
           <div className="flex items-baseline gap-3 pl-4">
-            <h1 className="text-2xl font-bold tracking-tight text-gradient-blue">Productos</h1>
+            <h1 className="text-2xl font-bold tracking-tight" style={{ color: "#C4A35A" }}>Productos</h1>
             <span
               className="text-xs font-mono px-2 py-0.5 rounded"
-              style={{ background: "rgba(59,130,246,0.1)", color: "#3b82f6", border: "1px solid rgba(59,130,246,0.2)" }}
+              style={{ background: "rgba(196,163,90,0.1)", color: "#C4A35A", border: "1px solid rgba(196,163,90,0.2)" }}
             >
               {products.length} items
             </span>
@@ -43,10 +43,11 @@ export default async function AdminPage() {
 
         <Link href="/admin/products/new">
           <button
-            className="btn-cyber flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all duration-300"
+            className="btn-cyber flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300"
             style={{
-              background: "linear-gradient(135deg, #1d4ed8, #3b82f6, #0ea5e9)",
-              boxShadow: "0 4px 20px rgba(59,130,246,0.35), 0 0 0 1px rgba(59,130,246,0.2)",
+              background: "#C4A35A",
+              color: "#0C0B09",
+              boxShadow: "0 4px 20px rgba(196,163,90,0.35), 0 0 0 1px rgba(196,163,90,0.2)",
             }}
           >
             <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>

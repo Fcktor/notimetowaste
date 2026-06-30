@@ -64,12 +64,12 @@ export function DeleteModal({
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent
           className="sm:max-w-md"
-          style={{ background: "#0d1424", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "0 25px 50px rgba(0,0,0,0.6)" }}
+          style={{ background: "#0F0E0C", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "0 25px 50px rgba(0,0,0,0.6)" }}
         >
           <DialogHeader>
             <DialogTitle className="text-slate-200">
               Gestionar:{" "}
-              <span style={{ color: "#3b82f6" }}>{productTitle}</span>
+              <span style={{ color: "#C4A35A" }}>{productTitle}</span>
             </DialogTitle>
           </DialogHeader>
 
@@ -123,7 +123,7 @@ export function DeleteModal({
               onClick={() => setOpen(false)}
               disabled={loading}
               className="text-slate-400 transition-colors"
-              style={{ background: "transparent", borderColor: "rgba(255,255,255,0.1)" }}
+              style={{ background: "transparent", borderColor: "rgba(196,163,90,0.2)" }}
             >
               Cancelar
             </Button>

@@ -31,7 +31,7 @@ interface ProductFormProps {
 
 function FieldLabel({ children, required }: { children: React.ReactNode; required?: boolean }) {
   return (
-    <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5" style={{ color: "#475569" }}>
+    <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5" style={{ color: "#7A6E64" }}>
       {children}{required && <span style={{ color: "#f87171" }}> *</span>}
     </label>
   );
@@ -40,11 +40,11 @@ function FieldLabel({ children, required }: { children: React.ReactNode; require
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2 pt-2 pb-1">
-      <div className="h-px flex-1" style={{ background: "rgba(59,130,246,0.15)" }} />
-      <span className="text-[10px] font-mono font-semibold uppercase tracking-widest" style={{ color: "#1e3a5f" }}>
+      <div className="h-px flex-1" style={{ background: "rgba(196,163,90,0.15)" }} />
+      <span className="text-[10px] font-mono font-semibold uppercase tracking-widest" style={{ color: "rgba(196,163,90,0.5)" }}>
         {children}
       </span>
-      <div className="h-px flex-1" style={{ background: "rgba(59,130,246,0.15)" }} />
+      <div className="h-px flex-1" style={{ background: "rgba(196,163,90,0.15)" }} />
     </div>
   );
 }
@@ -52,7 +52,7 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
 const inputStyle = {
   background: "rgba(255,255,255,0.04)",
   border: "1px solid rgba(255,255,255,0.08)",
-  color: "#e2e8f0",
+  color: "#EDE8DF",
   borderRadius: "0.625rem",
   padding: "0.6rem 0.875rem",
   fontSize: "0.875rem",
@@ -63,7 +63,7 @@ const inputStyle = {
 
 const focusHandlers = {
   onFocus: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
-    (e.target.style.borderColor = "rgba(59,130,246,0.5)"),
+    (e.target.style.borderColor = "rgba(196,163,90,0.5)"),
   onBlur: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
     (e.target.style.borderColor = "rgba(255,255,255,0.08)"),
 };
@@ -87,7 +87,7 @@ function SelectField({
     <select name={name} value={value} onChange={onChange} style={SELECT_STYLE} {...focusHandlers}>
       <option value="">{placeholder}</option>
       {options.map((o) => (
-        <option key={o} value={o} style={{ background: "#0f172a" }}>
+        <option key={o} value={o} style={{ background: "#0F0E0C" }}>
           {o}
         </option>
       ))}
@@ -319,29 +319,29 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
         <label
           className="relative rounded-xl cursor-pointer block text-center transition-all duration-150"
           style={{ border: "2px dashed rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.02)", padding: preview ? "1rem" : "2rem 1rem" }}
-          onMouseEnter={(e) => ((e.currentTarget as HTMLLabelElement).style.borderColor = "rgba(59,130,246,0.4)")}
+          onMouseEnter={(e) => ((e.currentTarget as HTMLLabelElement).style.borderColor = "rgba(196,163,90,0.4)")}
           onMouseLeave={(e) => ((e.currentTarget as HTMLLabelElement).style.borderColor = "rgba(255,255,255,0.1)")}
         >
           {preview ? (
             <div className="flex flex-col items-center gap-2">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={preview} alt="Vista previa" className="h-32 w-32 object-cover rounded-xl" style={{ border: "1px solid rgba(255,255,255,0.1)" }} />
-              <span className="text-xs" style={{ color: "#475569" }}>{uploading ? "Subiendo..." : "Click para cambiar"}</span>
+              <span className="text-xs" style={{ color: "#7A6E64" }}>{uploading ? "Subiendo..." : "Click para cambiar"}</span>
             </div>
           ) : (
             <div className="flex flex-col items-center gap-2">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto" style={{ background: "rgba(59,130,246,0.1)", border: "1px solid rgba(59,130,246,0.2)" }}>
-                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#3b82f6" strokeWidth={1.5}>
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto" style={{ background: "rgba(196,163,90,0.1)", border: "1px solid rgba(196,163,90,0.2)" }}>
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#C4A35A" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
                 </svg>
               </div>
               <p className="text-sm font-medium text-slate-400">Click para subir una foto</p>
-              <p className="text-xs" style={{ color: "#334155" }}>JPG, PNG, WEBP · máx 10MB</p>
+              <p className="text-xs" style={{ color: "#7A6E64" }}>JPG, PNG, WEBP · máx 10MB</p>
             </div>
           )}
           {uploading && (
-            <div className="absolute inset-0 rounded-xl flex items-center justify-center" style={{ background: "rgba(6,11,24,0.8)" }}>
-              <span className="text-sm font-medium" style={{ color: "#3b82f6" }}>Subiendo imagen...</span>
+            <div className="absolute inset-0 rounded-xl flex items-center justify-center" style={{ background: "rgba(15,14,12,0.8)" }}>
+              <span className="text-sm font-medium" style={{ color: "#C4A35A" }}>Subiendo imagen...</span>
             </div>
           )}
           <input type="file" accept="image/jpeg,image/png,image/webp,image/gif" className="hidden" onChange={handleFileChange} />
@@ -382,7 +382,7 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
           type="button"
           onClick={handleToggleAvailable}
           className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors"
-          style={{ background: form.available ? "#3b82f6" : "rgba(255,255,255,0.1)" }}
+          style={{ background: form.available ? "#C4A35A" : "rgba(255,255,255,0.1)" }}
         >
           <span
             className="inline-block h-4 w-4 transform rounded-full bg-white transition-transform"
@@ -401,8 +401,8 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
         <button
           type="submit"
           disabled={loading || uploading}
-          className="flex-1 py-2.5 px-5 rounded-lg text-sm font-semibold text-white transition-all duration-150 disabled:opacity-50"
-          style={{ background: "linear-gradient(135deg, #3b82f6, #2563eb)", boxShadow: "0 4px 15px rgba(59,130,246,0.25)" }}
+          className="flex-1 py-2.5 px-5 rounded-lg text-sm font-semibold transition-all duration-150 disabled:opacity-50"
+          style={{ background: "#C4A35A", color: "#0C0B09", boxShadow: "0 4px 15px rgba(196,163,90,0.25)" }}
         >
           {loading ? "Guardando..." : mode === "create" ? "Crear reloj" : "Guardar cambios"}
         </button>
@@ -410,7 +410,7 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
           type="button"
           onClick={() => router.push("/admin")}
           className="px-5 py-2.5 rounded-lg text-sm font-medium transition-all duration-150"
-          style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", color: "#64748b" }}
+          style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(196,163,90,0.15)", color: "#7A6E64" }}
         >
           Cancelar
         </button>

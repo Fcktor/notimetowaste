@@ -152,7 +152,7 @@ export function ProductCard({ product }: { product: Watch }) {
         <div>
           <h3
             className="font-display text-xl leading-tight"
-            style={{ color: "#EDE8DF", fontWeight: 400, fontStyle: "italic" }}
+            style={{ color: "#C4A35A", fontWeight: 600, fontStyle: "italic" }}
           >
             {product.model}
           </h3>
@@ -165,7 +165,7 @@ export function ProductCard({ product }: { product: Watch }) {
         <div className="mt-auto pt-2" style={{ borderTop: "1px solid rgba(196,163,90,0.1)" }}>
           <div className="flex items-baseline gap-2 mb-3">
             <span
-              className="text-lg font-semibold"
+              className="text-2xl font-semibold"
               style={{ color: "#C4A35A", fontFamily: "var(--font-dm-sans)" }}
             >
               S/ {product.price.toLocaleString("es-PE")}
