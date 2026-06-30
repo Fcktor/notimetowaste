@@ -218,7 +218,7 @@ export function Sidebar() {
             R
           </div>
           <div className="flex flex-col min-w-0">
-            <span className="text-xs font-semibold text-slate-300 truncate">Reech Tools</span>
+            <span className="text-xs font-semibold text-slate-300 truncate">No Time To Waste</span>
             <span className="text-[9px] font-mono" style={{ color: "#1e3a5f" }}>ADMIN</span>
           </div>
         </div>

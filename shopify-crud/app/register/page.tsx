@@ -103,7 +103,7 @@ export default function RegisterPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             </div>
-            <span className="font-bold text-sm tracking-wide" style={{ color: "#0f172a" }}>REECH STORE</span>
+            <span className="font-bold text-sm tracking-wide" style={{ color: "#0f172a" }}>NO TIME TO WASTE</span>
           </Link>
         </div>
 

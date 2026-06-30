@@ -169,7 +169,7 @@ export default async function StorefrontPage() {
             className="font-display italic text-base tracking-widest"
             style={{ color: "rgba(196,163,90,0.4)" }}
           >
-            Reech Store
+            No Time To Waste
           </span>
           <p className="text-xs" style={{ color: "rgba(122,110,100,0.5)" }}>
             Todos los relojes se gestionan a pedido.

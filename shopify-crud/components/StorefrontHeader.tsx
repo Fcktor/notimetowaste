@@ -44,7 +44,7 @@ export function StorefrontHeader() {
             className="font-display text-xl tracking-[0.18em] uppercase"
             style={{ color: "#EDE8DF", fontStyle: "italic", letterSpacing: "0.2em" }}
           >
-            Reech
+            No Time To Waste
           </span>
         </Link>
 

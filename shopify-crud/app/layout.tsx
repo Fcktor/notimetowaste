@@ -18,7 +18,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Reech Store — Relojes",
+  title: "No Time To Waste — Relojes",
   description: "Relojes premium a pedido. Encuentra el reloj que define tu estilo.",
 };
 

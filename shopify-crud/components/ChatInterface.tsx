@@ -9,7 +9,7 @@ interface Message {
 const WELCOME: Message = {
   role: "assistant",
   content:
-    "Hola, soy **ARIA** — tu asistente de administración para Reech Store.\n\nPuedo consultarte sobre:\n- Inventario y stock de relojes\n- Colecciones automáticas\n- Filtros por marca, estilo, movimiento, género...\n\n¿En qué puedo ayudarte hoy?",
+    "Hola, soy **ARIA** — tu asistente de administración para No Time To Waste.\n\nPuedo consultarte sobre:\n- Inventario y stock de relojes\n- Colecciones automáticas\n- Filtros por marca, estilo, movimiento, género...\n\n¿En qué puedo ayudarte hoy?",
 }
 
 function AssistantText({ text }: { text: string }) {
@@ -143,7 +143,7 @@ export function ChatInterface() {
             </span>
           </div>
           <p className="text-[10px] font-mono" style={{ color: "#1e3a5f" }}>
-            Asistente Reech Inteligente de Administración
+            Asistente de Administración · NTTW
           </p>
         </div>
       </div>

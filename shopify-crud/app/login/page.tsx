@@ -77,7 +77,7 @@ function LoginForm() {
               </svg>
             </div>
             <span className="font-bold text-sm tracking-wide" style={{ color: "#0f172a" }}>
-              REECH STORE
+              NO TIME TO WASTE
             </span>
           </div>
         </div>

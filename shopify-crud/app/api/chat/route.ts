@@ -6,7 +6,7 @@ import { getCollections, matchesRule } from "@/lib/collectionsStore"
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
-const SYSTEM = `Eres ARIA, la Asistente Reech Inteligente de Administración para Reech Store, una tienda de relojes.
+const SYSTEM = `Eres ARIA, la asistente inteligente de administración para No Time To Waste, una tienda de relojes.
 Responde siempre en español, de forma clara y concisa.
 Tienes acceso a herramientas para consultar el inventario de relojes y las colecciones de la tienda en tiempo real.
 Usa las herramientas cuando el usuario pregunte sobre productos, stock, colecciones, marcas, estilos o estadísticas.

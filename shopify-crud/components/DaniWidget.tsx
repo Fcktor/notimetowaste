@@ -9,7 +9,7 @@ interface Message {
 const WELCOME: Message = {
   role: "assistant",
   content:
-    "¡Hola! Soy **Dani**, tu asistente de Reech Store.\n\nEstoy aquí para ayudarte a encontrar el reloj perfecto. Puedo contarte sobre:\n- Nuestro catálogo y precios\n- Disponibilidad de stock\n- Colecciones disponibles\n- Envíos, garantías y devoluciones\n\n¿En qué puedo ayudarte hoy?",
+    "¡Hola! Soy **Dani**, tu asistente de No Time To Waste.\n\nEstoy aquí para ayudarte a encontrar el reloj perfecto. Puedo contarte sobre:\n- Nuestro catálogo y precios\n- Disponibilidad de stock\n- Colecciones disponibles\n- Envíos, garantías y devoluciones\n\n¿En qué puedo ayudarte hoy?",
 }
 
 function AssistantText({ text }: { text: string }) {
@@ -147,7 +147,7 @@ export function DaniWidget() {
                   </span>
                 </div>
                 <p className="text-[10px]" style={{ color: "rgba(200,168,90,0.5)" }}>
-                  Asistente virtual · Reech Store
+                  Asistente virtual · No Time To Waste
                 </p>
               </div>
             </div>
