@@ -110,7 +110,7 @@ export function ProductCard({ product }: { product: Watch }) {
           </div>
 
           {/* Condition badge */}
-          {product.condition && (
+          {product.condition && inStock && (
             <div className="absolute top-3 right-3">
               <span
                 className="text-[9px] uppercase tracking-widest px-2 py-0.5"
