@@ -107,17 +107,17 @@ export function DaniWidget() {
           style={{
             width: 360,
             height: 520,
-            background: "rgba(7,16,48,0.97)",
-            border: "1px solid rgba(200,168,90,0.25)",
-            boxShadow: "0 24px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(200,168,90,0.08)",
+            background: "rgba(12,11,9,0.97)",
+            border: "1px solid rgba(196,163,90,0.22)",
+            boxShadow: "0 24px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(196,163,90,0.06)",
           }}
         >
           {/* Header */}
           <div
             className="flex items-center justify-between px-4 py-3 flex-shrink-0"
             style={{
-              background: "linear-gradient(135deg, rgba(10,20,60,0.95), rgba(20,10,40,0.95))",
-              borderBottom: "1px solid rgba(200,168,90,0.15)",
+              background: "#0F0E0C",
+              borderBottom: "1px solid rgba(196,163,90,0.12)",
             }}
           >
             <div className="flex items-center gap-3">
@@ -176,9 +176,9 @@ export function DaniWidget() {
                   <div
                     className="rounded-2xl rounded-tl-sm px-3.5 py-2.5 text-sm leading-relaxed"
                     style={{
-                      background: "rgba(200,168,90,0.07)",
-                      border: "1px solid rgba(200,168,90,0.12)",
-                      color: "#cbd5e1",
+                      background: "rgba(196,163,90,0.06)",
+                      border: "1px solid rgba(196,163,90,0.12)",
+                      color: "#EDE8DF",
                     }}
                   >
                     <AssistantText text={msg.content} />
@@ -189,9 +189,9 @@ export function DaniWidget() {
                   <div
                     className="rounded-2xl rounded-tr-sm px-3.5 py-2.5 text-sm leading-relaxed max-w-[78%]"
                     style={{
-                      background: "linear-gradient(135deg, rgba(200,168,90,0.2), rgba(232,216,160,0.12))",
-                      border: "1px solid rgba(200,168,90,0.2)",
-                      color: "#e2e8f0",
+                      background: "rgba(196,163,90,0.12)",
+                      border: "1px solid rgba(196,163,90,0.2)",
+                      color: "#EDE8DF",
                     }}
                   >
                     {msg.content}
@@ -238,15 +238,15 @@ export function DaniWidget() {
           <div
             className="flex-shrink-0 px-3 py-3"
             style={{
-              borderTop: "1px solid rgba(200,168,90,0.1)",
-              background: "rgba(7,16,48,0.98)",
+              borderTop: "1px solid rgba(196,163,90,0.1)",
+              background: "rgba(12,11,9,0.98)",
             }}
           >
             <div
               className="flex gap-2 items-end rounded-xl p-2"
               style={{
-                background: "rgba(15,25,60,0.8)",
-                border: "1px solid rgba(200,168,90,0.15)",
+                background: "rgba(255,255,255,0.03)",
+                border: "1px solid rgba(196,163,90,0.15)",
               }}
             >
               <textarea
@@ -259,8 +259,8 @@ export function DaniWidget() {
                 disabled={loading}
                 className="flex-1 resize-none bg-transparent text-sm outline-none py-1.5 px-2"
                 style={{
-                  color: "#e2e8f0",
-                  caretColor: "#c8a85a",
+                  color: "#EDE8DF",
+                  caretColor: "#C4A35A",
                   maxHeight: "100px",
                   lineHeight: "1.5",
                 }}
@@ -299,11 +299,11 @@ export function DaniWidget() {
         className="w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300"
         style={{
           background: open
-            ? "linear-gradient(135deg, #1a2f8f, #071030)"
+            ? "#1C1916"
             : "linear-gradient(135deg, #c8a85a, #e8d8a0)",
           boxShadow: open
-            ? "0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(200,168,90,0.2)"
-            : "0 8px 32px rgba(200,168,90,0.35), 0 0 0 1px rgba(200,168,90,0.3)",
+            ? "0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(196,163,90,0.35)"
+            : "0 8px 32px rgba(196,163,90,0.3), 0 0 0 1px rgba(196,163,90,0.3)",
           transform: open ? "scale(0.95)" : "scale(1)",
         }}
         aria-label={open ? "Cerrar chat" : "Abrir chat con Dani"}
