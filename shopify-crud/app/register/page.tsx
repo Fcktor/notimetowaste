@@ -4,33 +4,63 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { signIn } from "next-auth/react"
 
-function GradientBlob() {
+function WatchLogo() {
   return (
-    <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-      <div
-        className="blob-animate"
-        style={{
-          width: "72%", height: "72%",
-          background: "linear-gradient(135deg, #e8d8a0 0%, #c8a85a 18%, #7ba5e8 55%, #1a2f8f 100%)",
-          boxShadow: "0 30px 80px rgba(0,0,0,0.35), inset 0 0 60px rgba(255,255,255,0.08)",
-        }}
-      />
-      <div
-        className="absolute"
-        style={{
-          width: "80%", height: "80%",
-          background: "radial-gradient(ellipse at 40% 50%, rgba(200,168,90,0.3) 0%, transparent 60%), radial-gradient(ellipse at 70% 60%, rgba(59,130,246,0.25) 0%, transparent 60%)",
-          filter: "blur(30px)",
-        }}
-      />
+    <div className="flex items-center gap-3">
+      <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+        <circle cx="16" cy="16" r="13" stroke="#C4A35A" strokeWidth="1" />
+        <circle cx="16" cy="16" r="1.5" fill="#C4A35A" />
+        <line x1="16" y1="4.5" x2="16" y2="7" stroke="#C4A35A" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="16" y1="16" x2="16" y2="9.5" stroke="#C4A35A" strokeWidth="1" strokeLinecap="round" />
+        <line x1="16" y1="16" x2="21.5" y2="16" stroke="#C4A35A" strokeWidth="1" strokeLinecap="round" />
+      </svg>
+      <span
+        className="font-display italic tracking-wide"
+        style={{ color: "#C4A35A", fontSize: "1.05rem", fontWeight: 600 }}
+      >
+        No Time To Waste
+      </span>
     </div>
   )
 }
 
+const INPUT_STYLE: React.CSSProperties = {
+  background: "rgba(255,255,255,0.03)",
+  border: "1px solid rgba(196,163,90,0.15)",
+  borderRadius: "0.375rem",
+  padding: "0.75rem 0.875rem 0.75rem 2.6rem",
+  fontSize: "0.875rem",
+  color: "#EDE8DF",
+  width: "100%",
+  outline: "none",
+  fontFamily: "var(--font-dm-sans)",
+}
+
+const FIELDS = [
+  {
+    name: "name" as const, type: "text", placeholder: "Nombre completo",
+    icon: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z",
+  },
+  {
+    name: "email" as const, type: "email", placeholder: "Correo electrónico",
+    icon: "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
+  },
+  {
+    name: "password" as const, type: "password", placeholder: "Contraseña (mín. 8 caracteres)",
+    icon: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z",
+  },
+  {
+    name: "confirm" as const, type: "password", placeholder: "Confirmar contraseña",
+    icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
+  },
+]
+
+interface FormState { name: string; email: string; password: string; confirm: string }
+
 export default function RegisterPage() {
   const router = useRouter()
   const [step, setStep] = useState<"form" | "verify">("form")
-  const [form, setForm] = useState({ name: "", email: "", password: "", confirm: "" })
+  const [form, setForm] = useState<FormState>({ name: "", email: "", password: "", confirm: "" })
   const [code, setCode] = useState("")
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
@@ -67,12 +97,7 @@ export default function RegisterPage() {
     })
     const data = await res.json()
     if (!res.ok) { setLoading(false); setError(data.error); return }
-
-    const login = await signIn("credentials", {
-      email: form.email,
-      password: form.password,
-      redirect: false,
-    })
+    const login = await signIn("credentials", { email: form.email, password: form.password, redirect: false })
     setLoading(false)
     if (login?.error) { setError("Cuenta creada, pero no se pudo iniciar sesión automáticamente."); return }
     router.push("/")
@@ -91,150 +116,112 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen flex" style={{ background: "#071030" }}>
-      {/* LEFT */}
-      <div className="w-full lg:w-5/12 flex flex-col items-center justify-center p-10" style={{ background: "#ffffff", minHeight: "100vh" }}>
-        {/* Logo */}
-        <div className="w-full max-w-sm mb-10">
-          <Link href="/login" className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
-              style={{ background: "linear-gradient(135deg,#1d4ed8,#3b82f6)", boxShadow: "0 4px 12px rgba(59,130,246,0.35)" }}>
-              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
-            <span className="font-bold text-sm tracking-wide" style={{ color: "#0f172a" }}>NO TIME TO WASTE</span>
-          </Link>
-        </div>
-
+    <div className="min-h-screen flex" style={{ background: "#0C0B09" }}>
+      {/* ──── LEFT: Form ──── */}
+      <div
+        className="w-full lg:w-5/12 flex flex-col items-center justify-center p-10"
+        style={{ background: "#0F0E0C", borderRight: "1px solid rgba(196,163,90,0.08)", minHeight: "100vh" }}
+      >
         <div className="w-full max-w-sm">
+          {/* Logo */}
+          <div className="mb-12">
+            <Link href="/login"><WatchLogo /></Link>
+          </div>
+
           {step === "form" ? (
             <>
-              {/* Avatar */}
-              <div className="flex justify-center mb-6">
-                <div className="w-20 h-20 rounded-full flex items-center justify-center"
-                  style={{ background: "linear-gradient(135deg,#dbeafe,#eff6ff)", border: "3px solid #bfdbfe", boxShadow: "0 4px 20px rgba(59,130,246,0.15)" }}>
-                  <svg width="34" height="34" fill="none" viewBox="0 0 24 24" stroke="#3b82f6" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-                  </svg>
-                </div>
-              </div>
-
-              <h2 className="text-2xl font-bold text-center mb-1" style={{ color: "#0f172a" }}>Crear cuenta</h2>
-              <p className="text-center text-sm mb-8" style={{ color: "#64748b" }}>Regístrate para empezar a comprar</p>
+              <h2 className="font-display italic mb-2" style={{ fontSize: "2rem", color: "#EDE8DF", fontWeight: 400 }}>
+                Crear cuenta
+              </h2>
+              <p className="text-sm mb-8" style={{ color: "#7A6E64" }}>
+                Regístrate para empezar a comprar
+              </p>
 
               <form onSubmit={handleRegister} className="space-y-4">
-                {/* Name */}
-                <div className="relative">
-                  <span className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none">
-                    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#94a3b8" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                    </svg>
-                  </span>
-                  <input name="name" type="text" value={form.name} onChange={handleChange} required placeholder="Nombre completo" className="input-store"
-                    onFocus={e => (e.target.style.borderColor = "#3b82f6")} onBlur={e => (e.target.style.borderColor = "#e8edf2")} />
-                </div>
-
-                {/* Email */}
-                <div className="relative">
-                  <span className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none">
-                    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#94a3b8" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                  </span>
-                  <input name="email" type="email" value={form.email} onChange={handleChange} required placeholder="Correo electrónico" className="input-store"
-                    onFocus={e => (e.target.style.borderColor = "#3b82f6")} onBlur={e => (e.target.style.borderColor = "#e8edf2")} />
-                </div>
-
-                {/* Password */}
-                <div className="relative">
-                  <span className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none">
-                    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#94a3b8" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                    </svg>
-                  </span>
-                  <input name="password" type="password" value={form.password} onChange={handleChange} required placeholder="Contraseña (mín. 8 caracteres)" className="input-store"
-                    onFocus={e => (e.target.style.borderColor = "#3b82f6")} onBlur={e => (e.target.style.borderColor = "#e8edf2")} />
-                </div>
-
-                {/* Confirm */}
-                <div className="relative">
-                  <span className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none">
-                    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#94a3b8" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                    </svg>
-                  </span>
-                  <input name="confirm" type="password" value={form.confirm} onChange={handleChange} required placeholder="Confirmar contraseña" className="input-store"
-                    onFocus={e => (e.target.style.borderColor = "#3b82f6")} onBlur={e => (e.target.style.borderColor = "#e8edf2")} />
-                </div>
+                {FIELDS.map(f => (
+                  <div key={f.name} className="relative">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="rgba(122,110,100,0.5)" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d={f.icon} />
+                      </svg>
+                    </span>
+                    <input
+                      name={f.name} type={f.type} value={form[f.name]}
+                      onChange={handleChange} required placeholder={f.placeholder}
+                      style={INPUT_STYLE}
+                      onFocus={e => (e.target.style.borderColor = "rgba(196,163,90,0.5)")}
+                      onBlur={e => (e.target.style.borderColor = "rgba(196,163,90,0.15)")}
+                    />
+                  </div>
+                ))}
 
                 {error && (
-                  <p className="text-xs px-3 py-2 rounded-lg" style={{ color: "#ef4444", background: "#fef2f2", border: "1px solid #fecaca" }}>{error}</p>
+                  <p className="text-xs px-3 py-2.5" style={{ color: "#ef4444", background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.2)", borderRadius: "0.25rem" }}>
+                    {error}
+                  </p>
                 )}
 
                 <button type="submit" disabled={loading}
-                  className="w-full py-3 rounded-xl text-sm font-bold text-white transition-all disabled:opacity-60"
-                  style={{ background: "linear-gradient(135deg,#1d4ed8,#3b82f6)", boxShadow: "0 4px 20px rgba(59,130,246,0.35)", letterSpacing: "0.06em", marginTop: "0.25rem" }}>
-                  {loading ? "ENVIANDO CÓDIGO..." : "CREAR CUENTA"}
+                  className="w-full py-3 text-xs uppercase tracking-[0.14em] transition-all duration-200 disabled:opacity-50 mt-2"
+                  style={{ background: "#C4A35A", color: "#0C0B09", borderRadius: "0.25rem", fontFamily: "var(--font-dm-sans)" }}>
+                  {loading ? "Enviando código..." : "Crear cuenta"}
                 </button>
               </form>
 
-              <p className="text-center text-xs mt-6" style={{ color: "#94a3b8" }}>
-                ¿Ya tienes cuenta?{" "}
-                <Link href="/login" className="font-semibold hover:underline" style={{ color: "#3b82f6" }}>Inicia sesión</Link>
-              </p>
+              <div className="mt-10 pt-6" style={{ borderTop: "1px solid rgba(196,163,90,0.08)" }}>
+                <p className="text-xs" style={{ color: "#7A6E64" }}>
+                  ¿Ya tienes cuenta?{" "}
+                  <Link href="/login" style={{ color: "#C4A35A" }}>Inicia sesión</Link>
+                </p>
+              </div>
             </>
           ) : (
             <>
-              {/* Verify step */}
-              <div className="flex justify-center mb-6">
-                <div className="w-20 h-20 rounded-full flex items-center justify-center"
-                  style={{ background: "linear-gradient(135deg,#d1fae5,#ecfdf5)", border: "3px solid #a7f3d0", boxShadow: "0 4px 20px rgba(16,185,129,0.15)" }}>
-                  <svg width="34" height="34" fill="none" viewBox="0 0 24 24" stroke="#10b981" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
-              </div>
-
-              <h2 className="text-2xl font-bold text-center mb-1" style={{ color: "#0f172a" }}>Revisa tu correo</h2>
-              <p className="text-center text-sm mb-2" style={{ color: "#64748b" }}>
+              <h2 className="font-display italic mb-2" style={{ fontSize: "2rem", color: "#EDE8DF", fontWeight: 400 }}>
+                Revisa tu correo
+              </h2>
+              <p className="text-sm mb-1" style={{ color: "#7A6E64" }}>
                 Enviamos un código de 6 dígitos a
               </p>
-              <p className="text-center text-sm font-semibold mb-8" style={{ color: "#1d4ed8" }}>{form.email}</p>
+              <p className="text-sm font-semibold mb-8" style={{ color: "#C4A35A" }}>{form.email}</p>
 
               <form onSubmit={handleVerify} className="space-y-4">
                 <input
-                  type="text"
-                  inputMode="numeric"
-                  maxLength={6}
-                  value={code}
-                  onChange={e => setCode(e.target.value.replace(/\D/g, ""))}
-                  required
-                  placeholder="Código de 6 dígitos"
-                  className="w-full text-center text-3xl font-bold tracking-[0.4em] outline-none rounded-xl py-4"
-                  style={{ background: "#f4f6f9", border: "1.5px solid #e8edf2", color: "#0f172a" }}
-                  onFocus={e => (e.target.style.borderColor = "#3b82f6")}
-                  onBlur={e => (e.target.style.borderColor = "#e8edf2")}
+                  type="text" inputMode="numeric" maxLength={6}
+                  value={code} onChange={e => setCode(e.target.value.replace(/\D/g, ""))}
+                  required placeholder="••••••"
+                  className="w-full text-center text-4xl font-bold tracking-[0.5em] outline-none py-4"
+                  style={{
+                    background: "rgba(255,255,255,0.03)",
+                    border: "1px solid rgba(196,163,90,0.15)",
+                    borderRadius: "0.375rem",
+                    color: "#C4A35A",
+                    fontFamily: "var(--font-dm-sans)",
+                  }}
+                  onFocus={e => (e.target.style.borderColor = "rgba(196,163,90,0.5)")}
+                  onBlur={e => (e.target.style.borderColor = "rgba(196,163,90,0.15)")}
                 />
 
                 {error && (
-                  <p className="text-xs px-3 py-2 rounded-lg" style={{ color: "#ef4444", background: "#fef2f2", border: "1px solid #fecaca" }}>{error}</p>
+                  <p className="text-xs px-3 py-2.5" style={{ color: "#ef4444", background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.2)", borderRadius: "0.25rem" }}>
+                    {error}
+                  </p>
                 )}
 
                 <button type="submit" disabled={loading || code.length < 6}
-                  className="w-full py-3 rounded-xl text-sm font-bold text-white transition-all disabled:opacity-60"
-                  style={{ background: "linear-gradient(135deg,#1d4ed8,#3b82f6)", boxShadow: "0 4px 20px rgba(59,130,246,0.35)", letterSpacing: "0.06em" }}>
-                  {loading ? "VERIFICANDO..." : "VERIFICAR Y ENTRAR"}
+                  className="w-full py-3 text-xs uppercase tracking-[0.14em] transition-all duration-200 disabled:opacity-50"
+                  style={{ background: "#C4A35A", color: "#0C0B09", borderRadius: "0.25rem", fontFamily: "var(--font-dm-sans)" }}>
+                  {loading ? "Verificando..." : "Verificar y entrar"}
                 </button>
               </form>
 
-              <div className="flex items-center justify-between mt-5">
+              <div className="flex items-center justify-between mt-6">
                 <button onClick={() => { setStep("form"); setError("") }}
-                  className="text-xs hover:underline" style={{ color: "#94a3b8" }}>
+                  className="text-xs transition-colors" style={{ color: "#7A6E64" }}>
                   ← Cambiar correo
                 </button>
                 <button onClick={handleResend} disabled={loading}
-                  className="text-xs font-semibold hover:underline disabled:opacity-50" style={{ color: "#3b82f6" }}>
+                  className="text-xs transition-colors disabled:opacity-50" style={{ color: "#C4A35A" }}>
                   Reenviar código
                 </button>
               </div>
@@ -243,15 +230,42 @@ export default function RegisterPage() {
         </div>
       </div>
 
-      {/* RIGHT */}
-      <div className="hidden lg:flex flex-1 relative overflow-hidden" style={{ background: "#071030" }}>
-        <GradientBlob />
-        <div className="relative z-10 flex flex-col justify-end p-14 pb-16 w-full">
-          <h1 className="text-7xl font-bold text-white leading-none tracking-tight" style={{ textShadow: "0 4px 30px rgba(0,0,0,0.4)" }}>
-            Welcome.
+      {/* ──── RIGHT: Brand panel ──── */}
+      <div className="hidden lg:flex flex-1 relative overflow-hidden items-center justify-center" style={{ background: "#0C0B09" }}>
+        <div className="absolute inset-0 pointer-events-none" style={{
+          background: "radial-gradient(ellipse at 50% 50%, rgba(196,163,90,0.05) 0%, transparent 70%)",
+        }} />
+
+        <svg viewBox="0 0 200 200" width="380" height="380" fill="none" style={{ opacity: 0.07 }}>
+          <circle cx="100" cy="100" r="90" stroke="#C4A35A" strokeWidth="1" />
+          <circle cx="100" cy="100" r="80" stroke="#C4A35A" strokeWidth="0.4" />
+          {Array.from({ length: 12 }).map((_, i) => {
+            const angle = (i * 30 - 90) * (Math.PI / 180)
+            const x1 = 100 + 74 * Math.cos(angle); const y1 = 100 + 74 * Math.sin(angle)
+            const x2 = 100 + 82 * Math.cos(angle); const y2 = 100 + 82 * Math.sin(angle)
+            return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#C4A35A" strokeWidth="2" strokeLinecap="round" />
+          })}
+          {Array.from({ length: 60 }).map((_, i) => {
+            if (i % 5 === 0) return null
+            const angle = (i * 6 - 90) * (Math.PI / 180)
+            const x1 = 100 + 76 * Math.cos(angle); const y1 = 100 + 76 * Math.sin(angle)
+            const x2 = 100 + 80 * Math.cos(angle); const y2 = 100 + 80 * Math.sin(angle)
+            return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#C4A35A" strokeWidth="0.8" strokeLinecap="round" />
+          })}
+          <line x1="100" y1="100" x2="100" y2="45" stroke="#C4A35A" strokeWidth="1.5" strokeLinecap="round" />
+          <line x1="100" y1="100" x2="135" y2="100" stroke="#C4A35A" strokeWidth="1.5" strokeLinecap="round" />
+          <circle cx="100" cy="100" r="3" fill="#C4A35A" />
+        </svg>
+
+        <div className="absolute bottom-14 left-14 right-14">
+          <h1 className="font-display italic leading-none" style={{ fontSize: "3.5rem", color: "rgba(237,232,223,0.08)", fontWeight: 400 }}>
+            No Time
           </h1>
-          <p className="mt-4 text-sm max-w-xs leading-relaxed" style={{ color: "rgba(191,219,254,0.7)" }}>
-            Crea tu cuenta y accede a nuestra colección exclusiva de productos.
+          <h1 className="font-display italic leading-none" style={{ fontSize: "3.5rem", color: "rgba(237,232,223,0.08)", fontWeight: 400 }}>
+            To Waste.
+          </h1>
+          <p className="text-xs mt-4 uppercase tracking-[0.2em]" style={{ color: "rgba(196,163,90,0.35)" }}>
+            Relojes que definen cada momento
           </p>
         </div>
       </div>

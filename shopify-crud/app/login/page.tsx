@@ -2,36 +2,39 @@
 import { useState, Suspense } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
 
-function GradientBlob() {
+function WatchLogo() {
   return (
-    <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-      {/* Main blob */}
-      <div
-        className="blob-animate"
-        style={{
-          width: "72%",
-          height: "72%",
-          background:
-            "linear-gradient(135deg, #e8d8a0 0%, #c8a85a 18%, #7ba5e8 55%, #1a2f8f 100%)",
-          boxShadow:
-            "0 30px 80px rgba(0,0,0,0.35), inset 0 0 60px rgba(255,255,255,0.08)",
-        }}
-      />
-      {/* Soft glow behind blob */}
-      <div
-        className="absolute"
-        style={{
-          width: "80%",
-          height: "80%",
-          background:
-            "radial-gradient(ellipse at 40% 50%, rgba(200,168,90,0.3) 0%, transparent 60%), radial-gradient(ellipse at 70% 60%, rgba(59,130,246,0.25) 0%, transparent 60%)",
-          filter: "blur(30px)",
-        }}
-      />
+    <div className="flex items-center gap-3">
+      <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+        <circle cx="16" cy="16" r="13" stroke="#C4A35A" strokeWidth="1" />
+        <circle cx="16" cy="16" r="1.5" fill="#C4A35A" />
+        <line x1="16" y1="4.5" x2="16" y2="7" stroke="#C4A35A" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="16" y1="16" x2="16" y2="9.5" stroke="#C4A35A" strokeWidth="1" strokeLinecap="round" />
+        <line x1="16" y1="16" x2="21.5" y2="16" stroke="#C4A35A" strokeWidth="1" strokeLinecap="round" />
+      </svg>
+      <span
+        className="font-display italic tracking-wide"
+        style={{ color: "#C4A35A", fontSize: "1.05rem", fontWeight: 600 }}
+      >
+        No Time To Waste
+      </span>
     </div>
   );
 }
+
+const INPUT_STYLE: React.CSSProperties = {
+  background: "rgba(255,255,255,0.03)",
+  border: "1px solid rgba(196,163,90,0.15)",
+  borderRadius: "0.375rem",
+  padding: "0.75rem 0.875rem 0.75rem 2.6rem",
+  fontSize: "0.875rem",
+  color: "#EDE8DF",
+  width: "100%",
+  outline: "none",
+  fontFamily: "var(--font-dm-sans)",
+};
 
 function LoginForm() {
   const router = useRouter();
@@ -56,167 +59,162 @@ function LoginForm() {
   }
 
   return (
-    <div className="min-h-screen flex" style={{ background: "#071030" }}>
+    <div className="min-h-screen flex" style={{ background: "#0C0B09" }}>
       {/* ──── LEFT: Form ──── */}
       <div
         className="w-full lg:w-5/12 flex flex-col items-center justify-center p-10"
-        style={{ background: "#ffffff", minHeight: "100vh" }}
+        style={{ background: "#0F0E0C", borderRight: "1px solid rgba(196,163,90,0.08)", minHeight: "100vh" }}
       >
-        {/* Logo */}
-        <div className="w-full max-w-sm mb-10">
-          <div className="flex items-center gap-2.5">
-            <div
-              className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
-              style={{
-                background: "linear-gradient(135deg, #1d4ed8, #3b82f6)",
-                boxShadow: "0 4px 12px rgba(59,130,246,0.35)",
-              }}
-            >
-              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
-            <span className="font-bold text-sm tracking-wide" style={{ color: "#0f172a" }}>
-              NO TIME TO WASTE
-            </span>
-          </div>
-        </div>
-
         <div className="w-full max-w-sm">
-          {/* Avatar */}
-          <div className="flex justify-center mb-6">
-            <div
-              className="w-20 h-20 rounded-full flex items-center justify-center"
-              style={{
-                background: "linear-gradient(135deg, #dbeafe, #eff6ff)",
-                border: "3px solid #bfdbfe",
-                boxShadow: "0 4px 20px rgba(59,130,246,0.15)",
-              }}
-            >
-              <svg width="34" height="34" fill="none" viewBox="0 0 24 24" stroke="#3b82f6" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-            </div>
+          {/* Logo */}
+          <div className="mb-12">
+            <WatchLogo />
           </div>
 
-          <h2 className="text-2xl font-bold text-center mb-1" style={{ color: "#0f172a" }}>
+          {/* Heading */}
+          <h2
+            className="font-display italic mb-2"
+            style={{ fontSize: "2rem", color: "#EDE8DF", fontWeight: 400 }}
+          >
             Bienvenido
           </h2>
-          <p className="text-center text-sm mb-8" style={{ color: "#64748b" }}>
+          <p className="text-sm mb-8" style={{ color: "#7A6E64" }}>
             Inicia sesión para continuar
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Email */}
             <div className="relative">
-              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none">
-                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#94a3b8" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="rgba(122,110,100,0.5)" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
               </span>
               <input
-                type="email"
-                value={form.email}
-                onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
-                required
-                placeholder="Email"
-                className="input-store"
-                onFocus={(e) => (e.target.style.borderColor = "#3b82f6")}
-                onBlur={(e) => (e.target.style.borderColor = "#e2e8f0")}
+                type="email" value={form.email} required placeholder="Email"
+                onChange={e => setForm(p => ({ ...p, email: e.target.value }))}
+                style={INPUT_STYLE}
+                onFocus={e => (e.target.style.borderColor = "rgba(196,163,90,0.5)")}
+                onBlur={e => (e.target.style.borderColor = "rgba(196,163,90,0.15)")}
               />
             </div>
 
             {/* Password */}
             <div className="relative">
-              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none">
-                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#94a3b8" strokeWidth={2}>
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="rgba(122,110,100,0.5)" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>
               </span>
               <input
-                type="password"
-                value={form.password}
-                onChange={(e) => setForm((p) => ({ ...p, password: e.target.value }))}
-                required
-                placeholder="Contraseña"
-                className="input-store"
-                onFocus={(e) => (e.target.style.borderColor = "#3b82f6")}
-                onBlur={(e) => (e.target.style.borderColor = "#e2e8f0")}
+                type="password" value={form.password} required placeholder="Contraseña"
+                onChange={e => setForm(p => ({ ...p, password: e.target.value }))}
+                style={INPUT_STYLE}
+                onFocus={e => (e.target.style.borderColor = "rgba(196,163,90,0.5)")}
+                onBlur={e => (e.target.style.borderColor = "rgba(196,163,90,0.15)")}
               />
             </div>
 
             {error && (
-              <p
-                className="text-xs px-3 py-2 rounded-lg"
-                style={{ color: "#ef4444", background: "#fef2f2", border: "1px solid #fecaca" }}
-              >
+              <p className="text-xs px-3 py-2.5" style={{ color: "#ef4444", background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.2)", borderRadius: "0.25rem" }}>
                 {error}
               </p>
             )}
 
             <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-3 rounded-xl text-sm font-bold text-white transition-all disabled:opacity-60"
-              style={{
-                background: "linear-gradient(135deg, #1d4ed8, #3b82f6)",
-                boxShadow: "0 4px 20px rgba(59,130,246,0.35)",
-                letterSpacing: "0.08em",
-                marginTop: "0.25rem",
-              }}
+              type="submit" disabled={loading}
+              className="w-full py-3 text-xs uppercase tracking-[0.14em] transition-all duration-200 disabled:opacity-50 mt-2"
+              style={{ background: "#C4A35A", color: "#0C0B09", borderRadius: "0.25rem", fontFamily: "var(--font-dm-sans)" }}
             >
-              {loading ? "VERIFICANDO..." : "INICIAR SESIÓN"}
+              {loading ? "Verificando..." : "Iniciar sesión"}
             </button>
-
-            <div className="flex items-center justify-between pt-1">
-              <label className="flex items-center gap-2 text-xs cursor-pointer select-none" style={{ color: "#64748b" }}>
-                <input type="checkbox" className="rounded" style={{ accentColor: "#3b82f6" }} />
-                Recordarme
-              </label>
-              <a href="/" className="text-xs transition-colors hover:underline" style={{ color: "#3b82f6" }}>
-                ¿Olvidaste tu contraseña?
-              </a>
-            </div>
           </form>
 
-          <p className="text-center text-xs mt-6" style={{ color: "#94a3b8" }}>
-            ¿No tienes cuenta?{" "}
-            <a href="/register" className="font-semibold hover:underline" style={{ color: "#3b82f6" }}>
-              Regístrate
-            </a>
-          </p>
-          <p className="text-center text-xs mt-3" style={{ color: "#94a3b8" }}>
-            ¿Solo quieres ver la tienda?{" "}
-            <a href="/" className="font-semibold hover:underline" style={{ color: "#3b82f6" }}>
-              Ir al catálogo
-            </a>
-          </p>
+          <div className="flex items-center justify-between mt-5">
+            <label className="flex items-center gap-2 text-xs cursor-pointer select-none" style={{ color: "#7A6E64" }}>
+              <input type="checkbox" style={{ accentColor: "#C4A35A" }} />
+              Recordarme
+            </label>
+          </div>
+
+          <div
+            className="mt-10 pt-6 space-y-2"
+            style={{ borderTop: "1px solid rgba(196,163,90,0.08)" }}
+          >
+            <p className="text-xs" style={{ color: "#7A6E64" }}>
+              ¿No tienes cuenta?{" "}
+              <Link href="/register" className="transition-colors duration-150" style={{ color: "#C4A35A" }}>
+                Regístrate
+              </Link>
+            </p>
+            <p className="text-xs" style={{ color: "#7A6E64" }}>
+              ¿Solo quieres ver la tienda?{" "}
+              <Link href="/" className="transition-colors duration-150" style={{ color: "#C4A35A" }}>
+                Ir al catálogo
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* ──── RIGHT: Hero ──── */}
-      <div
-        className="hidden lg:flex flex-1 relative overflow-hidden"
-        style={{ background: "#071030" }}
-      >
-        <GradientBlob />
+      {/* ──── RIGHT: Brand panel ──── */}
+      <div className="hidden lg:flex flex-1 relative overflow-hidden items-center justify-center" style={{ background: "#0C0B09" }}>
+        {/* Ambient glow */}
+        <div className="absolute inset-0 pointer-events-none" style={{
+          background: "radial-gradient(ellipse at 50% 50%, rgba(196,163,90,0.05) 0%, transparent 70%)",
+        }} />
 
-        {/* Bottom text */}
-        <div className="relative z-10 flex flex-col justify-end p-14 pb-16 w-full">
+        {/* Large ghost watch */}
+        <svg
+          viewBox="0 0 200 200"
+          width="380"
+          height="380"
+          fill="none"
+          style={{ opacity: 0.07 }}
+        >
+          <circle cx="100" cy="100" r="90" stroke="#C4A35A" strokeWidth="1" />
+          <circle cx="100" cy="100" r="80" stroke="#C4A35A" strokeWidth="0.4" />
+          {/* Hour marks */}
+          {Array.from({ length: 12 }).map((_, i) => {
+            const angle = (i * 30 - 90) * (Math.PI / 180);
+            const x1 = 100 + 74 * Math.cos(angle);
+            const y1 = 100 + 74 * Math.sin(angle);
+            const x2 = 100 + 82 * Math.cos(angle);
+            const y2 = 100 + 82 * Math.sin(angle);
+            return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#C4A35A" strokeWidth="2" strokeLinecap="round" />;
+          })}
+          {/* Minute marks */}
+          {Array.from({ length: 60 }).map((_, i) => {
+            if (i % 5 === 0) return null;
+            const angle = (i * 6 - 90) * (Math.PI / 180);
+            const x1 = 100 + 76 * Math.cos(angle);
+            const y1 = 100 + 76 * Math.sin(angle);
+            const x2 = 100 + 80 * Math.cos(angle);
+            const y2 = 100 + 80 * Math.sin(angle);
+            return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#C4A35A" strokeWidth="0.8" strokeLinecap="round" />;
+          })}
+          {/* Hands */}
+          <line x1="100" y1="100" x2="100" y2="45" stroke="#C4A35A" strokeWidth="1.5" strokeLinecap="round" />
+          <line x1="100" y1="100" x2="135" y2="100" stroke="#C4A35A" strokeWidth="1.5" strokeLinecap="round" />
+          <circle cx="100" cy="100" r="3" fill="#C4A35A" />
+        </svg>
+
+        {/* Brand text */}
+        <div className="absolute bottom-14 left-14 right-14">
           <h1
-            className="text-7xl font-bold text-white leading-none tracking-tight"
-            style={{ textShadow: "0 4px 30px rgba(0,0,0,0.4)" }}
+            className="font-display italic leading-none"
+            style={{ fontSize: "3.5rem", color: "rgba(237,232,223,0.08)", fontWeight: 400 }}
           >
-            Welcome.
+            No Time
           </h1>
-          <p className="mt-4 text-sm max-w-xs leading-relaxed" style={{ color: "rgba(191,219,254,0.7)" }}>
-            Accede a tu cuenta para descubrir nuestra colección exclusiva de productos.
-          </p>
-          <p className="mt-6 text-xs font-medium" style={{ color: "rgba(148,163,184,0.5)" }}>
-            ¿No tienes cuenta?{" "}
-            <a href="/" style={{ color: "#93c5fd" }} className="hover:underline">
-              Visita la tienda
-            </a>
+          <h1
+            className="font-display italic leading-none"
+            style={{ fontSize: "3.5rem", color: "rgba(237,232,223,0.08)", fontWeight: 400 }}
+          >
+            To Waste.
+          </h1>
+          <p className="text-xs mt-4 uppercase tracking-[0.2em]" style={{ color: "rgba(196,163,90,0.35)" }}>
+            Relojes que definen cada momento
           </p>
         </div>
       </div>
