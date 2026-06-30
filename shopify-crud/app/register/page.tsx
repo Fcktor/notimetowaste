@@ -3,6 +3,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { signIn } from "next-auth/react"
+import { WatchClock } from "@/components/WatchClock"
 
 function WatchLogo() {
   return (
@@ -231,40 +232,20 @@ export default function RegisterPage() {
       </div>
 
       {/* ──── RIGHT: Brand panel ──── */}
-      <div className="hidden lg:flex flex-1 relative overflow-hidden items-center justify-center" style={{ background: "#0C0B09" }}>
+      <div className="hidden lg:flex flex-1 relative overflow-hidden flex-col items-center justify-center gap-10" style={{ background: "#0C0B09" }}>
         <div className="absolute inset-0 pointer-events-none" style={{
-          background: "radial-gradient(ellipse at 50% 50%, rgba(196,163,90,0.05) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse at 50% 45%, rgba(196,163,90,0.07) 0%, transparent 65%)",
         }} />
 
-        <svg viewBox="0 0 200 200" width="380" height="380" fill="none" style={{ opacity: 0.07 }}>
-          <circle cx="100" cy="100" r="90" stroke="#C4A35A" strokeWidth="1" />
-          <circle cx="100" cy="100" r="80" stroke="#C4A35A" strokeWidth="0.4" />
-          {Array.from({ length: 12 }).map((_, i) => {
-            const angle = (i * 30 - 90) * (Math.PI / 180)
-            const x1 = 100 + 74 * Math.cos(angle); const y1 = 100 + 74 * Math.sin(angle)
-            const x2 = 100 + 82 * Math.cos(angle); const y2 = 100 + 82 * Math.sin(angle)
-            return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#C4A35A" strokeWidth="2" strokeLinecap="round" />
-          })}
-          {Array.from({ length: 60 }).map((_, i) => {
-            if (i % 5 === 0) return null
-            const angle = (i * 6 - 90) * (Math.PI / 180)
-            const x1 = 100 + 76 * Math.cos(angle); const y1 = 100 + 76 * Math.sin(angle)
-            const x2 = 100 + 80 * Math.cos(angle); const y2 = 100 + 80 * Math.sin(angle)
-            return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#C4A35A" strokeWidth="0.8" strokeLinecap="round" />
-          })}
-          <line x1="100" y1="100" x2="100" y2="45" stroke="#C4A35A" strokeWidth="1.5" strokeLinecap="round" />
-          <line x1="100" y1="100" x2="135" y2="100" stroke="#C4A35A" strokeWidth="1.5" strokeLinecap="round" />
-          <circle cx="100" cy="100" r="3" fill="#C4A35A" />
-        </svg>
+        <div className="relative z-10">
+          <WatchClock size={300} />
+        </div>
 
-        <div className="absolute bottom-14 left-14 right-14">
-          <h1 className="font-display italic leading-none" style={{ fontSize: "3.5rem", color: "rgba(237,232,223,0.08)", fontWeight: 400 }}>
-            No Time
+        <div className="relative z-10 text-center">
+          <h1 className="font-display italic leading-none" style={{ fontSize: "2rem", color: "rgba(237,232,223,0.55)", fontWeight: 400, letterSpacing: "0.04em" }}>
+            No Time To Waste
           </h1>
-          <h1 className="font-display italic leading-none" style={{ fontSize: "3.5rem", color: "rgba(237,232,223,0.08)", fontWeight: 400 }}>
-            To Waste.
-          </h1>
-          <p className="text-xs mt-4 uppercase tracking-[0.2em]" style={{ color: "rgba(196,163,90,0.35)" }}>
+          <p className="text-[10px] mt-3 uppercase tracking-[0.25em]" style={{ color: "rgba(196,163,90,0.4)" }}>
             Relojes que definen cada momento
           </p>
         </div>
