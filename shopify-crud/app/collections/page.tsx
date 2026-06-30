@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { StorefrontHeader } from "@/components/StorefrontHeader"
+import { CartDrawer } from "@/components/CartDrawer"
 import { getCollections, FIELD_LABELS, matchesRule } from "@/lib/collectionsStore"
 import { CF_GET } from "@/lib/config"
 
@@ -22,75 +23,76 @@ export default async function CollectionsPage() {
   const collections = await getEnrichedCollections()
 
   return (
-    <div className="min-h-screen" style={{ background: "#f8fafc" }}>
+    <div className="min-h-screen" style={{ background: "#0C0B09" }}>
       <StorefrontHeader />
+      <CartDrawer />
 
-      <main className="max-w-7xl mx-auto px-6 py-12">
-        <div className="mb-10">
-          <h1 className="text-3xl font-bold tracking-tight mb-2" style={{ color: "#0f172a" }}>
+      <main className="max-w-7xl mx-auto px-6 py-14">
+        {/* Header */}
+        <div className="mb-12">
+          <p className="text-[10px] uppercase tracking-[0.22em] mb-4" style={{ color: "rgba(196,163,90,0.6)" }}>
+            Categorías
+          </p>
+          <h1
+            className="font-display italic leading-tight"
+            style={{ fontSize: "3rem", color: "#EDE8DF", fontWeight: 400 }}
+          >
             Colecciones
           </h1>
-          <p className="text-sm" style={{ color: "#64748b" }}>
-            Explora nuestra selección de relojes organizados por estilo y características
+          <p className="text-sm mt-3" style={{ color: "#7A6E64" }}>
+            Relojes organizados por estilo y características
           </p>
         </div>
 
         {collections.length === 0 ? (
-          <div
-            className="rounded-2xl p-16 text-center"
-            style={{ background: "white", border: "1px solid #e2e8f0" }}
-          >
-            <p className="text-sm" style={{ color: "#94a3b8" }}>
+          <div className="py-24 text-center">
+            <p className="text-sm" style={{ color: "#7A6E64" }}>
               No hay colecciones disponibles por el momento.
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {collections.map(col => (
               <Link key={col.id} href={`/collections/${col.id}`} className="group">
                 <div
-                  className="rounded-2xl p-6 h-full flex flex-col justify-between transition-all duration-200 group-hover:shadow-lg group-hover:-translate-y-0.5"
+                  className="p-6 h-full flex flex-col justify-between transition-all duration-300"
                   style={{
-                    background: "white",
-                    border: "1px solid #e2e8f0",
+                    background: "#1C1916",
+                    border: "1px solid rgba(196,163,90,0.1)",
+                    borderRadius: "0.5rem",
                   }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(196,163,90,0.3)" }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(196,163,90,0.1)" }}
                 >
                   <div>
-                    <div
-                      className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
-                      style={{ background: "#eff6ff", border: "1px solid #bfdbfe" }}
-                    >
-                      <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#3b82f6" strokeWidth={1.8}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    {/* Icono reloj */}
+                    <div className="mb-5">
+                      <svg width="24" height="24" viewBox="0 0 32 32" fill="none" style={{ opacity: 0.4 }}>
+                        <circle cx="16" cy="16" r="14" stroke="#C4A35A" strokeWidth="1" />
+                        <line x1="16" y1="4" x2="16" y2="7" stroke="#C4A35A" strokeWidth="1.5" strokeLinecap="round" />
+                        <line x1="16" y1="16" x2="16" y2="9.5" stroke="#C4A35A" strokeWidth="1" strokeLinecap="round" />
+                        <line x1="16" y1="16" x2="21" y2="16" stroke="#C4A35A" strokeWidth="1" strokeLinecap="round" />
                       </svg>
                     </div>
+
                     <h2
-                      className="text-lg font-bold mb-1 transition-colors group-hover:text-blue-600"
-                      style={{ color: "#0f172a" }}
+                      className="font-display italic text-xl mb-1.5 transition-colors duration-200"
+                      style={{ color: "#C4A35A", fontWeight: 600 }}
                     >
                       {col.name}
                     </h2>
-                    <p className="text-xs mb-4" style={{ color: "#94a3b8" }}>
+                    <p className="text-[10px] uppercase tracking-[0.14em]" style={{ color: "rgba(122,110,100,0.6)" }}>
                       {FIELD_LABELS[col.rule_field] ?? col.rule_field}: {col.rule_value}
                     </p>
                   </div>
 
-                  <div className="flex items-center justify-between">
-                    <span
-                      className="text-sm font-semibold px-3 py-1 rounded-full"
-                      style={{ background: "#eff6ff", color: "#1d4ed8" }}
-                    >
+                  <div className="flex items-center justify-between mt-6 pt-4" style={{ borderTop: "1px solid rgba(196,163,90,0.08)" }}>
+                    <span className="text-[10px] uppercase tracking-widest" style={{ color: "rgba(196,163,90,0.5)" }}>
                       {col.product_count} {col.product_count === 1 ? "reloj" : "relojes"}
                     </span>
-                    <span
-                      className="text-sm font-medium flex items-center gap-1 transition-colors group-hover:text-blue-600"
-                      style={{ color: "#94a3b8" }}
-                    >
-                      Ver colección
-                      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                      </svg>
-                    </span>
+                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#C4A35A" strokeWidth={1.5} style={{ opacity: 0.5, transition: "opacity 0.2s" }}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
                   </div>
                 </div>
               </Link>

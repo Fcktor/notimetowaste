@@ -21,6 +21,23 @@ const FIELDS = [
   { name: "city" as const,    label: "Ciudad",           placeholder: "Lima",               type: "text",  icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" },
 ];
 
+const CARD_STYLE = {
+  background: "#1C1916",
+  border: "1px solid rgba(196,163,90,0.1)",
+  borderRadius: "0.5rem",
+};
+
+const INPUT_STYLE = {
+  background: "rgba(255,255,255,0.03)",
+  border: "1px solid rgba(196,163,90,0.15)",
+  borderRadius: "0.375rem",
+  padding: "0.65rem 0.875rem 0.65rem 2.5rem",
+  fontSize: "0.875rem",
+  color: "#EDE8DF",
+  width: "100%",
+  outline: "none",
+};
+
 export default function CartPage() {
   const { items, total, clearCart } = useCart();
   const [form, setForm] = useState<FormData>({ name: "", email: "", phone: "", address: "", city: "" });
@@ -38,41 +55,33 @@ export default function CartPage() {
     setLoading(true);
     setOrderedName(form.name);
     setOrderedEmail(form.email);
-    setTimeout(() => {
-      setLoading(false);
-      setOrdered(true);
-      clearCart();
-    }, 1500);
+    setTimeout(() => { setLoading(false); setOrdered(true); clearCart(); }, 1500);
   }
 
   if (ordered) {
     return (
-      <div className="min-h-screen relative overflow-hidden" style={{ background: "#071030" }}>
-        <BlobBg />
+      <div className="min-h-screen" style={{ background: "#0C0B09" }}>
         <StorefrontHeader />
         <CartDrawer />
-        <div className="flex items-center justify-center min-h-[80vh] p-6 relative z-10">
-          <div className="store-card p-10 text-center max-w-sm w-full">
-            <div
-              className="w-16 h-16 rounded-2xl mx-auto mb-5 flex items-center justify-center"
-              style={{ background: "linear-gradient(135deg, #d1fae5, #ecfdf5)", border: "1px solid #a7f3d0" }}
-            >
-              <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="#10b981" strokeWidth={2}>
+        <div className="flex items-center justify-center min-h-[80vh] p-6">
+          <div className="p-10 text-center max-w-sm w-full" style={CARD_STYLE}>
+            <div className="w-12 h-12 mx-auto mb-6 flex items-center justify-center"
+              style={{ border: "1px solid rgba(196,163,90,0.3)", borderRadius: "0.25rem" }}>
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#C4A35A" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h2 className="text-2xl font-bold mb-2" style={{ color: "#0f172a" }}>¡Pedido recibido!</h2>
-            <p className="text-sm mb-6" style={{ color: "#64748b" }}>
-              Gracias <span style={{ color: "#0f172a", fontWeight: 600 }}>{orderedName}</span>, te contactaremos pronto al correo{" "}
-              <span style={{ color: "#1d4ed8" }}>{orderedEmail}</span>.
+            <h2 className="font-display italic text-2xl mb-3" style={{ color: "#C4A35A", fontWeight: 600 }}>
+              ¡Pedido recibido!
+            </h2>
+            <p className="text-sm mb-6 leading-relaxed" style={{ color: "#7A6E64" }}>
+              Gracias <span style={{ color: "#EDE8DF" }}>{orderedName}</span>, te contactaremos pronto al correo{" "}
+              <span style={{ color: "#C4A35A" }}>{orderedEmail}</span>.
             </p>
-            <Link href="/">
-              <button
-                className="px-6 py-2.5 rounded-xl text-sm font-bold text-white"
-                style={{ background: "linear-gradient(135deg, #1d4ed8, #3b82f6)", boxShadow: "0 4px 20px rgba(59,130,246,0.3)" }}
-              >
-                Seguir comprando
-              </button>
+            <Link href="/"
+              className="inline-block px-6 py-2.5 text-xs uppercase tracking-[0.14em] transition-all duration-200"
+              style={{ background: "#C4A35A", color: "#0C0B09", borderRadius: "0.25rem" }}>
+              Seguir explorando
             </Link>
           </div>
         </div>
@@ -82,17 +91,22 @@ export default function CartPage() {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen relative overflow-hidden" style={{ background: "#071030" }}>
-        <BlobBg />
+      <div className="min-h-screen" style={{ background: "#0C0B09" }}>
         <StorefrontHeader />
         <CartDrawer />
-        <div className="flex items-center justify-center min-h-[80vh] p-6 relative z-10">
-          <div className="store-card p-10 text-center">
-            <p className="text-sm mb-4" style={{ color: "#64748b" }}>Tu carrito está vacío.</p>
-            <Link href="/">
-              <button className="px-5 py-2.5 rounded-xl text-sm font-bold text-white" style={{ background: "linear-gradient(135deg, #1d4ed8, #3b82f6)" }}>
-                Ver productos
-              </button>
+        <div className="flex items-center justify-center min-h-[80vh] p-6">
+          <div className="p-10 text-center" style={CARD_STYLE}>
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" className="mx-auto mb-5" style={{ opacity: 0.2 }}>
+              <circle cx="16" cy="16" r="14" stroke="#C4A35A" strokeWidth="1" />
+              <line x1="16" y1="4" x2="16" y2="7.5" stroke="#C4A35A" strokeWidth="1.5" strokeLinecap="round" />
+              <line x1="16" y1="16" x2="16" y2="9" stroke="#C4A35A" strokeWidth="1" strokeLinecap="round" />
+              <line x1="16" y1="16" x2="21" y2="16" stroke="#C4A35A" strokeWidth="1" strokeLinecap="round" />
+            </svg>
+            <p className="text-sm mb-5" style={{ color: "#7A6E64" }}>Tu carrito está vacío.</p>
+            <Link href="/"
+              className="inline-block px-5 py-2.5 text-xs uppercase tracking-[0.14em] transition-all duration-200"
+              style={{ background: "#C4A35A", color: "#0C0B09", borderRadius: "0.25rem" }}>
+              Ver colección
             </Link>
           </div>
         </div>
@@ -101,145 +115,121 @@ export default function CartPage() {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden" style={{ background: "#071030" }}>
-      <BlobBg />
+    <div className="min-h-screen" style={{ background: "#0C0B09" }}>
       <StorefrontHeader />
       <CartDrawer />
 
-      <main className="relative z-10 max-w-5xl mx-auto px-6 py-10">
-        <div className="mb-8">
-          <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "rgba(148,163,184,0.6)" }}>
+      <main className="max-w-5xl mx-auto px-6 py-12">
+        <div className="mb-10">
+          <p className="text-[10px] uppercase tracking-[0.22em] mb-3" style={{ color: "rgba(196,163,90,0.6)" }}>
             Checkout
           </p>
-          <h1 className="text-4xl font-bold text-white tracking-tight">Finalizar compra</h1>
+          <h1 className="font-display italic" style={{ fontSize: "2.5rem", color: "#EDE8DF", fontWeight: 400 }}>
+            Finalizar compra
+          </h1>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
           {/* Form */}
           <form onSubmit={handleOrder} className="lg:col-span-3 space-y-4">
-            <div className="store-card p-6 space-y-4">
-              <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: "#94a3b8" }}>
+            <div className="p-6 space-y-4" style={CARD_STYLE}>
+              <p className="text-[9px] uppercase tracking-[0.2em] mb-2" style={{ color: "rgba(196,163,90,0.5)" }}>
                 Datos de contacto
               </p>
               {FIELDS.slice(0, 3).map((f) => (
                 <div key={f.name} className="relative">
-                  <span className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none">
-                    <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="#94a3b8" strokeWidth={2}>
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="rgba(122,110,100,0.5)" strokeWidth={1.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d={f.icon} />
                     </svg>
                   </span>
                   <input
-                    name={f.name}
-                    type={f.type}
-                    value={form[f.name]}
-                    onChange={handleChange}
-                    required
-                    placeholder={f.placeholder}
-                    className="input-store"
-                    onFocus={(e) => (e.target.style.borderColor = "#3b82f6")}
-                    onBlur={(e) => (e.target.style.borderColor = "#e2e8f0")}
+                    name={f.name} type={f.type} value={form[f.name]}
+                    onChange={handleChange} required placeholder={f.placeholder}
+                    style={INPUT_STYLE}
+                    onFocus={e => (e.target.style.borderColor = "rgba(196,163,90,0.5)")}
+                    onBlur={e => (e.target.style.borderColor = "rgba(196,163,90,0.15)")}
                   />
                 </div>
               ))}
             </div>
 
-            <div className="store-card p-6 space-y-4">
-              <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: "#94a3b8" }}>
+            <div className="p-6 space-y-4" style={CARD_STYLE}>
+              <p className="text-[9px] uppercase tracking-[0.2em] mb-2" style={{ color: "rgba(196,163,90,0.5)" }}>
                 Dirección de envío
               </p>
               {FIELDS.slice(3).map((f) => (
                 <div key={f.name} className="relative">
-                  <span className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none">
-                    <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="#94a3b8" strokeWidth={2}>
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="rgba(122,110,100,0.5)" strokeWidth={1.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d={f.icon} />
                     </svg>
                   </span>
                   <input
-                    name={f.name}
-                    type={f.type}
-                    value={form[f.name]}
-                    onChange={handleChange}
-                    required
-                    placeholder={f.placeholder}
-                    className="input-store"
-                    onFocus={(e) => (e.target.style.borderColor = "#3b82f6")}
-                    onBlur={(e) => (e.target.style.borderColor = "#e2e8f0")}
+                    name={f.name} type={f.type} value={form[f.name]}
+                    onChange={handleChange} required placeholder={f.placeholder}
+                    style={INPUT_STYLE}
+                    onFocus={e => (e.target.style.borderColor = "rgba(196,163,90,0.5)")}
+                    onBlur={e => (e.target.style.borderColor = "rgba(196,163,90,0.15)")}
                   />
                 </div>
               ))}
             </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-3.5 rounded-xl text-sm font-bold text-white transition-all disabled:opacity-60"
-              style={{ background: "linear-gradient(135deg, #1d4ed8, #3b82f6)", boxShadow: "0 4px 20px rgba(59,130,246,0.4)" }}
-            >
+            <button type="submit" disabled={loading}
+              className="w-full py-3.5 text-xs uppercase tracking-[0.14em] transition-all duration-200 disabled:opacity-50"
+              style={{ background: "#C4A35A", color: "#0C0B09", borderRadius: "0.25rem", fontFamily: "var(--font-dm-sans)" }}>
               {loading ? "Procesando..." : "Confirmar pedido →"}
             </button>
           </form>
 
-          {/* Order Summary */}
+          {/* Resumen */}
           <div className="lg:col-span-2">
-            <div className="store-card p-5 sticky top-24">
-              <p className="text-xs font-semibold uppercase tracking-wider mb-4" style={{ color: "#94a3b8" }}>
-                Resumen del pedido
+            <div className="p-5 sticky top-24" style={CARD_STYLE}>
+              <p className="text-[9px] uppercase tracking-[0.2em] mb-5" style={{ color: "rgba(196,163,90,0.5)" }}>
+                Resumen
               </p>
-              <div className="space-y-3 mb-5">
+              <div className="space-y-4 mb-6">
                 {items.map((item) => (
                   <div key={item.id} className="flex items-center gap-3">
-                    <div
-                      className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0"
-                      style={{ background: "#f1f5f9", border: "1px solid #e2e8f0" }}
-                    >
+                    <div className="w-12 h-12 overflow-hidden flex-shrink-0"
+                      style={{ background: "#161310", border: "1px solid rgba(196,163,90,0.1)", borderRadius: "0.25rem" }}>
                       {item.image_link && (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img src={item.image_link} alt={item.title} className="w-full h-full object-cover" />
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs font-semibold truncate" style={{ color: "#0f172a" }}>{item.title}</p>
-                      <p className="text-[10px]" style={{ color: "#94a3b8" }}>x{item.quantity}</p>
+                      <p className="text-xs truncate" style={{ color: "#EDE8DF" }}>{item.title}</p>
+                      <p className="text-[10px] mt-0.5" style={{ color: "rgba(122,110,100,0.6)" }}>x{item.quantity}</p>
                     </div>
-                    <span className="text-sm font-bold" style={{ color: "#1d4ed8" }}>
-                      ${(item.price * item.quantity).toFixed(2)}
+                    <span className="text-sm font-semibold" style={{ color: "#C4A35A" }}>
+                      S/ {(item.price * item.quantity).toLocaleString("es-PE")}
                     </span>
                   </div>
                 ))}
               </div>
-              <div className="space-y-2 pt-4" style={{ borderTop: "1px solid #f1f5f9" }}>
+
+              <div className="space-y-2 pt-4" style={{ borderTop: "1px solid rgba(196,163,90,0.1)" }}>
                 <div className="flex justify-between">
-                  <span className="text-xs" style={{ color: "#64748b" }}>Subtotal</span>
-                  <span className="text-sm font-semibold" style={{ color: "#334155" }}>${total.toFixed(2)}</span>
+                  <span className="text-xs" style={{ color: "#7A6E64" }}>Subtotal</span>
+                  <span className="text-sm" style={{ color: "#EDE8DF" }}>S/ {total.toLocaleString("es-PE")}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-xs" style={{ color: "#64748b" }}>Envío</span>
-                  <span className="text-xs font-semibold" style={{ color: "#10b981" }}>Gratis</span>
+                  <span className="text-xs" style={{ color: "#7A6E64" }}>Envío</span>
+                  <span className="text-xs" style={{ color: "rgba(196,163,90,0.7)" }}>A coordinar</span>
                 </div>
-                <div className="flex justify-between items-center pt-2" style={{ borderTop: "1px solid #f1f5f9" }}>
-                  <span className="text-sm font-bold" style={{ color: "#0f172a" }}>Total</span>
-                  <span className="text-2xl font-bold" style={{ color: "#1d4ed8" }}>${total.toFixed(2)}</span>
+                <div className="flex justify-between items-center pt-3" style={{ borderTop: "1px solid rgba(196,163,90,0.08)" }}>
+                  <span className="text-xs uppercase tracking-widest" style={{ color: "#7A6E64" }}>Total</span>
+                  <span className="text-2xl font-semibold" style={{ color: "#C4A35A", fontFamily: "var(--font-dm-sans)" }}>
+                    S/ {total.toLocaleString("es-PE")}
+                  </span>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </main>
-    </div>
-  );
-}
-
-function BlobBg() {
-  return (
-    <div className="pointer-events-none select-none" aria-hidden>
-      <div
-        className="blob-animate absolute"
-        style={{ width: 480, height: 480, top: -100, right: -60, background: "linear-gradient(135deg, #e8d8a0 0%, #c8a85a 20%, #7ba5e8 55%, #1a2f8f 100%)", opacity: 0.8, filter: "blur(2px)" }}
-      />
-      <div
-        className="absolute"
-        style={{ width: 500, height: 350, bottom: -80, left: -120, background: "radial-gradient(ellipse at 50% 50%, rgba(59,130,246,0.18) 0%, transparent 70%)", filter: "blur(40px)" }}
-      />
     </div>
   );
 }
