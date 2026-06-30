@@ -24,6 +24,10 @@ export default async function CollectionsPage() {
 
   return (
     <div className="min-h-screen" style={{ background: "#0C0B09" }}>
+      <style>{`
+        .col-card { border: 1px solid rgba(196,163,90,0.1); transition: border-color 0.3s; }
+        .col-card:hover { border-color: rgba(196,163,90,0.3); }
+      `}</style>
       <StorefrontHeader />
       <CartDrawer />
 
@@ -55,14 +59,8 @@ export default async function CollectionsPage() {
             {collections.map(col => (
               <Link key={col.id} href={`/collections/${col.id}`} className="group">
                 <div
-                  className="p-6 h-full flex flex-col justify-between transition-all duration-300"
-                  style={{
-                    background: "#1C1916",
-                    border: "1px solid rgba(196,163,90,0.1)",
-                    borderRadius: "0.5rem",
-                  }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(196,163,90,0.3)" }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(196,163,90,0.1)" }}
+                  className="col-card p-6 h-full flex flex-col justify-between"
+                  style={{ background: "#1C1916", borderRadius: "0.5rem" }}
                 >
                   <div>
                     {/* Icono reloj */}
