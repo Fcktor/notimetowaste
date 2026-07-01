@@ -1,0 +1,20 @@
+{
+  "hosting": {
+    "site": "notimetowaste",
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "run": {
+          "serviceId": "shopify-crud",
+          "region": "southamerica-east1"
+        }
+      }
+    ]
+  }
+}
