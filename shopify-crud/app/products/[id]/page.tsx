@@ -94,7 +94,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-14">
 
           {/* ── Imagen ── */}
-          <div className="flex items-start justify-center">
+          <div className="flex flex-col items-center">
             <div
               className="w-full overflow-hidden"
               style={{
@@ -122,6 +122,11 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                 </div>
               )}
             </div>
+            {product.image_url && (
+              <p className="text-[10px] uppercase tracking-[0.14em] mt-3 text-center" style={{ color: "rgba(122,110,100,0.55)" }}>
+                Imagen referencial — el producto real puede variar ligeramente en detalles
+              </p>
+            )}
           </div>
 
           {/* ── Info ── */}

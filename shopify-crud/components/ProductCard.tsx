@@ -109,6 +109,23 @@ export function ProductCard({ product }: { product: Watch }) {
             )}
           </div>
 
+          {/* Referential image note */}
+          {product.image_url && (
+            <div className="absolute bottom-3 left-3">
+              <span
+                className="text-[8px] uppercase tracking-widest px-2 py-0.5"
+                style={{
+                  background: "rgba(12,11,9,0.7)",
+                  color: "rgba(237,232,223,0.5)",
+                  border: "1px solid rgba(237,232,223,0.12)",
+                  borderRadius: "2px",
+                }}
+              >
+                Imagen referencial
+              </span>
+            </div>
+          )}
+
           {/* Condition badge */}
           {product.condition && inStock && (
             <div className="absolute top-3 right-3">

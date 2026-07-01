@@ -335,10 +335,7 @@ export function StorefrontFilters({ products }: { products: Product[] }) {
               </button>
             </div>
           ) : (
-            <div
-              className="grid gap-5"
-              style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
-            >
+            <div className={`grid gap-5 grid-cols-2 ${cols === 3 ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}>
               {filtered.map(p => <ProductCard key={p.id} product={p} />)}
             </div>
           )}

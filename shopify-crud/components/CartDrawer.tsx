@@ -18,7 +18,7 @@ export function CartDrawer() {
 
       {/* Drawer */}
       <div
-        className="fixed right-0 top-0 h-full w-[22rem] z-50 flex flex-col"
+        className="fixed right-0 top-0 h-full w-full max-w-[22rem] z-50 flex flex-col"
         style={{
           background: "#0F0E0C",
           borderLeft: "1px solid rgba(196,163,90,0.12)",
