@@ -55,7 +55,7 @@ export function DeleteModal({
       <button
         onClick={() => setOpen(true)}
         className="inline-flex items-center justify-center w-8 h-8 rounded-lg transition-all duration-150"
-        style={{ color: "#f87171", background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.15)" }}
+        style={{ color: "var(--status-danger-fg)", background: "var(--status-danger-bg)" }}
         title="Eliminar"
       >
         <TrashIcon />
@@ -64,12 +64,12 @@ export function DeleteModal({
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent
           className="sm:max-w-md"
-          style={{ background: "#0F0E0C", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "0 25px 50px rgba(0,0,0,0.6)" }}
+          style={{ background: "var(--card)", border: "1px solid var(--border)" }}
         >
           <DialogHeader>
-            <DialogTitle className="text-slate-200">
+            <DialogTitle style={{ color: "var(--foreground)" }}>
               Gestionar:{" "}
-              <span style={{ color: "#C4A35A" }}>{productTitle}</span>
+              <span style={{ color: "var(--foreground)" }}>{productTitle}</span>
             </DialogTitle>
           </DialogHeader>
 
@@ -78,20 +78,18 @@ export function DeleteModal({
               onClick={handleReduceOne}
               disabled={loading || quantity == null || quantity <= 0}
               className="w-full text-left px-4 py-3.5 rounded-xl transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed group"
-              style={{ background: "rgba(245,158,11,0.06)", border: "1px solid rgba(245,158,11,0.15)" }}
+              style={{ background: "var(--status-warning-bg)", border: "1px solid var(--border)" }}
               onMouseEnter={(e) => {
                 if (!(quantity == null || quantity <= 0)) {
-                  (e.currentTarget as HTMLButtonElement).style.background = "rgba(245,158,11,0.12)";
-                  (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(245,158,11,0.3)";
+                  (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 2px 8px rgba(0,0,0,0.04)";
                 }
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.background = "rgba(245,158,11,0.06)";
-                (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(245,158,11,0.15)";
+                (e.currentTarget as HTMLButtonElement).style.boxShadow = "none";
               }}
             >
-              <p className="text-sm font-medium" style={{ color: "#fbbf24" }}>Reducir 1 unidad</p>
-              <p className="text-xs mt-0.5" style={{ color: "#78716c" }}>
+              <p className="text-sm font-medium" style={{ color: "var(--status-warning-fg)" }}>Reducir 1 unidad</p>
+              <p className="text-xs mt-0.5" style={{ color: "var(--muted-foreground)" }}>
                 {quantity != null && quantity > 0
                   ? `Stock actual: ${quantity} → ${quantity - 1}`
                   : "Sin stock disponible"}
@@ -102,18 +100,16 @@ export function DeleteModal({
               onClick={handleDeleteAll}
               disabled={loading}
               className="w-full text-left px-4 py-3.5 rounded-xl transition-all duration-150"
-              style={{ background: "rgba(239,68,68,0.06)", border: "1px solid rgba(239,68,68,0.15)" }}
+              style={{ background: "var(--status-danger-bg)", border: "1px solid var(--border)" }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.background = "rgba(239,68,68,0.12)";
-                (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(239,68,68,0.3)";
+                (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 2px 8px rgba(0,0,0,0.04)";
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.background = "rgba(239,68,68,0.06)";
-                (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(239,68,68,0.15)";
+                (e.currentTarget as HTMLButtonElement).style.boxShadow = "none";
               }}
             >
-              <p className="text-sm font-medium" style={{ color: "#f87171" }}>Eliminar producto</p>
-              <p className="text-xs mt-0.5" style={{ color: "#6b4a4a" }}>Se elimina de Shopify y BigQuery. No se puede deshacer.</p>
+              <p className="text-sm font-medium" style={{ color: "var(--status-danger-fg)" }}>Eliminar producto</p>
+              <p className="text-xs mt-0.5" style={{ color: "var(--muted-foreground)" }}>Se elimina de Shopify y BigQuery. No se puede deshacer.</p>
             </button>
           </div>
 
@@ -122,8 +118,8 @@ export function DeleteModal({
               variant="outline"
               onClick={() => setOpen(false)}
               disabled={loading}
-              className="text-slate-400 transition-colors"
-              style={{ background: "transparent", borderColor: "rgba(196,163,90,0.2)" }}
+              className="transition-colors"
+              style={{ background: "transparent", borderColor: "var(--border)", color: "var(--muted-foreground)" }}
             >
               Cancelar
             </Button>

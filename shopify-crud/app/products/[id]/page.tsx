@@ -41,11 +41,11 @@ interface Watch {
 
 function SpecRow({ label, value }: { label: string; value: string | number }) {
   return (
-    <div className="flex items-center justify-between py-3" style={{ borderBottom: "1px solid rgba(196,163,90,0.08)" }}>
-      <span className="text-[10px] uppercase tracking-[0.16em]" style={{ color: "#7A6E64", fontFamily: "var(--font-dm-sans)" }}>
+    <div className="flex items-center justify-between py-3" style={{ borderBottom: "1px solid #EAEAEA" }}>
+      <span className="text-[10px] uppercase tracking-[0.16em]" style={{ color: "#787774", fontFamily: "var(--font-geist-sans)" }}>
         {label}
       </span>
-      <span className="text-sm" style={{ color: "#EDE8DF", fontFamily: "var(--font-dm-sans)" }}>
+      <span className="text-sm" style={{ color: "#2F3437", fontFamily: "var(--font-geist-sans)" }}>
         {value}
       </span>
     </div>
@@ -73,7 +73,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     product.dial_color || product.water_resistance_m != null;
 
   return (
-    <div className="min-h-screen" style={{ background: "#0C0B09" }}>
+    <div className="min-h-screen" style={{ background: "#FBFBFA" }}>
       <StorefrontHeader />
       <CartDrawer />
 
@@ -83,7 +83,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         <Link
           href="/"
           className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.16em] mb-10 transition-colors duration-200"
-          style={{ color: "rgba(122,110,100,0.6)" }}
+          style={{ color: "rgba(120,119,116,0.6)" }}
         >
           <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
@@ -99,8 +99,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               className="w-full overflow-hidden"
               style={{
                 aspectRatio: "1/1",
-                background: "#161310",
-                border: "1px solid rgba(196,163,90,0.1)",
+                background: "#F1F0ED",
+                border: "1px solid #EAEAEA",
                 borderRadius: "0.5rem",
               }}
             >
@@ -114,16 +114,16 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
                   <svg width="56" height="56" viewBox="0 0 32 32" fill="none" style={{ opacity: 0.15 }}>
-                    <circle cx="16" cy="16" r="14" stroke="#C4A35A" strokeWidth="1" />
-                    <line x1="16" y1="4" x2="16" y2="7.5" stroke="#C4A35A" strokeWidth="1.5" strokeLinecap="round" />
-                    <line x1="16" y1="16" x2="16" y2="9" stroke="#C4A35A" strokeWidth="1" strokeLinecap="round" />
-                    <line x1="16" y1="16" x2="21" y2="16" stroke="#C4A35A" strokeWidth="1" strokeLinecap="round" />
+                    <circle cx="16" cy="16" r="14" stroke="#787774" strokeWidth="1" />
+                    <line x1="16" y1="4" x2="16" y2="7.5" stroke="#787774" strokeWidth="1.5" strokeLinecap="round" />
+                    <line x1="16" y1="16" x2="16" y2="9" stroke="#787774" strokeWidth="1" strokeLinecap="round" />
+                    <line x1="16" y1="16" x2="21" y2="16" stroke="#787774" strokeWidth="1" strokeLinecap="round" />
                   </svg>
                 </div>
               )}
             </div>
             {product.image_url && (
-              <p className="text-[10px] uppercase tracking-[0.14em] mt-3 text-center" style={{ color: "rgba(122,110,100,0.55)" }}>
+              <p className="text-[10px] uppercase tracking-[0.14em] mt-3 text-center" style={{ color: "rgba(120,119,116,0.55)" }}>
                 Imagen referencial — el producto real puede variar ligeramente en detalles
               </p>
             )}
@@ -138,8 +138,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                 <span
                   className="text-[9px] uppercase tracking-[0.18em] px-2.5 py-1"
                   style={{
-                    color: product.condition === "Vintage" ? "#C4A35A" : "rgba(237,232,223,0.55)",
-                    border: `1px solid ${product.condition === "Vintage" ? "rgba(196,163,90,0.35)" : "rgba(237,232,223,0.12)"}`,
+                    color: product.condition === "Vintage" ? "#111111" : "#787774",
+                    border: `1px solid ${product.condition === "Vintage" ? "rgba(0,0,0,0.35)" : "rgba(0,0,0,0.12)"}`,
                     borderRadius: "2px",
                   }}
                 >
@@ -148,13 +148,13 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               )}
               {product.style && (
                 <span className="text-[9px] uppercase tracking-[0.18em] px-2.5 py-1"
-                  style={{ color: "rgba(122,110,100,0.7)", border: "1px solid rgba(122,110,100,0.2)", borderRadius: "2px" }}>
+                  style={{ color: "rgba(120,119,116,0.7)", border: "1px solid rgba(120,119,116,0.2)", borderRadius: "2px" }}>
                   {product.style}
                 </span>
               )}
               {product.gender && (
                 <span className="text-[9px] uppercase tracking-[0.18em] px-2.5 py-1"
-                  style={{ color: "rgba(122,110,100,0.7)", border: "1px solid rgba(122,110,100,0.2)", borderRadius: "2px" }}>
+                  style={{ color: "rgba(120,119,116,0.7)", border: "1px solid rgba(120,119,116,0.2)", borderRadius: "2px" }}>
                   {product.gender}
                 </span>
               )}
@@ -162,35 +162,35 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
             {/* Brand + Model */}
             <div>
-              <p className="text-[10px] uppercase tracking-[0.22em] mb-2" style={{ color: "#C4A35A" }}>
+              <p className="text-[10px] uppercase tracking-[0.22em] mb-2" style={{ color: "#787774" }}>
                 {product.brand}
               </p>
               <h1
                 className="font-display leading-tight"
-                style={{ fontSize: "2.75rem", color: "#C4A35A", fontWeight: 600, fontStyle: "italic" }}
+                style={{ fontSize: "2.75rem", color: "#111111", fontWeight: 600, fontStyle: "italic" }}
               >
                 {product.model}
               </h1>
               {product.sku && (
-                <p className="text-[10px] mt-1.5 uppercase tracking-widest" style={{ color: "rgba(122,110,100,0.4)" }}>
+                <p className="text-[10px] mt-1.5 uppercase tracking-widest" style={{ color: "rgba(120,119,116,0.4)" }}>
                   SKU: {product.sku}
                 </p>
               )}
             </div>
 
             {/* Precio */}
-            <div className="flex items-baseline gap-3 py-4" style={{ borderTop: "1px solid rgba(196,163,90,0.1)", borderBottom: "1px solid rgba(196,163,90,0.1)" }}>
-              <span className="text-4xl font-semibold" style={{ color: "#C4A35A", fontFamily: "var(--font-dm-sans)" }}>
+            <div className="flex items-baseline gap-3 py-4" style={{ borderTop: "1px solid #EAEAEA", borderBottom: "1px solid #EAEAEA" }}>
+              <span className="text-4xl font-semibold tabular-nums" style={{ color: "#111111", fontFamily: "var(--font-geist-sans)" }}>
                 S/ {product.price.toLocaleString("es-PE")}
               </span>
               {product.compare_at_price && product.compare_at_price > product.price && (
                 <>
-                  <span className="text-xl line-through" style={{ color: "rgba(122,110,100,0.45)" }}>
+                  <span className="text-xl line-through tabular-nums" style={{ color: "rgba(120,119,116,0.45)" }}>
                     S/ {product.compare_at_price.toLocaleString("es-PE")}
                   </span>
                   {discount && (
-                    <span className="text-[10px] uppercase tracking-widest px-2 py-0.5"
-                      style={{ color: "#C4A35A", border: "1px solid rgba(196,163,90,0.3)", borderRadius: "2px" }}>
+                    <span className="text-[10px] uppercase tracking-widest px-2 py-0.5 tabular-nums"
+                      style={{ color: "#111111", border: "1px solid rgba(0,0,0,0.3)", borderRadius: "2px" }}>
                       −{discount}%
                     </span>
                   )}
@@ -202,14 +202,14 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <div>
               {inStock ? (
                 <span className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.14em]"
-                  style={{ color: "rgba(122,110,100,0.7)" }}>
-                  <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: "#C4A35A" }} />
+                  style={{ color: "var(--status-success-fg)" }}>
+                  <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: "var(--status-success-fg)" }} />
                   Disponible — {product.stock} {product.stock === 1 ? "unidad" : "unidades"}
                 </span>
               ) : (
                 <span className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.14em]"
-                  style={{ color: "rgba(239,68,68,0.6)" }}>
-                  <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: "rgba(239,68,68,0.6)" }} />
+                  style={{ color: "var(--status-danger-fg)" }}>
+                  <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: "var(--status-danger-fg)" }} />
                   Sin disponibilidad
                 </span>
               )}
@@ -217,15 +217,15 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
             {/* Descripción */}
             {product.description && (
-              <p className="text-sm leading-relaxed" style={{ color: "#7A6E64" }}>
+              <p className="text-sm leading-relaxed" style={{ color: "#787774" }}>
                 {product.description}
               </p>
             )}
 
             {/* Specs */}
             {hasSpecs && (
-              <div className="rounded-sm p-4" style={{ background: "rgba(28,25,22,0.8)", border: "1px solid rgba(196,163,90,0.1)" }}>
-                <p className="text-[9px] uppercase tracking-[0.2em] mb-1" style={{ color: "rgba(196,163,90,0.45)" }}>
+              <div className="rounded-xl p-4" style={{ background: "#F1F0ED", border: "1px solid #EAEAEA" }}>
+                <p className="text-[9px] uppercase tracking-[0.2em] mb-1" style={{ color: "rgba(120,119,116,0.45)" }}>
                   Especificaciones
                 </p>
                 {product.movement && <SpecRow label="Movimiento" value={product.movement} />}
@@ -244,8 +244,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2.5 w-full py-3.5 text-xs uppercase tracking-[0.14em] transition-all duration-200"
-                  style={{ background: "#C4A35A", color: "#0C0B09", borderRadius: "0.25rem", fontFamily: "var(--font-dm-sans)" }}
+                  className="flex items-center justify-center gap-2.5 w-full py-3.5 text-xs uppercase tracking-[0.14em] transition-all duration-200 rounded-md bg-[#111111] text-white hover:bg-[#333333] active:scale-[0.98]"
+                  style={{ fontFamily: "var(--font-geist-sans)" }}
                 >
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
@@ -255,8 +255,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                 </a>
               ) : (
                 <div
-                  className="flex items-center justify-center w-full py-3.5 text-xs uppercase tracking-[0.14em]"
-                  style={{ color: "rgba(122,110,100,0.4)", border: "1px solid rgba(122,110,100,0.15)", borderRadius: "0.25rem" }}
+                  className="flex items-center justify-center w-full py-3.5 text-xs uppercase tracking-[0.14em] rounded-md"
+                  style={{ color: "rgba(120,119,116,0.4)", border: "1px solid rgba(120,119,116,0.15)" }}
                 >
                   Sin disponibilidad
                 </div>

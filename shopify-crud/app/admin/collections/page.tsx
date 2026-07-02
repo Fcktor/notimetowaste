@@ -35,19 +35,19 @@ export default async function CollectionsPage() {
       <div className="flex items-center justify-between mb-8">
         <div className="relative">
           <div className="flex items-center gap-3 mb-1">
-            <div className="w-1 h-6 rounded-full" style={{ background: "linear-gradient(180deg, #8b5cf6, #6366f1)" }} />
+            <div className="w-1 h-6 rounded-full" style={{ background: "var(--primary)" }} />
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-mono font-semibold tracking-[0.2em] uppercase" style={{ color: "#6d28d9" }}>
+              <span className="text-[10px] font-mono font-semibold tracking-[0.2em] uppercase" style={{ color: "var(--muted-foreground)" }}>
                 SYS://COLLECTIONS
               </span>
-              <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: "#8b5cf6", boxShadow: "0 0 6px rgba(139,92,246,0.8)" }} />
+              <span className="w-1.5 h-1.5 rounded-full pulse-neon inline-block" style={{ background: "var(--muted-foreground)" }} />
             </div>
           </div>
           <div className="flex items-baseline gap-3 pl-4">
-            <h1 className="text-2xl font-bold tracking-tight" style={{ background: "linear-gradient(90deg, #c4b5fd, #8b5cf6)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+            <h1 className="font-display text-2xl font-bold tracking-tight" style={{ color: "var(--foreground)" }}>
               Colecciones
             </h1>
-            <span className="text-xs font-mono px-2 py-0.5 rounded" style={{ background: "rgba(139,92,246,0.1)", color: "#8b5cf6", border: "1px solid rgba(139,92,246,0.2)" }}>
+            <span className="text-xs font-mono px-2 py-0.5 rounded" style={{ background: "var(--muted)", color: "var(--muted-foreground)", border: "1px solid var(--border)" }}>
               {collections.length} colecciones
             </span>
           </div>

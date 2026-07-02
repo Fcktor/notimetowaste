@@ -30,20 +30,9 @@ export function AddToCartButton({ product, inStock }: { product: Watch; inStock:
   return (
     <button
       onClick={handleAdd}
-      className="flex items-center justify-center gap-2 w-full py-3 text-[10px] uppercase tracking-[0.14em] transition-all duration-200"
+      className="flex items-center justify-center gap-2 w-full py-3 text-[10px] uppercase tracking-[0.14em] transition-all duration-200 bg-[#111111] text-white hover:bg-[#333333] active:scale-[0.98] rounded-lg"
       style={{
-        color: "rgba(122,110,100,0.55)",
-        border: "1px solid rgba(122,110,100,0.15)",
-        borderRadius: "0.25rem",
-        fontFamily: "var(--font-dm-sans)",
-      }}
-      onMouseEnter={e => {
-        (e.currentTarget as HTMLButtonElement).style.color = "#EDE8DF"
-        ;(e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(196,163,90,0.25)"
-      }}
-      onMouseLeave={e => {
-        (e.currentTarget as HTMLButtonElement).style.color = "rgba(122,110,100,0.55)"
-        ;(e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(122,110,100,0.15)"
+        fontFamily: "var(--font-geist-sans)",
       }}
     >
       <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>

@@ -65,23 +65,23 @@ function WatchFaceGhost() {
       className="watch-ghost absolute pointer-events-none"
       style={{ width: 560, height: 560, right: -60, top: "50%", transform: "translateY(-50%)" }}
     >
-      <circle cx={cx} cy={cy} r={228} fill="none" stroke="#C4A35A" strokeWidth="1.5" />
-      <circle cx={cx} cy={cy} r={212} fill="none" stroke="#C4A35A" strokeWidth="0.5" opacity="0.5" />
+      <circle cx={cx} cy={cy} r={228} fill="none" stroke="#787774" strokeWidth="1.5" />
+      <circle cx={cx} cy={cy} r={212} fill="none" stroke="#787774" strokeWidth="0.5" opacity="0.5" />
 
       {minuteMarks.map((m, i) => (
         <line key={`m${i}`}
           x1={m.x1} y1={m.y1} x2={m.x2} y2={m.y2}
-          stroke="#C4A35A" strokeWidth="0.6" />
+          stroke="#787774" strokeWidth="0.6" />
       ))}
 
       {hourMarks.map((m, i) => (
         <line key={`h${i}`}
           x1={m.x1} y1={m.y1} x2={m.x2} y2={m.y2}
-          stroke="#C4A35A" strokeWidth={m.isMain ? "2" : "1"} />
+          stroke="#787774" strokeWidth={m.isMain ? "2" : "1"} />
       ))}
 
-      <circle cx={cx} cy={cy} r={5} fill="none" stroke="#C4A35A" strokeWidth="1.5" />
-      <circle cx={cx} cy={cy} r={1.5} fill="#C4A35A" />
+      <circle cx={cx} cy={cy} r={5} fill="none" stroke="#787774" strokeWidth="1.5" />
+      <circle cx={cx} cy={cy} r={1.5} fill="#787774" />
     </svg>
   );
 }
@@ -90,7 +90,7 @@ export default async function StorefrontPage() {
   const products: Product[] = await getProducts();
 
   return (
-    <div className="min-h-screen" style={{ background: "#0C0B09" }}>
+    <div className="min-h-screen">
       <StorefrontHeader />
       <CartDrawer />
 
@@ -101,17 +101,17 @@ export default async function StorefrontPage() {
         <div className="relative z-10 max-w-7xl mx-auto px-6 pt-16 pb-12">
           <p
             className="hero-line-1 text-xs uppercase tracking-[0.22em] mb-6"
-            style={{ color: "rgba(196,163,90,0.65)", fontFamily: "var(--font-dm-sans)" }}
+            style={{ color: "#787774", fontFamily: "var(--font-geist-sans)" }}
           >
             Colección 2025
           </p>
 
-          <h1 className="font-display leading-[0.95]" style={{ color: "#EDE8DF" }}>
+          <h1 className="font-display leading-[0.95]" style={{ color: "#2F3437" }}>
             <span className="hero-line-1 block text-[4.5rem] sm:text-[5.5rem] italic font-light">
               Relojes
             </span>
             <span className="hero-line-2 block text-[4.5rem] sm:text-[5.5rem] italic font-light"
-              style={{ color: "rgba(237,232,223,0.55)" }}>
+              style={{ color: "#787774" }}>
               que definen
             </span>
             <span className="hero-line-3 block text-[4.5rem] sm:text-[5.5rem] italic font-light">
@@ -121,7 +121,7 @@ export default async function StorefrontPage() {
 
           <p
             className="hero-sub mt-7 text-sm max-w-xs leading-relaxed"
-            style={{ color: "#7A6E64", fontFamily: "var(--font-dm-sans)" }}
+            style={{ color: "#787774", fontFamily: "var(--font-geist-sans)" }}
           >
             Piezas seleccionadas a pedido.
             Cada reloj, entregado con garantía.
@@ -129,11 +129,11 @@ export default async function StorefrontPage() {
 
           {/* Divider */}
           <div className="mt-10 flex items-center gap-4">
-            <div style={{ width: 32, height: 1, background: "rgba(196,163,90,0.4)" }} />
-            <span className="text-[10px] uppercase tracking-[0.2em]" style={{ color: "rgba(196,163,90,0.5)" }}>
+            <div style={{ width: 32, height: 1, background: "#EAEAEA" }} />
+            <span className="text-[10px] uppercase tracking-[0.2em]" style={{ color: "#787774" }}>
               Explorar colección
             </span>
-            <div style={{ flex: 1, maxWidth: 80, height: 1, background: "rgba(196,163,90,0.15)" }} />
+            <div style={{ flex: 1, maxWidth: 80, height: 1, background: "#EAEAEA" }} />
           </div>
         </div>
       </section>
@@ -144,13 +144,13 @@ export default async function StorefrontPage() {
           <div className="text-center py-28">
             <div className="inline-block mb-4" style={{ opacity: 0.18 }}>
               <svg width="40" height="40" viewBox="0 0 32 32" fill="none">
-                <circle cx="16" cy="16" r="14" stroke="#C4A35A" strokeWidth="1.2" />
-                <line x1="16" y1="4" x2="16" y2="7.5" stroke="#C4A35A" strokeWidth="1.5" strokeLinecap="round" />
-                <line x1="16" y1="16" x2="16" y2="9" stroke="#C4A35A" strokeWidth="1" strokeLinecap="round" />
-                <line x1="16" y1="16" x2="21" y2="16" stroke="#C4A35A" strokeWidth="1" strokeLinecap="round" />
+                <circle cx="16" cy="16" r="14" stroke="#787774" strokeWidth="1.2" />
+                <line x1="16" y1="4" x2="16" y2="7.5" stroke="#787774" strokeWidth="1.5" strokeLinecap="round" />
+                <line x1="16" y1="16" x2="16" y2="9" stroke="#787774" strokeWidth="1" strokeLinecap="round" />
+                <line x1="16" y1="16" x2="21" y2="16" stroke="#787774" strokeWidth="1" strokeLinecap="round" />
               </svg>
             </div>
-            <p className="text-sm" style={{ color: "#7A6E64" }}>
+            <p className="text-sm" style={{ color: "#787774" }}>
               No hay piezas disponibles en este momento.
             </p>
           </div>
@@ -162,16 +162,16 @@ export default async function StorefrontPage() {
       {/* ── Footer mínimo ── */}
       <footer
         className="border-t"
-        style={{ borderColor: "rgba(196,163,90,0.1)" }}
+        style={{ borderColor: "#EAEAEA" }}
       >
         <div className="max-w-7xl mx-auto px-6 py-8 flex items-center justify-between flex-wrap gap-4">
           <span
             className="font-display italic text-base tracking-widest"
-            style={{ color: "rgba(196,163,90,0.4)" }}
+            style={{ color: "#787774" }}
           >
             No Time To Waste
           </span>
-          <p className="text-xs" style={{ color: "rgba(122,110,100,0.5)" }}>
+          <p className="text-xs" style={{ color: "#787774" }}>
             Todos los relojes se gestionan a pedido.
           </p>
         </div>

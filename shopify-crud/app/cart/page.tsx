@@ -22,18 +22,18 @@ const FIELDS = [
 ];
 
 const CARD_STYLE = {
-  background: "#1C1916",
-  border: "1px solid rgba(196,163,90,0.1)",
-  borderRadius: "0.5rem",
+  background: "#FFFFFF",
+  border: "1px solid #EAEAEA",
+  borderRadius: "0.75rem",
 };
 
 const INPUT_STYLE = {
-  background: "rgba(255,255,255,0.03)",
-  border: "1px solid rgba(196,163,90,0.15)",
+  background: "#F1F0ED",
+  border: "1px solid #EAEAEA",
   borderRadius: "0.375rem",
   padding: "0.65rem 0.875rem 0.65rem 2.5rem",
   fontSize: "0.875rem",
-  color: "#EDE8DF",
+  color: "#2F3437",
   width: "100%",
   outline: "none",
 };
@@ -60,27 +60,26 @@ export default function CartPage() {
 
   if (ordered) {
     return (
-      <div className="min-h-screen" style={{ background: "#0C0B09" }}>
+      <div className="min-h-screen" style={{ background: "#FBFBFA" }}>
         <StorefrontHeader />
         <CartDrawer />
         <div className="flex items-center justify-center min-h-[80vh] p-6">
           <div className="p-10 text-center max-w-sm w-full" style={CARD_STYLE}>
             <div className="w-12 h-12 mx-auto mb-6 flex items-center justify-center"
-              style={{ border: "1px solid rgba(196,163,90,0.3)", borderRadius: "0.25rem" }}>
-              <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#C4A35A" strokeWidth={1.5}>
+              style={{ background: "var(--status-success-bg)", borderRadius: "0.5rem" }}>
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="var(--status-success-fg)" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h2 className="font-display italic text-2xl mb-3" style={{ color: "#C4A35A", fontWeight: 600 }}>
+            <h2 className="font-display italic text-2xl mb-3" style={{ color: "#2F3437", fontWeight: 600 }}>
               ¡Pedido recibido!
             </h2>
-            <p className="text-sm mb-6 leading-relaxed" style={{ color: "#7A6E64" }}>
-              Gracias <span style={{ color: "#EDE8DF" }}>{orderedName}</span>, te contactaremos pronto al correo{" "}
-              <span style={{ color: "#C4A35A" }}>{orderedEmail}</span>.
+            <p className="text-sm mb-6 leading-relaxed" style={{ color: "#787774" }}>
+              Gracias <span style={{ color: "#2F3437" }}>{orderedName}</span>, te contactaremos pronto al correo{" "}
+              <span style={{ color: "var(--status-success-fg)" }}>{orderedEmail}</span>.
             </p>
             <Link href="/"
-              className="inline-block px-6 py-2.5 text-xs uppercase tracking-[0.14em] transition-all duration-200"
-              style={{ background: "#C4A35A", color: "#0C0B09", borderRadius: "0.25rem" }}>
+              className="inline-block px-6 py-2.5 text-xs uppercase tracking-[0.14em] transition-all duration-200 bg-[#111111] text-white hover:bg-[#333333] active:scale-[0.98] rounded-lg">
               Seguir explorando
             </Link>
           </div>
@@ -91,21 +90,20 @@ export default function CartPage() {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen" style={{ background: "#0C0B09" }}>
+      <div className="min-h-screen" style={{ background: "#FBFBFA" }}>
         <StorefrontHeader />
         <CartDrawer />
         <div className="flex items-center justify-center min-h-[80vh] p-6">
           <div className="p-10 text-center" style={CARD_STYLE}>
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" className="mx-auto mb-5" style={{ opacity: 0.2 }}>
-              <circle cx="16" cy="16" r="14" stroke="#C4A35A" strokeWidth="1" />
-              <line x1="16" y1="4" x2="16" y2="7.5" stroke="#C4A35A" strokeWidth="1.5" strokeLinecap="round" />
-              <line x1="16" y1="16" x2="16" y2="9" stroke="#C4A35A" strokeWidth="1" strokeLinecap="round" />
-              <line x1="16" y1="16" x2="21" y2="16" stroke="#C4A35A" strokeWidth="1" strokeLinecap="round" />
+              <circle cx="16" cy="16" r="14" stroke="#787774" strokeWidth="1" />
+              <line x1="16" y1="4" x2="16" y2="7.5" stroke="#787774" strokeWidth="1.5" strokeLinecap="round" />
+              <line x1="16" y1="16" x2="16" y2="9" stroke="#787774" strokeWidth="1" strokeLinecap="round" />
+              <line x1="16" y1="16" x2="21" y2="16" stroke="#787774" strokeWidth="1" strokeLinecap="round" />
             </svg>
-            <p className="text-sm mb-5" style={{ color: "#7A6E64" }}>Tu carrito está vacío.</p>
+            <p className="text-sm mb-5" style={{ color: "#787774" }}>Tu carrito está vacío.</p>
             <Link href="/"
-              className="inline-block px-5 py-2.5 text-xs uppercase tracking-[0.14em] transition-all duration-200"
-              style={{ background: "#C4A35A", color: "#0C0B09", borderRadius: "0.25rem" }}>
+              className="inline-block px-5 py-2.5 text-xs uppercase tracking-[0.14em] transition-all duration-200 bg-[#111111] text-white hover:bg-[#333333] active:scale-[0.98] rounded-lg">
               Ver colección
             </Link>
           </div>
@@ -115,16 +113,16 @@ export default function CartPage() {
   }
 
   return (
-    <div className="min-h-screen" style={{ background: "#0C0B09" }}>
+    <div className="min-h-screen" style={{ background: "#FBFBFA" }}>
       <StorefrontHeader />
       <CartDrawer />
 
       <main className="max-w-5xl mx-auto px-6 py-12">
         <div className="mb-10">
-          <p className="text-[10px] uppercase tracking-[0.22em] mb-3" style={{ color: "rgba(196,163,90,0.6)" }}>
+          <p className="text-[10px] uppercase tracking-[0.22em] mb-3" style={{ color: "#787774" }}>
             Checkout
           </p>
-          <h1 className="font-display italic" style={{ fontSize: "2.5rem", color: "#EDE8DF", fontWeight: 400 }}>
+          <h1 className="font-display italic" style={{ fontSize: "2.5rem", color: "#2F3437", fontWeight: 400 }}>
             Finalizar compra
           </h1>
         </div>
@@ -133,13 +131,13 @@ export default function CartPage() {
           {/* Form */}
           <form onSubmit={handleOrder} className="lg:col-span-3 space-y-4">
             <div className="p-6 space-y-4" style={CARD_STYLE}>
-              <p className="text-[9px] uppercase tracking-[0.2em] mb-2" style={{ color: "rgba(196,163,90,0.5)" }}>
+              <p className="text-[9px] uppercase tracking-[0.2em] mb-2" style={{ color: "#787774" }}>
                 Datos de contacto
               </p>
               {FIELDS.slice(0, 3).map((f) => (
                 <div key={f.name} className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
-                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="rgba(122,110,100,0.5)" strokeWidth={1.5}>
+                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="rgba(120,119,116,0.5)" strokeWidth={1.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d={f.icon} />
                     </svg>
                   </span>
@@ -147,21 +145,21 @@ export default function CartPage() {
                     name={f.name} type={f.type} value={form[f.name]}
                     onChange={handleChange} required placeholder={f.placeholder}
                     style={INPUT_STYLE}
-                    onFocus={e => (e.target.style.borderColor = "rgba(196,163,90,0.5)")}
-                    onBlur={e => (e.target.style.borderColor = "rgba(196,163,90,0.15)")}
+                    onFocus={e => (e.target.style.borderColor = "#787774")}
+                    onBlur={e => (e.target.style.borderColor = "#EAEAEA")}
                   />
                 </div>
               ))}
             </div>
 
             <div className="p-6 space-y-4" style={CARD_STYLE}>
-              <p className="text-[9px] uppercase tracking-[0.2em] mb-2" style={{ color: "rgba(196,163,90,0.5)" }}>
+              <p className="text-[9px] uppercase tracking-[0.2em] mb-2" style={{ color: "#787774" }}>
                 Dirección de envío
               </p>
               {FIELDS.slice(3).map((f) => (
                 <div key={f.name} className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
-                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="rgba(122,110,100,0.5)" strokeWidth={1.5}>
+                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="rgba(120,119,116,0.5)" strokeWidth={1.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d={f.icon} />
                     </svg>
                   </span>
@@ -169,16 +167,16 @@ export default function CartPage() {
                     name={f.name} type={f.type} value={form[f.name]}
                     onChange={handleChange} required placeholder={f.placeholder}
                     style={INPUT_STYLE}
-                    onFocus={e => (e.target.style.borderColor = "rgba(196,163,90,0.5)")}
-                    onBlur={e => (e.target.style.borderColor = "rgba(196,163,90,0.15)")}
+                    onFocus={e => (e.target.style.borderColor = "#787774")}
+                    onBlur={e => (e.target.style.borderColor = "#EAEAEA")}
                   />
                 </div>
               ))}
             </div>
 
             <button type="submit" disabled={loading}
-              className="w-full py-3.5 text-xs uppercase tracking-[0.14em] transition-all duration-200 disabled:opacity-50"
-              style={{ background: "#C4A35A", color: "#0C0B09", borderRadius: "0.25rem", fontFamily: "var(--font-dm-sans)" }}>
+              className="w-full py-3.5 text-xs uppercase tracking-[0.14em] transition-all duration-200 disabled:opacity-50 bg-[#111111] text-white hover:bg-[#333333] active:scale-[0.98] rounded-lg"
+              style={{ fontFamily: "var(--font-geist-sans)" }}>
               {loading ? "Procesando..." : "Confirmar pedido →"}
             </button>
           </form>
@@ -186,42 +184,42 @@ export default function CartPage() {
           {/* Resumen */}
           <div className="lg:col-span-2">
             <div className="p-5 sticky top-24" style={CARD_STYLE}>
-              <p className="text-[9px] uppercase tracking-[0.2em] mb-5" style={{ color: "rgba(196,163,90,0.5)" }}>
+              <p className="text-[9px] uppercase tracking-[0.2em] mb-5" style={{ color: "#787774" }}>
                 Resumen
               </p>
               <div className="space-y-4 mb-6">
                 {items.map((item) => (
                   <div key={item.id} className="flex items-center gap-3">
                     <div className="w-12 h-12 overflow-hidden flex-shrink-0"
-                      style={{ background: "#161310", border: "1px solid rgba(196,163,90,0.1)", borderRadius: "0.25rem" }}>
+                      style={{ background: "#F1F0ED", border: "1px solid #EAEAEA", borderRadius: "0.25rem" }}>
                       {item.image_link && (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img src={item.image_link} alt={item.title} className="w-full h-full object-cover" />
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs truncate" style={{ color: "#EDE8DF" }}>{item.title}</p>
-                      <p className="text-[10px] mt-0.5" style={{ color: "rgba(122,110,100,0.6)" }}>x{item.quantity}</p>
+                      <p className="text-xs truncate" style={{ color: "#2F3437" }}>{item.title}</p>
+                      <p className="text-[10px] mt-0.5 tabular-nums" style={{ color: "rgba(120,119,116,0.6)" }}>x{item.quantity}</p>
                     </div>
-                    <span className="text-sm font-semibold" style={{ color: "#C4A35A" }}>
+                    <span className="text-sm font-semibold tabular-nums" style={{ color: "#111111" }}>
                       S/ {(item.price * item.quantity).toLocaleString("es-PE")}
                     </span>
                   </div>
                 ))}
               </div>
 
-              <div className="space-y-2 pt-4" style={{ borderTop: "1px solid rgba(196,163,90,0.1)" }}>
+              <div className="space-y-2 pt-4" style={{ borderTop: "1px solid #EAEAEA" }}>
                 <div className="flex justify-between">
-                  <span className="text-xs" style={{ color: "#7A6E64" }}>Subtotal</span>
-                  <span className="text-sm" style={{ color: "#EDE8DF" }}>S/ {total.toLocaleString("es-PE")}</span>
+                  <span className="text-xs" style={{ color: "#787774" }}>Subtotal</span>
+                  <span className="text-sm tabular-nums" style={{ color: "#2F3437" }}>S/ {total.toLocaleString("es-PE")}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-xs" style={{ color: "#7A6E64" }}>Envío</span>
-                  <span className="text-xs" style={{ color: "rgba(196,163,90,0.7)" }}>A coordinar</span>
+                  <span className="text-xs" style={{ color: "#787774" }}>Envío</span>
+                  <span className="text-xs" style={{ color: "#787774" }}>A coordinar</span>
                 </div>
-                <div className="flex justify-between items-center pt-3" style={{ borderTop: "1px solid rgba(196,163,90,0.08)" }}>
-                  <span className="text-xs uppercase tracking-widest" style={{ color: "#7A6E64" }}>Total</span>
-                  <span className="text-2xl font-semibold" style={{ color: "#C4A35A", fontFamily: "var(--font-dm-sans)" }}>
+                <div className="flex justify-between items-center pt-3" style={{ borderTop: "1px solid #EAEAEA" }}>
+                  <span className="text-xs uppercase tracking-widest" style={{ color: "#787774" }}>Total</span>
+                  <span className="text-2xl font-semibold tabular-nums" style={{ color: "#111111", fontFamily: "var(--font-geist-sans)" }}>
                     S/ {total.toLocaleString("es-PE")}
                   </span>
                 </div>

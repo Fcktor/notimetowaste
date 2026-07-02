@@ -7,8 +7,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-dm-sans, sans-serif);
-  --font-display: var(--font-cormorant, Georgia, serif);
+  --font-sans: var(--font-geist-sans, ui-sans-serif, system-ui, sans-serif);
+  --font-display: var(--font-newsreader, Georgia, serif);
   --font-mono: var(--font-geist-mono, monospace);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -45,41 +45,50 @@
   --radius-xl: calc(var(--radius) * 1.4);
 }
 
-/* ── Luxury warm-dark palette ── */
+/* ── Warm monochrome editorial palette ── */
 :root {
-  --background: #0C0B09;
-  --foreground: #EDE8DF;
-  --card: #1C1916;
-  --card-foreground: #EDE8DF;
-  --popover: #1C1916;
-  --popover-foreground: #EDE8DF;
-  --primary: #C4A35A;
-  --primary-foreground: #0C0B09;
-  --secondary: #2A2520;
-  --secondary-foreground: #EDE8DF;
-  --muted: #2A2520;
-  --muted-foreground: #7A6E64;
-  --accent: #C4A35A;
-  --accent-foreground: #0C0B09;
-  --destructive: #ef4444;
-  --border: rgba(196, 163, 90, 0.14);
-  --input: rgba(255, 255, 255, 0.04);
-  --ring: rgba(196, 163, 90, 0.45);
-  --radius: 0.375rem;
-  --chart-1: #C4A35A;
-  --chart-2: #8B7355;
-  --chart-3: #6B5744;
-  --chart-4: #4A3D30;
-  --chart-5: #2A2520;
-  /* Admin sidebar — keeps gold-on-dark feel */
-  --sidebar: #0F0E0C;
-  --sidebar-foreground: #7A6E64;
-  --sidebar-primary: #C4A35A;
-  --sidebar-primary-foreground: #0C0B09;
-  --sidebar-accent: #2A2520;
-  --sidebar-accent-foreground: #EDE8DF;
-  --sidebar-border: rgba(196, 163, 90, 0.08);
-  --sidebar-ring: rgba(196, 163, 90, 0.4);
+  --background: #FBFBFA;
+  --foreground: #2F3437;
+  --card: #FFFFFF;
+  --card-foreground: #2F3437;
+  --popover: #FFFFFF;
+  --popover-foreground: #2F3437;
+  --primary: #111111;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F1F0ED;
+  --secondary-foreground: #2F3437;
+  --muted: #F1F0ED;
+  --muted-foreground: #787774;
+  --accent: #F1F0ED;
+  --accent-foreground: #2F3437;
+  --destructive: #9F2F2D;
+  --border: #EAEAEA;
+  --input: #FFFFFF;
+  --ring: rgba(17, 17, 17, 0.15);
+  --radius: 0.5rem;
+  --chart-1: #2F3437;
+  --chart-2: #787774;
+  --chart-3: #1F6C9F;
+  --chart-4: #346538;
+  --chart-5: #956400;
+  /* Semantic status pastels */
+  --status-success-bg: #EDF3EC;
+  --status-success-fg: #346538;
+  --status-warning-bg: #FBF3DB;
+  --status-warning-fg: #956400;
+  --status-danger-bg: #FDEBEC;
+  --status-danger-fg: #9F2F2D;
+  --status-info-bg: #E1F3FE;
+  --status-info-fg: #1F6C9F;
+  /* Admin sidebar — light panel, same warm-neutral system */
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #787774;
+  --sidebar-primary: #111111;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F1F0ED;
+  --sidebar-accent-foreground: #2F3437;
+  --sidebar-border: #EAEAEA;
+  --sidebar-ring: rgba(17, 17, 17, 0.15);
 }
 
 @layer base {
@@ -89,8 +98,8 @@
   body {
     @apply bg-background text-foreground;
     background-image: radial-gradient(
-      ellipse 50% 35% at 75% 15%,
-      rgba(196, 163, 90, 0.045) 0%,
+      ellipse 60% 40% at 80% 0%,
+      rgba(17, 17, 17, 0.025) 0%,
       transparent 65%
     );
   }
@@ -99,128 +108,78 @@
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(196, 163, 90, 0.25); border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(196, 163, 90, 0.5); }
+::-webkit-scrollbar-thumb { background: rgba(17,17,17,0.12); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(17,17,17,0.25); }
 
 /* ── Typography helpers ── */
 .font-display {
-  font-family: var(--font-cormorant, Georgia, serif);
-}
-
-/* ── Gold glow utilities ── */
-.glow-gold {
-  box-shadow: 0 0 20px rgba(196, 163, 90, 0.15);
-}
-.glow-gold-strong {
-  box-shadow: 0 0 30px rgba(196, 163, 90, 0.35), 0 0 60px rgba(196, 163, 90, 0.1);
-}
-.text-glow-gold {
-  text-shadow: 0 0 20px rgba(196, 163, 90, 0.5);
-}
-.text-gradient-gold {
-  background: linear-gradient(135deg, #EDE8DF 0%, #C4A35A 50%, #8B7355 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-family: var(--font-newsreader, Georgia, serif);
 }
 
 /* ── Storefront product card ── */
 .store-card {
-  background: #1C1916;
-  border: 1px solid rgba(196, 163, 90, 0.1);
-  border-radius: 0.5rem;
+  background: #FFFFFF;
+  border: 1px solid #EAEAEA;
+  border-radius: 0.75rem;
   overflow: hidden;
-  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 .store-card:hover {
-  border-color: rgba(196, 163, 90, 0.32);
-  transform: translateY(-5px);
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5), 0 0 30px rgba(196, 163, 90, 0.07);
+  border-color: #D8D6D0;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
 /* ── Input ── */
 .input-store {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(196, 163, 90, 0.18);
+  background: #FFFFFF;
+  border: 1px solid #EAEAEA;
   border-radius: 0.375rem;
   padding: 0.55rem 0.875rem 0.55rem 2.5rem;
   font-size: 0.875rem;
-  color: #EDE8DF;
+  color: #2F3437;
   width: 100%;
   outline: none;
   transition: border-color 0.15s;
 }
-.input-store:focus { border-color: rgba(196, 163, 90, 0.55); }
+.input-store:focus { border-color: #111111; }
 
-/* ── Admin utilities (kept for admin panel) ── */
-.border-neon {
-  border: 1px solid rgba(196, 163, 90, 0.25);
-  box-shadow: 0 0 0 1px rgba(196, 163, 90, 0.06), inset 0 0 30px rgba(196, 163, 90, 0.02);
-}
+/* ── Admin table row ── */
 .table-row-hover:hover {
-  background: rgba(196, 163, 90, 0.04) !important;
-  box-shadow: inset 4px 0 0 rgba(196, 163, 90, 0.4);
+  background: #F9F9F8 !important;
+  box-shadow: inset 3px 0 0 #111111;
 }
+
+/* ── Button press feedback ── */
 .btn-cyber {
-  position: relative;
-  overflow: hidden;
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
-.btn-cyber::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 50%, transparent 100%);
-  transform: translateX(-100%);
-  transition: transform 0.5s ease;
+.btn-cyber:active {
+  transform: scale(0.98);
 }
-.btn-cyber:hover::before { transform: translateX(100%); }
 
-/* ── Blob morph (admin decorative) ── */
-@keyframes blobMorph {
-  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
-  33%       { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
-  66%       { border-radius: 70% 30% 40% 60% / 30% 70% 60% 40%; }
-}
-.blob-animate { animation: blobMorph 10s ease-in-out infinite; }
-
-/* ── Pulse (admin status dots) ── */
+/* ── Status dot pulse (kept subtle, no glow) ── */
 @keyframes pulse-neon {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.55; }
+  50% { opacity: 0.5; }
 }
 .pulse-neon { animation: pulse-neon 2s ease-in-out infinite; }
 
-/* ── Scan line (admin) ── */
-@keyframes scan {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100vh); }
-}
-.scan-line::after {
-  content: "";
-  position: fixed;
-  left: 0; top: 0;
-  width: 100%; height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(196, 163, 90, 0.12), transparent);
-  animation: scan 8s linear infinite;
-  pointer-events: none;
-  z-index: 9999;
-}
-
-/* ── Watch face ghost fade-in ── */
-@keyframes watchReveal {
-  from { opacity: 0; transform: translateY(-50%) scale(0.96); }
-  to   { opacity: 0.07; transform: translateY(-50%) scale(1); }
-}
-.watch-ghost {
-  animation: watchReveal 1.6s ease-out forwards;
-}
-
 /* ── Hero text entrance ── */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(18px); }
+  from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.hero-line-1 { animation: fadeUp 0.8s ease-out 0.2s both; }
-.hero-line-2 { animation: fadeUp 0.8s ease-out 0.4s both; }
-.hero-line-3 { animation: fadeUp 0.8s ease-out 0.6s both; }
-.hero-sub    { animation: fadeUp 0.8s ease-out 0.85s both; }
+.hero-line-1 { animation: fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.1s both; }
+.hero-line-2 { animation: fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.2s both; }
+.hero-line-3 { animation: fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.3s both; }
+.hero-sub    { animation: fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.45s both; }
+
+/* ── Watch face ghost (decorative line art) ── */
+@keyframes watchReveal {
+  from { opacity: 0; transform: translateY(-50%) scale(0.96); }
+  to   { opacity: 0.05; transform: translateY(-50%) scale(1); }
+}
+.watch-ghost {
+  animation: watchReveal 1s cubic-bezier(0.16,1,0.3,1) forwards;
+}

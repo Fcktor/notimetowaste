@@ -9,14 +9,14 @@ export default async function ChatPage() {
   return (
     <div className="flex flex-col h-[calc(100vh-2rem)]">
       <div className="flex items-center gap-3 mb-6">
-        <div className="w-1 h-6 rounded-full" style={{ background: "linear-gradient(180deg, #3b82f6, #06b6d4)" }} />
+        <div className="w-1 h-6 rounded-full" style={{ background: "var(--primary)" }} />
         <div className="flex items-center gap-2">
-          <span className="text-[10px] font-mono font-semibold tracking-[0.2em] uppercase" style={{ color: "#1d4ed8" }}>
+          <span className="text-[10px] font-mono font-semibold tracking-[0.2em] uppercase" style={{ color: "var(--muted-foreground)" }}>
             SYS://ASSISTANT
           </span>
           <span
-            className="w-1.5 h-1.5 rounded-full inline-block"
-            style={{ background: "#3b82f6", boxShadow: "0 0 6px rgba(59,130,246,0.8)" }}
+            className="w-1.5 h-1.5 rounded-full pulse-neon inline-block"
+            style={{ background: "var(--muted-foreground)" }}
           />
         </div>
       </div>

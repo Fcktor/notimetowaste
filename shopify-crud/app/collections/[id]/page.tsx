@@ -3,8 +3,7 @@ import { notFound } from "next/navigation"
 import { StorefrontHeader } from "@/components/StorefrontHeader"
 import { CartDrawer } from "@/components/CartDrawer"
 import { CollectionFilters } from "@/components/CollectionFilters"
-import { getCollections, FIELD_LABELS, matchesRule } from "@/lib/collectionsStore"
-import { CF_GET } from "@/lib/config"
+import { getProductsByBrand } from "@/lib/brandCollections"
 
 interface Product {
   id: string
@@ -24,17 +23,12 @@ interface Product {
 
 export default async function PublicCollectionDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
-  const collections = getCollections()
-  const col = collections.find(c => c.id === id)
-  if (!col) notFound()
+  const brand = decodeURIComponent(id)
 
   let products: Product[] = []
   try {
-    const res = await fetch(CF_GET, { cache: "no-store" })
-    const data = await res.json()
-    const all: Array<Record<string, unknown>> = data.products ?? data ?? []
+    const all = await getProductsByBrand(brand)
     products = all
-      .filter(p => matchesRule(p, col.rule_field, col.rule_value))
       .map(p => ({
         id: String(p.id),
         sku: String(p.sku ?? ""),
@@ -54,8 +48,10 @@ export default async function PublicCollectionDetailPage({ params }: { params: P
     products = []
   }
 
+  if (products.length === 0) notFound()
+
   return (
-    <div className="min-h-screen" style={{ background: "#0C0B09" }}>
+    <div className="min-h-screen" style={{ background: "#FBFBFA" }}>
       <StorefrontHeader />
       <CartDrawer />
 
@@ -64,7 +60,7 @@ export default async function PublicCollectionDetailPage({ params }: { params: P
         <Link
           href="/collections"
           className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.16em] mb-10 transition-colors duration-200"
-          style={{ color: "rgba(122,110,100,0.6)" }}
+          style={{ color: "rgba(120,119,116,0.6)" }}
         >
           <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
@@ -74,14 +70,14 @@ export default async function PublicCollectionDetailPage({ params }: { params: P
 
         {/* Header */}
         <div className="mb-10">
-          <p className="text-[10px] uppercase tracking-[0.18em] mb-3" style={{ color: "rgba(196,163,90,0.55)" }}>
-            {FIELD_LABELS[col.rule_field] ?? col.rule_field}: {col.rule_value}
+          <p className="text-[10px] uppercase tracking-[0.18em] mb-3" style={{ color: "#787774" }}>
+            Marca
           </p>
           <h1
             className="font-display italic leading-tight"
-            style={{ fontSize: "2.75rem", color: "#C4A35A", fontWeight: 600 }}
+            style={{ fontSize: "2.75rem", color: "#111111", fontWeight: 600 }}
           >
-            {col.name}
+            {brand}
           </h1>
         </div>
 

@@ -77,13 +77,13 @@ export function WatchClock({ size = 300 }: { size?: number }) {
       aria-hidden="true"
     >
       {/* Outer glow ring */}
-      <circle cx={cx} cy={cy} r={R + size * 0.025} stroke="#C4A35A" strokeWidth="0.4" strokeOpacity="0.15" />
+      <circle cx={cx} cy={cy} r={R + size * 0.025} stroke="#2F3437" strokeWidth="0.4" strokeOpacity="0.12" />
 
       {/* Bezel */}
-      <circle cx={cx} cy={cy} r={R} stroke="#C4A35A" strokeWidth="1.5" strokeOpacity="0.55" />
+      <circle cx={cx} cy={cy} r={R} stroke="#2F3437" strokeWidth="1.5" strokeOpacity="0.4" />
 
       {/* Face */}
-      <circle cx={cx} cy={cy} r={Ri} fill="#0C0B09" stroke="#C4A35A" strokeWidth="0.4" strokeOpacity="0.2" />
+      <circle cx={cx} cy={cy} r={Ri} fill="#FFFFFF" stroke="#2F3437" strokeWidth="0.4" strokeOpacity="0.18" />
 
       {/* Minute marks */}
       {minMarks.map((m, i) =>
@@ -91,10 +91,10 @@ export function WatchClock({ size = 300 }: { size?: number }) {
           <line
             key={i}
             x1={m.x1} y1={m.y1} x2={m.x2} y2={m.y2}
-            stroke="#C4A35A"
+            stroke="#2F3437"
             strokeWidth="0.7"
             strokeLinecap="round"
-            strokeOpacity="0.3"
+            strokeOpacity="0.25"
           />
         ) : null
       )}
@@ -104,54 +104,56 @@ export function WatchClock({ size = 300 }: { size?: number }) {
         <line
           key={i}
           x1={m.x1} y1={m.y1} x2={m.x2} y2={m.y2}
-          stroke="#C4A35A"
+          stroke="#2F3437"
           strokeWidth={i === 0 ? 2.5 : 1.8}
           strokeLinecap="round"
-          strokeOpacity={i === 0 ? 0.9 : 0.6}
+          strokeOpacity={i === 0 ? 0.5 : 0.35}
         />
       ))}
 
       {/* Hour hand */}
       <line
         x1={hourTail.x} y1={hourTail.y} x2={hourTip.x} y2={hourTip.y}
-        stroke="#C4A35A"
+        stroke="#2F3437"
         strokeWidth={size * 0.022}
         strokeLinecap="round"
+        strokeOpacity="0.45"
       />
 
       {/* Minute hand */}
       <line
         x1={minTail.x} y1={minTail.y} x2={minTip.x} y2={minTip.y}
-        stroke="#EDE8DF"
+        stroke="#2F3437"
         strokeWidth={size * 0.013}
         strokeLinecap="round"
-        strokeOpacity="0.9"
+        strokeOpacity="0.55"
       />
 
       {/* Second hand */}
       <line
         x1={secTail.x} y1={secTail.y} x2={secTip.x} y2={secTip.y}
-        stroke="#C4A35A"
+        stroke="#2F3437"
         strokeWidth={size * 0.006}
         strokeLinecap="round"
+        strokeOpacity="0.5"
       />
       {/* Second hand tail accent dot */}
-      <circle cx={secTail.x} cy={secTail.y} r={size * 0.012} fill="#C4A35A" />
+      <circle cx={secTail.x} cy={secTail.y} r={size * 0.012} fill="#2F3437" opacity="0.5" />
 
       {/* Center cap */}
-      <circle cx={cx} cy={cy} r={size * 0.022} fill="#C4A35A" />
-      <circle cx={cx} cy={cy} r={size * 0.01} fill="#0C0B09" />
+      <circle cx={cx} cy={cy} r={size * 0.022} fill="#2F3437" opacity="0.55" />
+      <circle cx={cx} cy={cy} r={size * 0.01} fill="#FFFFFF" />
 
       {/* Brand text on dial */}
       <text
         x={cx}
         y={cy + Ri * 0.52}
         textAnchor="middle"
-        fill="#C4A35A"
+        fill="#2F3437"
         fontSize={size * 0.048}
         fontFamily="Georgia, serif"
         letterSpacing="2"
-        opacity="0.45"
+        opacity="0.35"
       >
         NTTW
       </text>

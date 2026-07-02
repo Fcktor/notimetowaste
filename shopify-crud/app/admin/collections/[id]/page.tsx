@@ -22,16 +22,16 @@ export default async function CollectionDetailPage({ params }: { params: Promise
   return (
     <div className="max-w-6xl mx-auto">
       <div className="mb-8">
-        <Link href="/admin/collections" className="text-xs font-mono mb-4 inline-flex items-center gap-1.5 transition-colors" style={{ color: "#475569" }}>
+        <Link href="/admin/collections" className="text-xs font-mono mb-4 inline-flex items-center gap-1.5 transition-colors" style={{ color: "var(--muted-foreground)" }}>
           ← Colecciones
         </Link>
         <div className="flex items-center gap-3 mt-2 mb-1">
-          <div className="w-1 h-6 rounded-full" style={{ background: "linear-gradient(180deg, #8b5cf6, #6366f1)" }} />
-          <h1 className="text-2xl font-bold tracking-tight" style={{ background: "linear-gradient(90deg, #c4b5fd, #8b5cf6)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+          <div className="w-1 h-6 rounded-full" style={{ background: "var(--primary)" }} />
+          <h1 className="font-display text-2xl font-bold tracking-tight" style={{ color: "var(--foreground)" }}>
             {col.name}
           </h1>
         </div>
-        <p className="pl-4 text-xs font-mono" style={{ color: "#6366f1" }}>
+        <p className="pl-4 text-xs font-mono" style={{ color: "var(--muted-foreground)" }}>
           Regla: {FIELD_LABELS[col.rule_field] ?? col.rule_field} = &quot;{col.rule_value}&quot;
         </p>
       </div>
@@ -39,29 +39,34 @@ export default async function CollectionDetailPage({ params }: { params: Promise
       {/* Stats */}
       <div className="grid grid-cols-3 gap-4 mb-8">
         {[
-          { label: "Productos", value: matches.length, color: "#818cf8" },
-          { label: "Stock total", value: totalStock, color: "#34d399" },
-          { label: "Sin stock", value: matches.filter(p => Number(p.stock) === 0).length, color: "#f87171" },
+          { label: "Productos", value: matches.length, color: "var(--foreground)" },
+          { label: "Stock total", value: totalStock, color: "var(--foreground)" },
+          { label: "Sin stock", value: matches.filter(p => Number(p.stock) === 0).length, color: "var(--status-danger-fg)" },
         ].map(s => (
-          <div key={s.label} className="rounded-xl p-5 text-center" style={{ background: "var(--card)", border: "1px solid rgba(139,92,246,0.12)" }}>
-            <p className="text-3xl font-bold font-mono mb-1" style={{ color: s.color }}>{s.value}</p>
-            <p className="text-xs uppercase tracking-widest" style={{ color: "#334155" }}>{s.label}</p>
+          <div key={s.label} className="rounded-xl p-5 text-center" style={{ background: "var(--card)", border: "1px solid var(--border)" }}>
+            <p className="text-3xl font-bold font-mono mb-1 tabular-nums" style={{ color: s.color }}>{s.value}</p>
+            <p className="text-xs uppercase tracking-widest" style={{ color: "var(--muted-foreground)" }}>{s.label}</p>
           </div>
         ))}
       </div>
 
       {/* Tabla de productos */}
       {matches.length === 0 ? (
-        <div className="rounded-xl border p-16 text-center" style={{ background: "var(--card)", borderColor: "rgba(139,92,246,0.1)" }}>
-          <p className="text-sm text-slate-400">Ningún producto cumple esta regla</p>
+        <div className="rounded-xl border p-16 text-center" style={{ background: "var(--card)", borderColor: "var(--border)" }}>
+          <div className="w-14 h-14 rounded-2xl mx-auto mb-4 flex items-center justify-center" style={{ background: "var(--muted)", border: "1px solid var(--border)" }}>
+            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="var(--muted-foreground)" strokeWidth={1.5}>
+              <circle cx="12" cy="12" r="9" /><path strokeLinecap="round" d="M12 7v5l3 3" />
+            </svg>
+          </div>
+          <p className="text-sm font-medium" style={{ color: "var(--muted-foreground)" }}>Ningún producto cumple esta regla</p>
         </div>
       ) : (
-        <div className="rounded-xl overflow-hidden" style={{ background: "var(--card)", border: "1px solid rgba(139,92,246,0.15)" }}>
+        <div className="rounded-xl overflow-hidden" style={{ background: "var(--card)", border: "1px solid var(--border)" }}>
           <table className="w-full text-sm">
             <thead>
-              <tr style={{ borderBottom: "1px solid rgba(139,92,246,0.1)", background: "rgba(139,92,246,0.04)" }}>
+              <tr style={{ borderBottom: "1px solid var(--border)", background: "var(--muted)" }}>
                 {["Foto", "Producto", "SKU", "Precio", "Stock", "Estado"].map((col, i) => (
-                  <th key={col} className={`px-4 py-4 text-xs font-mono font-semibold uppercase tracking-widest ${i === 5 ? "text-right" : "text-left"}`} style={{ color: "#4c1d95" }}>{col}</th>
+                  <th key={col} scope="col" className={`px-4 py-4 text-xs font-mono font-semibold uppercase tracking-widest ${i === 5 ? "text-right" : "text-left"}`} style={{ color: "var(--muted-foreground)" }}>{col}</th>
                 ))}
               </tr>
             </thead>
@@ -69,27 +74,28 @@ export default async function CollectionDetailPage({ params }: { params: Promise
               {matches.map((p, i) => {
                 const stock = Number(p.stock) || 0
                 const threshold = Number(p.stock_min_threshold) || 5
-                const statusColor = stock === 0 ? "#f87171" : stock <= threshold ? "#fbbf24" : "#34d399"
+                const statusBg = stock === 0 ? "var(--status-danger-bg)" : stock <= threshold ? "var(--status-warning-bg)" : "var(--status-success-bg)"
+                const statusFg = stock === 0 ? "var(--status-danger-fg)" : stock <= threshold ? "var(--status-warning-fg)" : "var(--status-success-fg)"
                 const statusLabel = stock === 0 ? "Sin stock" : stock <= threshold ? "Stock bajo" : "OK"
                 return (
-                  <tr key={String(p.id)} style={{ borderBottom: i < matches.length - 1 ? "1px solid rgba(255,255,255,0.035)" : "none" }}>
+                  <tr key={String(p.id)} style={{ borderBottom: i < matches.length - 1 ? "1px solid var(--border)" : "none" }}>
                     <td className="px-4 py-3.5">
                       {p.image_url ? (
                         // eslint-disable-next-line @next/next/no-img-element
-                        <img src={String(p.image_url)} alt={String(p.model)} className="w-10 h-10 object-cover rounded-lg" style={{ border: "1px solid rgba(139,92,246,0.2)" }} />
+                        <img src={String(p.image_url)} alt={String(p.model)} className="w-10 h-10 object-cover rounded-lg" style={{ border: "1px solid var(--border)" }} />
                       ) : (
-                        <div className="w-10 h-10 rounded-lg" style={{ background: "rgba(139,92,246,0.06)", border: "1px solid rgba(139,92,246,0.15)" }} />
+                        <div className="w-10 h-10 rounded-lg" style={{ background: "var(--muted)", border: "1px solid var(--border)" }} />
                       )}
                     </td>
                     <td className="px-4 py-3.5">
-                      <p className="text-[10px] font-semibold uppercase tracking-widest mb-0.5" style={{ color: "#8b5cf6" }}>{String(p.brand)}</p>
-                      <p className="font-medium text-slate-200">{String(p.model)}</p>
+                      <p className="text-[10px] font-semibold uppercase tracking-widest mb-0.5" style={{ color: "var(--muted-foreground)" }}>{String(p.brand)}</p>
+                      <p className="font-medium" style={{ color: "var(--foreground)" }}>{String(p.model)}</p>
                     </td>
-                    <td className="px-4 py-3.5"><span className="text-xs font-mono" style={{ color: "#334155" }}>{String(p.sku)}</span></td>
-                    <td className="px-4 py-3.5"><span className="font-mono font-semibold" style={{ color: "#22d3ee" }}>S/ {String(p.price)}</span></td>
-                    <td className="px-4 py-3.5"><span className="text-xs font-mono font-semibold">{stock} uds</span></td>
+                    <td className="px-4 py-3.5"><span className="text-xs font-mono" style={{ color: "var(--muted-foreground)" }}>{String(p.sku)}</span></td>
+                    <td className="px-4 py-3.5"><span className="font-mono font-semibold tabular-nums" style={{ color: "var(--foreground)" }}>S/ {String(p.price)}</span></td>
+                    <td className="px-4 py-3.5"><span className="text-xs font-mono font-semibold tabular-nums" style={{ color: "var(--foreground)" }}>{stock} uds</span></td>
                     <td className="px-4 py-3.5 text-right">
-                      <span className="text-xs font-semibold px-2.5 py-1 rounded-md" style={{ color: statusColor, background: `${statusColor}14`, border: `1px solid ${statusColor}33` }}>{statusLabel}</span>
+                      <span className="text-xs font-semibold px-2.5 py-1 rounded-md" style={{ color: statusFg, background: statusBg }}>{statusLabel}</span>
                     </td>
                   </tr>
                 )

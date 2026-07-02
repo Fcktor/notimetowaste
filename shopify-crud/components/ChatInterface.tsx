@@ -20,7 +20,7 @@ function AssistantText({ text }: { text: string }) {
         if (line.startsWith("- ")) {
           return (
             <div key={i} className="flex gap-2">
-              <span style={{ color: "#C4A35A" }}>•</span>
+              <span style={{ color: "#787774" }}>•</span>
               <span>{renderInline(line.slice(2))}</span>
             </div>
           )
@@ -36,7 +36,7 @@ function renderInline(text: string) {
   const parts = text.split(/(\*\*[^*]+\*\*)/)
   return parts.map((part, i) =>
     part.startsWith("**") && part.endsWith("**") ? (
-      <strong key={i} style={{ color: "#C4A35A" }}>
+      <strong key={i} style={{ color: "#111111" }}>
         {part.slice(2, -2)}
       </strong>
     ) : (
@@ -98,27 +98,26 @@ export function ChatInterface() {
     <div
       className="flex flex-col h-full rounded-xl overflow-hidden relative"
       style={{
-        background: "rgba(15,14,12,0.95)",
-        border: "1px solid rgba(196,163,90,0.15)",
-        boxShadow: "0 0 40px rgba(0,0,0,0.6), inset 0 0 40px rgba(196,163,90,0.02)",
+        background: "#FFFFFF",
+        border: "1px solid #EAEAEA",
       }}
     >
       {/* Header */}
       <div
         className="flex items-center gap-3 px-5 py-4 flex-shrink-0"
         style={{
-          background: "rgba(12,11,9,0.9)",
-          borderBottom: "1px solid rgba(196,163,90,0.12)",
+          background: "#F9F9F8",
+          borderBottom: "1px solid #EAEAEA",
         }}
       >
         <div
           className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
           style={{
-            background: "rgba(196,163,90,0.1)",
-            border: "1px solid rgba(196,163,90,0.3)",
+            background: "#F1F0ED",
+            border: "1px solid #EAEAEA",
           }}
         >
-          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#C4A35A" strokeWidth={2}>
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#111111" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
           </svg>
         </div>
@@ -126,18 +125,18 @@ export function ChatInterface() {
           <div className="flex items-center gap-2">
             <span
               className="text-sm font-bold"
-              style={{ color: "#C4A35A" }}
+              style={{ color: "#2F3437" }}
             >
               ARIA
             </span>
             <span
-              className="text-[9px] font-mono px-1.5 py-0.5 rounded"
-              style={{ background: "rgba(196,163,90,0.1)", color: "#C4A35A", border: "1px solid rgba(196,163,90,0.2)" }}
+              className="text-[9px] font-mono px-1.5 py-0.5 rounded-full"
+              style={{ background: "#F1F0ED", color: "#787774", border: "1px solid #EAEAEA" }}
             >
               ONLINE
             </span>
           </div>
-          <p className="text-[10px] font-mono" style={{ color: "rgba(196,163,90,0.5)" }}>
+          <p className="text-[10px] font-mono" style={{ color: "#787774" }}>
             Asistente de Administración · NTTW
           </p>
         </div>
@@ -151,20 +150,20 @@ export function ChatInterface() {
               <div
                 className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"
                 style={{
-                  background: "rgba(196,163,90,0.1)",
-                  border: "1px solid rgba(196,163,90,0.25)",
+                  background: "#111111",
+                  border: "1px solid #111111",
                 }}
               >
-                <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="#C4A35A" strokeWidth={2.5}>
+                <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="#FFFFFF" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
               <div
                 className="rounded-xl px-4 py-3 text-sm leading-relaxed"
                 style={{
-                  background: "rgba(196,163,90,0.06)",
-                  border: "1px solid rgba(196,163,90,0.12)",
-                  color: "#EDE8DF",
+                  background: "#F1F0ED",
+                  border: "1px solid #EAEAEA",
+                  color: "#2F3437",
                 }}
               >
                 <AssistantText text={msg.content} />
@@ -175,9 +174,9 @@ export function ChatInterface() {
               <div
                 className="rounded-xl px-4 py-3 text-sm leading-relaxed max-w-[75%]"
                 style={{
-                  background: "rgba(196,163,90,0.3)",
-                  border: "1px solid rgba(196,163,90,0.25)",
-                  color: "#EDE8DF",
+                  background: "#111111",
+                  border: "1px solid #111111",
+                  color: "#FFFFFF",
                 }}
               >
                 {msg.content}
@@ -191,19 +190,19 @@ export function ChatInterface() {
             <div
               className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
               style={{
-                background: "rgba(196,163,90,0.1)",
-                border: "1px solid rgba(196,163,90,0.25)",
+                background: "#111111",
+                border: "1px solid #111111",
               }}
             >
-              <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="#C4A35A" strokeWidth={2.5}>
+              <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="#FFFFFF" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             </div>
             <div
               className="rounded-xl px-4 py-3"
               style={{
-                background: "rgba(196,163,90,0.06)",
-                border: "1px solid rgba(196,163,90,0.12)",
+                background: "#F1F0ED",
+                border: "1px solid #EAEAEA",
               }}
             >
               <div className="flex gap-1.5 items-center h-5">
@@ -212,7 +211,7 @@ export function ChatInterface() {
                     key={j}
                     className="w-1.5 h-1.5 rounded-full inline-block"
                     style={{
-                      background: "#C4A35A",
+                      background: "#787774",
                       animation: `bounce 1.2s ease-in-out ${j * 0.2}s infinite`,
                     }}
                   />
@@ -228,14 +227,13 @@ export function ChatInterface() {
       {/* Input */}
       <div
         className="flex-shrink-0 px-4 py-4"
-        style={{ borderTop: "1px solid rgba(196,163,90,0.1)", background: "rgba(12,11,9,0.9)" }}
+        style={{ borderTop: "1px solid #EAEAEA", background: "#FFFFFF" }}
       >
         <div
           className="flex gap-3 items-end rounded-xl p-2"
           style={{
-            background: "rgba(28,25,22,0.8)",
-            border: "1px solid rgba(196,163,90,0.15)",
-            boxShadow: "0 0 20px rgba(196,163,90,0.05)",
+            background: "#F9F9F8",
+            border: "1px solid #EAEAEA",
           }}
         >
           <textarea
@@ -248,8 +246,8 @@ export function ChatInterface() {
             disabled={loading}
             className="flex-1 resize-none bg-transparent text-sm outline-none py-2 px-2"
             style={{
-              color: "#EDE8DF",
-              caretColor: "#C4A35A",
+              color: "#2F3437",
+              caretColor: "#111111",
               maxHeight: "120px",
               lineHeight: "1.5",
             }}
@@ -257,24 +255,20 @@ export function ChatInterface() {
           <button
             onClick={send}
             disabled={loading || !input.trim()}
-            className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200"
+            className={`flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200 active:scale-[0.98] ${
+              loading || !input.trim() ? "bg-[#EAEAEA]" : "bg-[#111111] hover:bg-[#333333]"
+            }`}
             style={{
-              background:
-                loading || !input.trim()
-                  ? "rgba(196,163,90,0.1)"
-                  : "#C4A35A",
-              boxShadow:
-                loading || !input.trim() ? "none" : "0 0 16px rgba(196,163,90,0.4)",
-              border: "1px solid rgba(196,163,90,0.2)",
+              border: "1px solid #EAEAEA",
               cursor: loading || !input.trim() ? "not-allowed" : "pointer",
             }}
           >
-            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke={loading || !input.trim() ? "#C4A35A" : "#0C0B09"} strokeWidth={2.5}>
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke={loading || !input.trim() ? "#787774" : "#FFFFFF"} strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
             </svg>
           </button>
         </div>
-        <p className="text-[10px] font-mono mt-2 text-center" style={{ color: "rgba(196,163,90,0.5)" }}>
+        <p className="text-[10px] font-mono mt-2 text-center" style={{ color: "#787774" }}>
           Enter para enviar · Shift+Enter para nueva línea
         </p>
       </div>

@@ -31,8 +31,8 @@ interface ProductFormProps {
 
 function FieldLabel({ children, required }: { children: React.ReactNode; required?: boolean }) {
   return (
-    <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5" style={{ color: "#7A6E64" }}>
-      {children}{required && <span style={{ color: "#f87171" }}> *</span>}
+    <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5" style={{ color: "var(--muted-foreground)" }}>
+      {children}{required && <span style={{ color: "var(--status-danger-fg)" }}> *</span>}
     </label>
   );
 }
@@ -40,20 +40,20 @@ function FieldLabel({ children, required }: { children: React.ReactNode; require
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2 pt-2 pb-1">
-      <div className="h-px flex-1" style={{ background: "rgba(196,163,90,0.15)" }} />
-      <span className="text-[10px] font-mono font-semibold uppercase tracking-widest" style={{ color: "rgba(196,163,90,0.5)" }}>
+      <div className="h-px flex-1" style={{ background: "var(--border)" }} />
+      <span className="text-[10px] font-mono font-semibold uppercase tracking-widest" style={{ color: "var(--muted-foreground)" }}>
         {children}
       </span>
-      <div className="h-px flex-1" style={{ background: "rgba(196,163,90,0.15)" }} />
+      <div className="h-px flex-1" style={{ background: "var(--border)" }} />
     </div>
   );
 }
 
 const inputStyle = {
-  background: "rgba(255,255,255,0.04)",
-  border: "1px solid rgba(255,255,255,0.08)",
-  color: "#EDE8DF",
-  borderRadius: "0.625rem",
+  background: "#FFFFFF",
+  border: "1px solid var(--border)",
+  color: "var(--foreground)",
+  borderRadius: "0.375rem",
   padding: "0.6rem 0.875rem",
   fontSize: "0.875rem",
   width: "100%",
@@ -63,9 +63,9 @@ const inputStyle = {
 
 const focusHandlers = {
   onFocus: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
-    (e.target.style.borderColor = "rgba(196,163,90,0.5)"),
+    (e.target.style.borderColor = "var(--primary)"),
   onBlur: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
-    (e.target.style.borderColor = "rgba(255,255,255,0.08)"),
+    (e.target.style.borderColor = "var(--border)"),
 };
 
 const SELECT_STYLE = {
@@ -87,7 +87,7 @@ function SelectField({
     <select name={name} value={value} onChange={onChange} style={SELECT_STYLE} {...focusHandlers}>
       <option value="">{placeholder}</option>
       {options.map((o) => (
-        <option key={o} value={o} style={{ background: "#0F0E0C" }}>
+        <option key={o} value={o}>
           {o}
         </option>
       ))}
@@ -224,7 +224,7 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
     <form
       onSubmit={handleSubmit}
       className="space-y-5 rounded-xl p-7 max-w-2xl"
-      style={{ background: "var(--card)", border: "1px solid rgba(255,255,255,0.06)" }}
+      style={{ background: "var(--card)", border: "1px solid var(--border)" }}
     >
       <SectionTitle>Identificación</SectionTitle>
 
@@ -318,30 +318,30 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
         <FieldLabel>Foto del reloj</FieldLabel>
         <label
           className="relative rounded-xl cursor-pointer block text-center transition-all duration-150"
-          style={{ border: "2px dashed rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.02)", padding: preview ? "1rem" : "2rem 1rem" }}
-          onMouseEnter={(e) => ((e.currentTarget as HTMLLabelElement).style.borderColor = "rgba(196,163,90,0.4)")}
-          onMouseLeave={(e) => ((e.currentTarget as HTMLLabelElement).style.borderColor = "rgba(255,255,255,0.1)")}
+          style={{ border: "2px dashed var(--border)", background: "var(--muted)", padding: preview ? "1rem" : "2rem 1rem" }}
+          onMouseEnter={(e) => ((e.currentTarget as HTMLLabelElement).style.borderColor = "var(--primary)")}
+          onMouseLeave={(e) => ((e.currentTarget as HTMLLabelElement).style.borderColor = "var(--border)")}
         >
           {preview ? (
             <div className="flex flex-col items-center gap-2">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={preview} alt="Vista previa" className="h-32 w-32 object-cover rounded-xl" style={{ border: "1px solid rgba(255,255,255,0.1)" }} />
-              <span className="text-xs" style={{ color: "#7A6E64" }}>{uploading ? "Subiendo..." : "Click para cambiar"}</span>
+              <img src={preview} alt="Vista previa" className="h-32 w-32 object-cover rounded-xl" style={{ border: "1px solid var(--border)" }} />
+              <span className="text-xs" style={{ color: "var(--muted-foreground)" }}>{uploading ? "Subiendo..." : "Click para cambiar"}</span>
             </div>
           ) : (
             <div className="flex flex-col items-center gap-2">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto" style={{ background: "rgba(196,163,90,0.1)", border: "1px solid rgba(196,163,90,0.2)" }}>
-                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#C4A35A" strokeWidth={1.5}>
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto" style={{ background: "#FFFFFF", border: "1px solid var(--border)" }}>
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="var(--foreground)" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
                 </svg>
               </div>
-              <p className="text-sm font-medium text-slate-400">Click para subir una foto</p>
-              <p className="text-xs" style={{ color: "#7A6E64" }}>JPG, PNG, WEBP · máx 10MB</p>
+              <p className="text-sm font-medium" style={{ color: "var(--foreground)" }}>Click para subir una foto</p>
+              <p className="text-xs" style={{ color: "var(--muted-foreground)" }}>JPG, PNG, WEBP · máx 10MB</p>
             </div>
           )}
           {uploading && (
-            <div className="absolute inset-0 rounded-xl flex items-center justify-center" style={{ background: "rgba(15,14,12,0.8)" }}>
-              <span className="text-sm font-medium" style={{ color: "#C4A35A" }}>Subiendo imagen...</span>
+            <div className="absolute inset-0 rounded-xl flex items-center justify-center" style={{ background: "rgba(255,255,255,0.85)" }}>
+              <span className="text-sm font-medium" style={{ color: "var(--foreground)" }}>Subiendo imagen...</span>
             </div>
           )}
           <input type="file" accept="image/jpeg,image/png,image/webp,image/gif" className="hidden" onChange={handleFileChange} />
@@ -354,35 +354,37 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
           type="button"
           onClick={handleIdentify}
           disabled={identifying || uploading}
-          className="w-full py-2.5 px-5 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50"
+          className="w-full py-2.5 px-5 rounded-md text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50"
           style={{
-            background: identifying ? "rgba(139,92,246,0.15)" : "linear-gradient(135deg, rgba(139,92,246,0.2), rgba(59,130,246,0.2))",
-            border: "1px solid rgba(139,92,246,0.35)",
-            color: "#c084fc",
-            boxShadow: identifying ? "none" : "0 0 20px rgba(139,92,246,0.15)",
+            background: "var(--muted)",
+            border: "1px solid var(--border)",
+            color: "var(--foreground)",
           }}
         >
           {identifying ? (
             <>
-              <span className="w-3.5 h-3.5 rounded-full border-2 border-purple-400 border-t-transparent animate-spin" />
+              <span className="w-3.5 h-3.5 rounded-full border-2 border-t-transparent animate-spin" style={{ borderColor: "var(--muted-foreground)", borderTopColor: "transparent" }} />
               Identificando reloj...
             </>
           ) : (
             <>
-              ✨ Identificar reloj con IA
+              <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v4m0 10v4m9-9h-4M7 12H3m13.66-6.66l-2.83 2.83M9.17 15.83l-2.83 2.83m11.32 0l-2.83-2.83M9.17 8.17L6.34 5.34" />
+              </svg>
+              Identificar reloj con IA
             </>
           )}
         </button>
       )}
 
       {/* Disponible toggle */}
-      <div className="flex items-center justify-between py-2 px-3 rounded-lg" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
-        <span className="text-sm font-medium" style={{ color: "#94a3b8" }}>Disponible para venta</span>
+      <div className="flex items-center justify-between py-2 px-3 rounded-lg" style={{ background: "var(--muted)", border: "1px solid var(--border)" }}>
+        <span className="text-sm font-medium" style={{ color: "var(--foreground)" }}>Disponible para venta</span>
         <button
           type="button"
           onClick={handleToggleAvailable}
           className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors"
-          style={{ background: form.available ? "#C4A35A" : "rgba(255,255,255,0.1)" }}
+          style={{ background: form.available ? "var(--primary)" : "var(--border)" }}
         >
           <span
             className="inline-block h-4 w-4 transform rounded-full bg-white transition-transform"
@@ -392,7 +394,7 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
       </div>
 
       {error && (
-        <p className="text-xs px-3 py-2 rounded-lg" style={{ color: "#f87171", background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.2)" }}>
+        <p className="text-xs px-3 py-2 rounded-lg" style={{ color: "var(--status-danger-fg)", background: "var(--status-danger-bg)" }}>
           {error}
         </p>
       )}
@@ -401,16 +403,16 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
         <button
           type="submit"
           disabled={loading || uploading}
-          className="flex-1 py-2.5 px-5 rounded-lg text-sm font-semibold transition-all duration-150 disabled:opacity-50"
-          style={{ background: "#C4A35A", color: "#0C0B09", boxShadow: "0 4px 15px rgba(196,163,90,0.25)" }}
+          className="btn-cyber flex-1 py-2.5 px-5 rounded-md text-sm font-semibold transition-all duration-150 disabled:opacity-50"
+          style={{ background: "var(--primary)", color: "var(--primary-foreground)" }}
         >
           {loading ? "Guardando..." : mode === "create" ? "Crear reloj" : "Guardar cambios"}
         </button>
         <button
           type="button"
           onClick={() => router.push("/admin")}
-          className="px-5 py-2.5 rounded-lg text-sm font-medium transition-all duration-150"
-          style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(196,163,90,0.15)", color: "#7A6E64" }}
+          className="px-5 py-2.5 rounded-md text-sm font-medium transition-all duration-150"
+          style={{ background: "var(--muted)", border: "1px solid var(--border)", color: "var(--muted-foreground)" }}
         >
           Cancelar
         </button>

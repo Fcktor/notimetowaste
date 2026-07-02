@@ -51,8 +51,8 @@ function matches(productVal: string | null | undefined, selected: string[]): boo
 }
 
 const LABEL_STYLE = {
-  color: "rgba(237,232,223,0.45)",
-  fontFamily: "var(--font-dm-sans)",
+  color: "#787774",
+  fontFamily: "var(--font-geist-sans)",
   fontSize: "9px",
   letterSpacing: "0.18em",
   textTransform: "uppercase" as const,
@@ -75,7 +75,7 @@ function FilterSection({ label, options, selected, onChange }: {
   const [open, setOpen] = useState(true)
   if (options.length === 0) return null
   return (
-    <div style={{ borderBottom: "1px solid rgba(196,163,90,0.08)", paddingBottom: open ? "0.75rem" : 0 }}>
+    <div style={{ borderBottom: "1px solid #EAEAEA", paddingBottom: open ? "0.75rem" : 0 }}>
       <button
         onClick={() => setOpen(o => !o)}
         className="w-full flex items-center justify-between py-3 text-left"
@@ -94,21 +94,21 @@ function FilterSection({ label, options, selected, onChange }: {
               <div
                 className="w-3.5 h-3.5 flex items-center justify-center flex-shrink-0 transition-all duration-150"
                 style={{
-                  border: `1px solid ${selected.includes(opt) ? "rgba(196,163,90,0.8)" : "rgba(196,163,90,0.2)"}`,
-                  background: selected.includes(opt) ? "rgba(196,163,90,0.15)" : "transparent",
+                  border: `1px solid ${selected.includes(opt) ? "#111111" : "#EAEAEA"}`,
+                  background: selected.includes(opt) ? "#F1F0ED" : "transparent",
                   borderRadius: "2px",
                 }}
                 onClick={() => onChange(opt)}
               >
                 {selected.includes(opt) && (
                   <svg width="7" height="7" viewBox="0 0 10 10" fill="none">
-                    <path d="M1.5 5L4 7.5L8.5 2.5" stroke="#C4A35A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M1.5 5L4 7.5L8.5 2.5" stroke="#111111" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 )}
               </div>
               <span
                 className="text-xs transition-colors duration-150"
-                style={{ color: selected.includes(opt) ? "#EDE8DF" : "rgba(122,110,100,0.8)" }}
+                style={{ color: selected.includes(opt) ? "#2F3437" : "#787774" }}
                 onClick={() => onChange(opt)}
               >
                 {opt}
@@ -181,20 +181,20 @@ export function CollectionFilters({ products }: { products: Product[] }) {
       <FilterSection label="Género" options={options.genders} selected={filters.genders} onChange={v => toggle("genders", v)} />
       <FilterSection label="Condición" options={options.conditions} selected={filters.conditions} onChange={v => toggle("conditions", v)} />
 
-      <div style={{ borderBottom: "1px solid rgba(196,163,90,0.08)" }}>
+      <div style={{ borderBottom: "1px solid #EAEAEA" }}>
         <p className="py-3" style={LABEL_STYLE}>Precio</p>
         <div className="flex items-center gap-2 pb-3">
           {(["priceMin", "priceMax"] as const).map((field, i) => (
             <div key={field} className="flex items-center gap-1 flex-1 px-2 py-1.5"
-              style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(196,163,90,0.14)", borderRadius: "0.25rem" }}>
-              <span className="text-[10px]" style={{ color: "rgba(196,163,90,0.35)" }}>S/</span>
+              style={{ background: "#FFFFFF", border: "1px solid #EAEAEA", borderRadius: "0.375rem" }}>
+              <span className="text-[10px]" style={{ color: "#787774" }}>S/</span>
               <input
                 type="text" inputMode="decimal"
                 placeholder={i === 0 ? "0" : String(options.priceMax)}
                 value={filters[field]}
                 onChange={e => setFilters(f => ({ ...f, [field]: e.target.value }))}
                 className="w-full text-xs outline-none bg-transparent"
-                style={{ color: "#EDE8DF" }}
+                style={{ color: "#2F3437" }}
               />
             </div>
           ))}
@@ -204,7 +204,7 @@ export function CollectionFilters({ products }: { products: Product[] }) {
       {activeChips.length > 0 && (
         <button onClick={() => setFilters(EMPTY_FILTERS)}
           className="w-full text-center pt-4 pb-1 transition-colors duration-150"
-          style={{ ...LABEL_STYLE, color: "rgba(196,163,90,0.4)" }}>
+          style={{ ...LABEL_STYLE, color: "#787774" }}>
           Limpiar filtros
         </button>
       )}
@@ -215,41 +215,41 @@ export function CollectionFilters({ products }: { products: Product[] }) {
     <div>
       {/* Toolbar */}
       <div className="flex items-center justify-between gap-4 mb-8 pb-4 flex-wrap"
-        style={{ borderBottom: "1px solid rgba(196,163,90,0.08)" }}>
+        style={{ borderBottom: "1px solid #EAEAEA" }}>
 
         <button onClick={() => setSidebarOpen(true)}
           className="flex lg:hidden items-center gap-2 px-4 py-2 text-xs uppercase tracking-[0.14em] relative"
-          style={{ color: "rgba(237,232,223,0.55)", border: "1px solid rgba(196,163,90,0.2)", borderRadius: "0.25rem" }}>
+          style={{ color: "#2F3437", border: "1px solid #EAEAEA", borderRadius: "0.375rem" }}>
           <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M3 4h18M7 12h10M11 20h2" />
           </svg>
           Filtros
           {activeChips.length > 0 && (
             <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full text-[9px] font-semibold flex items-center justify-center"
-              style={{ background: "#C4A35A", color: "#0C0B09" }}>
+              style={{ background: "#111111", color: "#FFFFFF" }}>
               {activeChips.length}
             </span>
           )}
         </button>
 
-        <span className="hidden lg:block text-xs" style={{ color: "rgba(122,110,100,0.55)", letterSpacing: "0.1em" }}>
+        <span className="hidden lg:block text-xs" style={{ color: "#787774", letterSpacing: "0.1em" }}>
           {filtered.length} {filtered.length === 1 ? "pieza" : "piezas"}
         </span>
 
         <div className="flex items-center gap-3 ml-auto">
           <select value={sort} onChange={e => setSort(e.target.value)}
             className="text-xs outline-none cursor-pointer px-3 py-2"
-            style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(196,163,90,0.18)", color: "rgba(237,232,223,0.6)", borderRadius: "0.25rem" }}>
+            style={{ background: "#FFFFFF", border: "1px solid #EAEAEA", color: "#2F3437", borderRadius: "0.375rem" }}>
             {SORT_OPTIONS.map(o => (
-              <option key={o.value} value={o.value} style={{ background: "#1C1916" }}>{o.label}</option>
+              <option key={o.value} value={o.value} style={{ background: "#FFFFFF" }}>{o.label}</option>
             ))}
           </select>
 
-          <div className="hidden sm:flex items-center" style={{ border: "1px solid rgba(196,163,90,0.18)", borderRadius: "0.25rem", overflow: "hidden" }}>
+          <div className="hidden sm:flex items-center" style={{ border: "1px solid #EAEAEA", borderRadius: "0.375rem", overflow: "hidden" }}>
             {([3, 2] as const).map(n => (
               <button key={n} onClick={() => setCols(n)}
                 className="flex items-center justify-center w-8 h-8 transition-colors duration-150"
-                style={{ background: cols === n ? "rgba(196,163,90,0.12)" : "transparent", color: cols === n ? "#C4A35A" : "rgba(122,110,100,0.5)" }}>
+                style={{ background: cols === n ? "#F1F0ED" : "transparent", color: cols === n ? "#111111" : "#787774" }}>
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
                   {n === 3
                     ? <><rect x="1" y="1" width="3.5" height="6" rx="0.5"/><rect x="6.25" y="1" width="3.5" height="6" rx="0.5"/><rect x="11.5" y="1" width="3.5" height="6" rx="0.5"/><rect x="1" y="9" width="3.5" height="6" rx="0.5"/><rect x="6.25" y="9" width="3.5" height="6" rx="0.5"/><rect x="11.5" y="9" width="3.5" height="6" rx="0.5"/></>
@@ -268,7 +268,7 @@ export function CollectionFilters({ products }: { products: Product[] }) {
           {activeChips.map((chip, i) => (
             <button key={i} onClick={chip.remove}
               className="flex items-center gap-1.5 px-3 py-1 text-xs transition-all duration-150"
-              style={{ color: "#C4A35A", background: "rgba(196,163,90,0.08)", border: "1px solid rgba(196,163,90,0.25)", borderRadius: "2px" }}>
+              style={{ color: "#111111", background: "#F1F0ED", border: "1px solid #EAEAEA", borderRadius: "2px" }}>
               {chip.label}
               <svg width="8" height="8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -288,14 +288,14 @@ export function CollectionFilters({ products }: { products: Product[] }) {
         </aside>
 
         <div className="flex-1 min-w-0">
-          <p className="text-xs mb-5 lg:hidden" style={{ color: "rgba(122,110,100,0.55)", letterSpacing: "0.1em" }}>
+          <p className="text-xs mb-5 lg:hidden" style={{ color: "#787774", letterSpacing: "0.1em" }}>
             {filtered.length} {filtered.length === 1 ? "pieza" : "piezas"}
           </p>
           {filtered.length === 0 ? (
             <div className="text-center py-24">
-              <p className="text-sm mb-4" style={{ color: "#7A6E64" }}>Ningún reloj coincide con los filtros.</p>
+              <p className="text-sm mb-4" style={{ color: "#787774" }}>Ningún reloj coincide con los filtros.</p>
               <button onClick={() => setFilters(EMPTY_FILTERS)}
-                className="text-xs uppercase tracking-[0.14em]" style={{ color: "rgba(196,163,90,0.6)" }}>
+                className="text-xs uppercase tracking-[0.14em]" style={{ color: "#787774" }}>
                 Limpiar filtros
               </button>
             </div>
@@ -312,21 +312,21 @@ export function CollectionFilters({ products }: { products: Product[] }) {
         <div className="fixed inset-0 z-50 flex lg:hidden">
           <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => setSidebarOpen(false)} />
           <div className="relative ml-auto w-72 h-full flex flex-col"
-            style={{ background: "#0F0E0C", borderLeft: "1px solid rgba(196,163,90,0.12)" }}>
+            style={{ background: "#FFFFFF", borderLeft: "1px solid #EAEAEA" }}>
             <div className="flex items-center justify-between px-5 py-4"
-              style={{ borderBottom: "1px solid rgba(196,163,90,0.1)" }}>
-              <span style={{ ...LABEL_STYLE, color: "rgba(196,163,90,0.7)" }}>Filtrar</span>
-              <button onClick={() => setSidebarOpen(false)} style={{ color: "rgba(122,110,100,0.6)" }}>
+              style={{ borderBottom: "1px solid #EAEAEA" }}>
+              <span style={{ ...LABEL_STYLE, color: "#787774" }}>Filtrar</span>
+              <button onClick={() => setSidebarOpen(false)} style={{ color: "#787774" }}>
                 <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             </div>
             <div className="flex-1 overflow-y-auto px-5 py-5">{sidebar}</div>
-            <div className="px-5 py-4" style={{ borderTop: "1px solid rgba(196,163,90,0.1)" }}>
+            <div className="px-5 py-4" style={{ borderTop: "1px solid #EAEAEA" }}>
               <button onClick={() => setSidebarOpen(false)}
                 className="w-full py-3 text-xs uppercase tracking-[0.14em] transition-all duration-150"
-                style={{ background: "#C4A35A", color: "#0C0B09", borderRadius: "0.25rem" }}>
+                style={{ background: "#111111", color: "#FFFFFF", borderRadius: "0.375rem" }}>
                 Ver {filtered.length} {filtered.length === 1 ? "reloj" : "relojes"}
               </button>
             </div>

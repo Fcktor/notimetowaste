@@ -58,38 +58,21 @@ export function Sidebar() {
       className="w-52 min-h-screen flex flex-col relative overflow-hidden"
       style={{
         background: "var(--sidebar)",
-        borderRight: "1px solid rgba(196,163,90,0.1)",
-        boxShadow: "4px 0 30px rgba(0,0,0,0.5), 1px 0 0 rgba(196,163,90,0.05)",
+        borderRight: "1px solid var(--sidebar-border)",
       }}
     >
-      {/* Vertical glow line on the right border */}
-      <div
-        className="absolute right-0 top-0 bottom-0 w-px"
-        style={{ background: "linear-gradient(180deg, transparent, rgba(196,163,90,0.3) 30%, rgba(196,163,90,0.2) 70%, transparent)" }}
-      />
-
-      {/* Background dot grid */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: "radial-gradient(rgba(196,163,90,0.06) 1px, transparent 1px)",
-          backgroundSize: "20px 20px",
-          maskImage: "linear-gradient(180deg, transparent, black 15%, black 85%, transparent)",
-        }}
-      />
-
       {/* Logo */}
       <div className="relative px-5 pt-6 pb-5">
         <div className="flex items-center gap-2.5">
           <div
             className="w-8 h-8 rounded-lg flex items-center justify-center relative flex-shrink-0"
             style={{
-              background: "rgba(196,163,90,0.08)",
-              border: "1px solid rgba(196,163,90,0.3)",
+              background: "var(--sidebar-accent)",
+              border: "1px solid var(--sidebar-border)",
             }}
           >
             {/* Clock SVG */}
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C4A35A" strokeWidth={1.8}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--sidebar-primary)" strokeWidth={1.8}>
               <circle cx="12" cy="12" r="9" />
               <path strokeLinecap="round" d="M12 7v5l3 3" />
               <line x1="12" y1="3" x2="12" y2="4.5" strokeLinecap="round" />
@@ -100,29 +83,25 @@ export function Sidebar() {
           </div>
           <div className="flex flex-col min-w-0">
             <span
-              className="text-xs font-bold tracking-tight leading-tight"
-              style={{
-                fontFamily: "'Cormorant Garamond', 'Cormorant', Georgia, serif",
-                fontStyle: "italic",
-                color: "#C4A35A",
-              }}
+              className="font-display text-xs font-bold italic tracking-tight leading-tight"
+              style={{ color: "var(--sidebar-accent-foreground)" }}
             >
               No Time To Waste
             </span>
-            <span className="text-[9px] font-mono tracking-widest" style={{ color: "rgba(196,163,90,0.5)" }}>
+            <span className="text-[9px] font-mono tracking-widest" style={{ color: "var(--sidebar-foreground)" }}>
               v2.4.1
             </span>
           </div>
         </div>
       </div>
 
-      {/* Divider with glow */}
-      <div className="mx-4 mb-4 relative">
-        <div className="h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(196,163,90,0.25), transparent)" }} />
+      {/* Divider */}
+      <div className="mx-4 mb-4">
+        <div className="h-px" style={{ background: "var(--sidebar-border)" }} />
       </div>
 
       {/* Label */}
-      <p className="px-5 mb-2 text-[9px] font-mono font-semibold uppercase tracking-[0.2em]" style={{ color: "rgba(196,163,90,0.5)" }}>
+      <p className="px-5 mb-2 text-[9px] font-mono font-semibold uppercase tracking-[0.2em]" style={{ color: "var(--sidebar-foreground)" }}>
         Admin
       </p>
 
@@ -134,33 +113,26 @@ export function Sidebar() {
             <Link
               key={l.href}
               href={l.href}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 group relative overflow-hidden"
+              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 group relative"
               style={{
-                color: active ? "#EDE8DF" : "#7A6E64",
-                background: active ? "rgba(196,163,90,0.1)" : "transparent",
-                border: active ? "1px solid rgba(196,163,90,0.2)" : "1px solid transparent",
-                boxShadow: active ? "0 0 20px rgba(196,163,90,0.1), inset 0 0 20px rgba(196,163,90,0.05)" : "none",
+                color: active ? "var(--sidebar-accent-foreground)" : "var(--sidebar-foreground)",
+                background: active ? "var(--sidebar-accent)" : "transparent",
               }}
             >
               {/* Active indicator */}
               {active && (
                 <span
                   className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-4 rounded-full"
-                  style={{ background: "#C4A35A", boxShadow: "0 0 8px rgba(196,163,90,0.8)" }}
+                  style={{ background: "var(--sidebar-primary)" }}
                 />
               )}
-              {/* Hover shimmer */}
               <span
-                className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{ background: "linear-gradient(90deg, transparent, rgba(196,163,90,0.04), transparent)" }}
-              />
-              <span
-                style={{ color: active ? "#C4A35A" : "#7A6E64" }}
+                style={{ color: active ? "var(--sidebar-primary)" : "var(--sidebar-foreground)" }}
                 className="transition-all duration-200 relative z-10"
               >
                 {l.icon}
               </span>
-              <span className="transition-colors duration-200 group-hover:text-slate-300 relative z-10">{l.label}</span>
+              <span className="transition-colors duration-200 relative z-10">{l.label}</span>
             </Link>
           );
         })}
@@ -171,14 +143,14 @@ export function Sidebar() {
         <Link
           href="/"
           className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 group w-full"
-          style={{ color: "#7A6E64", border: "1px solid rgba(196,163,90,0.1)", background: "rgba(196,163,90,0.04)" }}
+          style={{ color: "var(--sidebar-foreground)", border: "1px solid var(--sidebar-border)", background: "transparent" }}
           onMouseEnter={(e) => {
-            (e.currentTarget as HTMLAnchorElement).style.color = "#EDE8DF";
-            (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(196,163,90,0.25)";
+            (e.currentTarget as HTMLAnchorElement).style.color = "var(--sidebar-accent-foreground)";
+            (e.currentTarget as HTMLAnchorElement).style.background = "var(--sidebar-accent)";
           }}
           onMouseLeave={(e) => {
-            (e.currentTarget as HTMLAnchorElement).style.color = "#7A6E64";
-            (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(196,163,90,0.1)";
+            (e.currentTarget as HTMLAnchorElement).style.color = "var(--sidebar-foreground)";
+            (e.currentTarget as HTMLAnchorElement).style.background = "transparent";
           }}
         >
           <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
@@ -193,14 +165,14 @@ export function Sidebar() {
       {/* Status indicator */}
       <div className="px-5 mb-3">
         <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-neon inline-block" />
-          <span className="text-[9px] font-mono" style={{ color: "rgba(196,163,90,0.5)" }}>SYNC ACTIVE</span>
+          <span className="w-1.5 h-1.5 rounded-full pulse-neon inline-block" style={{ background: "var(--status-success-fg)" }} />
+          <span className="text-[9px] font-mono" style={{ color: "var(--sidebar-foreground)" }}>SYNC ACTIVE</span>
         </div>
       </div>
 
       {/* Divider */}
       <div className="mx-4 mb-3">
-        <div className="h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(196,163,90,0.15), transparent)" }} />
+        <div className="h-px" style={{ background: "var(--sidebar-border)" }} />
       </div>
 
       {/* Footer */}
@@ -208,22 +180,22 @@ export function Sidebar() {
         <div
           className="flex items-center gap-3 px-3 py-2.5 rounded-lg"
           style={{
-            background: "rgba(196,163,90,0.05)",
-            border: "1px solid rgba(196,163,90,0.1)",
+            background: "var(--sidebar-accent)",
+            border: "1px solid var(--sidebar-border)",
           }}
         >
           <div
             className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0"
             style={{
-              background: "#C4A35A",
-              color: "#0C0B09",
+              background: "var(--sidebar-primary)",
+              color: "var(--sidebar-primary-foreground)",
             }}
           >
             R
           </div>
           <div className="flex flex-col min-w-0">
-            <span className="text-xs font-semibold truncate" style={{ color: "#EDE8DF" }}>No Time To Waste</span>
-            <span className="text-[9px] font-mono" style={{ color: "rgba(196,163,90,0.5)" }}>ADMIN</span>
+            <span className="text-xs font-semibold truncate" style={{ color: "var(--sidebar-accent-foreground)" }}>No Time To Waste</span>
+            <span className="text-[9px] font-mono" style={{ color: "var(--sidebar-foreground)" }}>ADMIN</span>
           </div>
         </div>
 
@@ -231,14 +203,14 @@ export function Sidebar() {
         <button
           onClick={() => signOut({ callbackUrl: "/login" })}
           className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium transition-all duration-200 group"
-          style={{ color: "#475569", background: "transparent", border: "1px solid transparent" }}
+          style={{ color: "var(--sidebar-foreground)", background: "transparent", border: "1px solid transparent" }}
           onMouseEnter={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.color = "#f87171";
-            (e.currentTarget as HTMLButtonElement).style.background = "rgba(239,68,68,0.06)";
-            (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(239,68,68,0.15)";
+            (e.currentTarget as HTMLButtonElement).style.color = "var(--status-danger-fg)";
+            (e.currentTarget as HTMLButtonElement).style.background = "var(--status-danger-bg)";
+            (e.currentTarget as HTMLButtonElement).style.borderColor = "transparent";
           }}
           onMouseLeave={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.color = "#475569";
+            (e.currentTarget as HTMLButtonElement).style.color = "var(--sidebar-foreground)";
             (e.currentTarget as HTMLButtonElement).style.background = "transparent";
             (e.currentTarget as HTMLButtonElement).style.borderColor = "transparent";
           }}
