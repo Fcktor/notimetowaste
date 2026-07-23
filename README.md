@@ -1,60 +1,60 @@
 # No Time To Waste
 
-A watch e-commerce store: customer storefront and admin back office in one Next.js app, with product data living in BigQuery and served through Cloud Functions on Google Cloud.
+Tienda de relojes: storefront para clientes y back office de administración en una sola app Next.js, con los datos de producto viviendo en BigQuery y servidos a través de Cloud Functions en Google Cloud.
 
-**Live:** https://notimetowaste.lat
+**En vivo:** https://notimetowaste.lat
 
-## Architecture
+## Arquitectura
 
-The frontend never talks to BigQuery directly. Every read and write goes through a dedicated Cloud Function, which keeps credentials server-side and gives each operation its own deploy unit and audit trail.
+El frontend nunca habla directamente con BigQuery. Cada lectura y escritura pasa por una Cloud Function dedicada, lo que mantiene las credenciales del lado del servidor y le da a cada operación su propia unidad de despliegue y su propio rastro de auditoría.
 
 ```
 Next.js (App Router)
         │
-        ├── /api routes ──► Cloud Functions ──► BigQuery
+        ├── rutas /api ──► Cloud Functions ──► BigQuery
         │                        │
-        │                        └──► Cloud Storage (product images)
+        │                        └──► Cloud Storage (imágenes)
         │
-        └── NextAuth v5 (session + role)
+        └── NextAuth v5 (sesión + rol)
 ```
 
-| Cloud Function | Responsibility |
+| Cloud Function | Responsabilidad |
 |---|---|
-| `watchgetproducts` | List and filter the catalog |
-| `watchcreateproduct` | Create a watch record |
-| `watchupdateproduct` | Update fields and stock |
-| `watchdeleteproduct` | Remove a record |
-| `watchuploadimage` | Push product images to Cloud Storage |
+| `watchgetproducts` | Listar y filtrar el catálogo |
+| `watchcreateproduct` | Crear un registro de reloj |
+| `watchupdateproduct` | Actualizar campos y stock |
+| `watchdeleteproduct` | Eliminar un registro |
+| `watchuploadimage` | Subir imágenes a Cloud Storage |
 
-## Features
+## Funcionalidades
 
-**Storefront** — catalog, collections, product detail, cart, customer registration and login.
+**Storefront** — catálogo, colecciones, detalle de producto, carrito, registro e inicio de sesión de clientes.
 
-**Admin** — product CRUD with image upload, inventory with low-stock thresholds, collection management, a database view, and an AI assistant for querying the catalog in natural language.
+**Administración** — CRUD de productos con carga de imágenes, inventario con umbrales de stock bajo, gestión de colecciones, vista de base de datos y un asistente de IA para consultar el catálogo en lenguaje natural.
 
 ## Stack
 
-| Layer | Technology |
+| Capa | Tecnología |
 |---|---|
 | Framework | Next.js 16 (App Router) |
-| Language | TypeScript |
+| Lenguaje | TypeScript |
 | UI | Tailwind CSS 4, shadcn/ui, Base UI |
-| Auth | NextAuth v5 |
-| Data warehouse | Google BigQuery |
-| Compute | Google Cloud Functions |
-| Storage | Google Cloud Storage |
-| AI | Anthropic API, Google Generative AI |
-| Email | Nodemailer |
-| Deploy | Cloud Build, Firebase Hosting |
+| Autenticación | NextAuth v5 |
+| Almacén de datos | Google BigQuery |
+| Cómputo | Google Cloud Functions |
+| Almacenamiento | Google Cloud Storage |
+| IA | Anthropic API, Google Generative AI |
+| Correo | Nodemailer |
+| Despliegue | Cloud Build, Firebase Hosting |
 
-## Repository layout
+## Organización del repositorio
 
 ```
-shopify-crud/          # Next.js application
+shopify-crud/          # Aplicación Next.js
 ├── app/
-│   ├── admin/         # Back office (products, inventory, collections, chat)
+│   ├── admin/         # Back office (productos, inventario, colecciones, chat)
 │   ├── api/           # Route handlers
-│   ├── products/      # Catalog and detail pages
+│   ├── products/      # Catálogo y detalle
 │   ├── collections/
 │   ├── cart/
 │   ├── login/
@@ -62,22 +62,22 @@ shopify-crud/          # Next.js application
 ├── components/
 └── lib/
 
-cloud-functions/       # One directory per deployed function
-bigquery/              # Table definitions and migrations
+cloud-functions/       # Un directorio por función desplegada
+bigquery/              # Definiciones de tablas y migraciones
 public/
 ```
 
-> The application directory is still named `shopify-crud` for historical reasons — the project started as a Shopify data pipeline before becoming a standalone store.
+> El directorio de la aplicación todavía se llama `shopify-crud` por razones históricas: el proyecto empezó como un pipeline de datos de Shopify antes de convertirse en una tienda propia.
 
-## Running locally
+## Ejecutar localmente
 
 ```bash
 pnpm install
 pnpm dev
 ```
 
-Requires a GCP service account with BigQuery and Cloud Storage access, plus the environment variables consumed by `auth.config.ts` and the API routes.
+Requiere una cuenta de servicio de GCP con acceso a BigQuery y Cloud Storage, además de las variables de entorno que consumen `auth.config.ts` y las rutas de API.
 
-## Deployment
+## Despliegue
 
-`cloudbuild.yaml` builds the container defined in `Dockerfile`; `firebase.json` configures hosting. Cloud Functions deploy independently from `cloud-functions/`.
+`cloudbuild.yaml` construye el contenedor definido en `Dockerfile`; `firebase.json` configura el hosting. Las Cloud Functions se despliegan de forma independiente desde `cloud-functions/`.
